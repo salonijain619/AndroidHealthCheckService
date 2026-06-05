@@ -3,7 +3,7 @@
 **Author:** Doggett (Android Engineer)
 **Date:** 2026-06-05T17:30:52+05:30
 **Repo (target, auth-restricted):** https://microsoft.visualstudio.com/Windows%20Defender/_git/WD.Client.Android
-**Status:** HYPOTHESIS — repo not yet readable from this environment.
+**Status:** HYPOTHESIS — repo not yet readable from this environment. **Partially unblocked 2026-06-05** by the `Identity-gsa-client-marketplace` clone — see "Marketplace Discovery (2026-06-05)" section near the end of this file for what was resolved vs. what is still blocked.
 
 ## Access attempts (what I tried, what happened)
 
@@ -169,3 +169,34 @@ This plan is unblocked only when we can read the repo. See the
    under `dashboards/` or `queries/` — these are reusable for Scully.
 7. **Sign-off** (with Mulder) on the seven proposed Android-specific report
    fields in section (c) before we ask Reyes to add them to the template.
+
+---
+
+## Marketplace Discovery (2026-06-05)
+
+A second VSTS asset became available locally: `Identity-gsa-client-marketplace` (`gsa-client-plugins`), the **plugin marketplace for the GSA / NaaS client** (Win32, macOS, Android, iOS). Cloned at `/Users/salonijain/workspace/Identity-gsa-client-marketplace/`. Full inventory in `.squad/agents/doggett/research/marketplace-plugin-inventory.md`. This section records what that clone resolved versus what stays blocked behind WD.Client.Android.
+
+### Resolved (no longer hypothesis)
+
+- **Android telemetry pipeline confirmed.** GSA Android client behavior is queried from App Insights cluster `android-appinsights`, database `wd-prod-android-client` — explicitly **NOT Aria**. iOS uses the parallel Defender-owned `ios-mdatp / MDATPiOSDB`. Source: `plugins/gsa-client-telemetry-toolkit/skills/gsa-client-telemetry-toolkit/SKILL.md` line 96. The `wd-prod-` prefix corroborates Saloni's framing that GSA Android lives inside Defender's mobile telemetry stack.
+- **Aria platform filter for Android is `App_Platform == 'Android'`** (exact-case string literal) when Android signals appear in shared Aria tables like `mnap_xplat_telemetry*`. Prod Aria DB GUID `f0eaa94222894be599b7cd0bc1e2ed6f` re-confirmed.
+- **Cross-platform identity rules apply unchanged to Android.** `Client_Id` is the join/dcount key but rotates on Entra repair/rejoin and can be empty for broken-auth devices; `DeviceInfo_Id` is the stable hardware-derived long-window key; **`UserInfo_Id` is access-restricted in Aria and returns HTTP 400 — never use it for any join, including Android sessions**.
+- **`Client_Id → owner` reverse lookup recipe exists** via Microsoft Graph (`/users/{upn}/ownedDevices`, with `operatingSystem` → `App_Platform` mapping) and works for Android. Auth via `az login --scope https://graph.microsoft.com/Device.Read.All --scope https://graph.microsoft.com/Directory.Read.All`. Useful when we have a Client_Id from a crash trace and need the user.
+- **Marketplace conventions Squad should mirror.** Plugin layout (`plugins/<name>/.claude-plugin/plugin.json` + `skills/<name>/SKILL.md`), SKILL.md format (KNOW/DO/CHECK/Common Rationalizations/Red Flags, body < 500 lines, frontmatter description ≤ 250 chars), MCP-first / no per-plugin installers, catalog-as-JSON-not-prose, runtime wiki fetch for long references, install via `/plugin marketplace add` + `/plugin install <plugin>@gsa-client-plugins`. The `mcp-setup@gsa-plugins` plugin owns shared MCP-server registration; we should not author our own.
+- **Pre-built reusable skills exist.** `gsa-client-telemetry-toolkit` (Kusto routing + identity + Graph) and `setup-prereqs` (bootstrap checklist) — both proposed as **REFERENCE** (link by path, don't copy) since they depend on a sibling catalog and on `gsa-plugins`-side wiki pages and MCP servers we don't yet have wired up. `gsa-kusto-catalog` is being inventoried in parallel by Scully.
+
+### Still blocked (require WD.Client.Android repo access)
+
+The marketplace tells us *where* Android telemetry lands, not *how it is emitted from device*. These items from section (a) of the original plan remain open and unchanged:
+
+- Android telemetry helper class name(s) inside Defender-for-Android (`*Telemetry*`, `*Logger*`, `*EventNames*`, `*OneDS*`, `*AppInsights*`).
+- The on-device emitter — OneDS/1DS SDK vs. App Insights direct vs. custom Defender uploader.
+- Crash-reporter implementation (Crashlytics / AppCenter / OneDS / in-house Defender) and its event taxonomy.
+- Any pre-existing `.squad/`, `.copilot/`, `agents/`, `skills/`, or `plugins/` directories inside WD.Client.Android — the marketplace does not enumerate them. (Note: `Identity-ZTNA-NaaS-Agent` is the GSA *agent* codebase referenced by the toolkit's "Codebase Correlation" wiki, NOT WD.Client.Android.)
+- Android-specific KQL / Workbook JSON checked into WD.Client.Android.
+- The Android `EventName` constants used by the GSA module (mapping for 505, APS `SuccessSettingsNotFound`, hypothesized 631/632 analog, etc.).
+- Defender's existing Android dashboards covering OEM mix, Doze/battery-optimization kill rate, foreground-service notification health, work-profile split, API-level mix.
+
+### Net posture
+
+Reuse-first stance is **partially executable now**: we can cite App Insights routing, identity rules, and Aria filtering immediately by reference path. The code-side discovery — emitter classes, crash reporter, internal squad/skill assets inside WD.Client.Android — still requires VSTS read access to that repo. No on-device inventory has been performed; nothing in the marketplace substitutes for it.

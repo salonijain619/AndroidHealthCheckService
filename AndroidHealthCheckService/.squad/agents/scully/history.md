@@ -3,7 +3,7 @@
 ## Project Context (seeded 2026-06-05)
 - **Project:** Android GSA Client Service Health Check
 - **User:** salonijain619 (Saloni)
-- **Stack:** Investigation/SRE squad for the GSA Android client. Telemetry from server-side Kusto (NaasProd @ idsharedwus), client-side AppInsights (sub fb633419-6bb2-4a7e-8993-fd9456d19c4c), and Aria Kusto (f0eaa94222894be599b7cd0bc1e2ed6f).
+- **Stack:** Investigation/SRE squad for the GSA Android client. Telemetry from server-side Kusto (NaasProd @ idsharedwus + idsharedscus for full set), client-side **App Insights `wd-prod-android-client`** (sub fb633419-6bb2-4a7e-8993-fd9456d19c4c), Aria Kusto (GUID f0eaa94222894be599b7cd0bc1e2ed6f, opportunistic Android only), and Android-perf cluster `androidgsa.eastus.kusto.windows.net/Metric` (unverified).
 - **Android client repo:** https://microsoft.visualstudio.com/Windows%20Defender/_git/WD.Client.Android
 - **Onboarding doc:** https://learn.microsoft.com/en-us/entra/global-secure-access/how-to-install-android-client
 - **ICM team:** https://portal.microsofticm.com/imp/v3/administration/teamdashboard/details?id=106961
@@ -12,87 +12,54 @@
 
 ## Learnings
 
-### 2026-06-05 — Dashboard reverse-engineering + first Kusto introspection
+### 2026-06-05 — Dashboard reverse-engineering + first Kusto introspection [SUMMARIZED]
+Dashboard `8a1fa78a-032c-4b91-ba3d-9c83c8e0dd98` URL params decoded (`p-_osType=v-ANDROID`, `p-_trafficProfile`, `p-_tenantId`, `p-device_id`); `v-` prefix = variable-value. `azure-mcp-kusto` works against `idsharedwus.kusto.windows.net` with default creds. Schemas captured for `EdgeDiagnosticOperationEvent` (no `osType` col), `NaaSVPNZtnaConnectionLogsEvent` (carries Aria envelope `env_os` / `env_appVer`). PKI lookups returned empty (misleading — actual table located in catalog cycle). Wrote `.squad/agents/scully/research/dashboard-analysis.md`, initial 5 starter queries in `.squad/skills/android-kusto-starter/SKILL.md` (all `STATUS: untested`), decision `scully-dashboard-as-source-of-truth.md`.
 
-**Dashboard URL anatomy** (`https://dataexplorer.azure.com/dashboards/8a1fa78a-032c-4b91-ba3d-9c83c8e0dd98`):
-- Standard Kusto dashboard params: `p-_startTime` (default `7days`), `p-_endTime` (`now`), `p-_osType=v-ANDROID`, `p-_trafficProfile=all`, `p-_tenantId=all`, `p-device_id=v-DeviceIdPII_<hash>`. The `v-` prefix = "variable value" (Kusto dashboard convention).
-- Fragment `#45c11f5e-b0ae-40d7-bb48-c2b1936011cc` = a specific page UUID within a multi-page dashboard. Most likely the per-device drilldown page (since `device_id` is also pinned). **Unconfirmed — open question for Saloni.**
+### 2026-06-05T12:00:52Z — Team update: bootstrap complete [SUMMARIZED]
+Squad standardized on `claude-opus-4.7`. Report template + example ready (Reyes). Telemetry foothold confirmed (Kusto MCP against `idsharedwus`). Dashboard `8a1fa78a-…` proposed as canonical source of truth. Defender-for-Android reuse blocked on VSTS access. Decisions: model standardization, report skeleton, dashboard-as-source-of-truth, reuse-Defender-assets.
 
-**Kusto access — what's real:**
-- `azure-mcp-kusto` works against `idsharedwus.kusto.windows.net` with default credentials. Confirmed via `kusto_database_list`, `kusto_table_list`, `kusto_table_schema` (all cheap, read-only).
-- `NaasProd` is rich: Edge/Roxy/Talon/Tunnel/Control-Tower/ZTNA/DNS/ThreatIntel/PolicyBroker tables all present.
-- `NaasAgentServicesApsProd` has the APS tables (`AgentGetSettingsOperationEvent`, `AgentSettingsAckOperationEvent`, `PoliciesApi`, etc.) — backs the "APS Availability" report row.
-- `EdgeDiagnosticOperationEvent` schema confirmed: has `DeviceId`, `TenantId`, `NetworkProfile`, `ResponseCode`, `DurationInMilliseconds`, `OperationName` — but **NO `osType` column**. Server-side Android filtering must come from a DeviceId→OS join or Aria-side prefilter.
-- `NaaSVPNZtnaConnectionLogsEvent` DOES carry `env_os` / `env_appVer` (Aria envelope) → Android filtering is direct on this table.
+### 2026-06-05 (later) — Panel KQL unblock from Saloni [SUMMARIZED]
+Saloni pasted verbatim KQL from "Active Android Tenants (7d)" panel; executed against `idsharedwus/NaasProd/TunnelServerOperationEvents` and returned 8 distinct tenants (7d window ending 2026-06-05 12:00 UTC). **Key corrections:** primary table is `TunnelServerOperationEvents` (not Edge/ZTNA); canonical Android filter is `| where DeviceOs has_cs 'ANDROID'` (case-sensitive, no `v-` prefix); Android `ClientVersion` is `1.0.NNNN.NNNN` 4-segment numeric (NOT Windows SemVer); URL↔column drift `osType→DeviceOs`, `trafficProfile→ServiceType`, `device_id→DeviceId`. `TunnelServerOperationEvents` is rich enough (`DeviceId, ClientVersion, ServiceType, TenantId, LatencyMs, Status, FlowStatusError, FlowErrorClassification, OperationName, Region`) to source most daily-report rows without joins. Edge=HTTP-layer, Tunnel=L4/flow-layer — complementary. Some `TunnelServerOperationEvents` cols came back malformed from schema introspection (e.g., `SournnerFlowDestinationPort`); re-introspect needed. Reconciled `android-kusto-starter` queries 1–5; added #6 (verbatim panel mirror, executed) and #7 (active devices). Decision `scully-canonical-android-filter.md` filed.
 
-**What's still hypothesis (NOT verified):**
-- All panel-to-page mappings inside the dashboard.
-- Exact KQL of every dashboard panel (auth wall prevents fetching).
-- PKI telemetry source — both `NaasCloudPkiProd` and `NaasAgentServicesCloudPkiProd` returned zero tables on this account (permission or wrong cluster).
-- Aria cluster database/table names for client-side telemetry.
-- AppInsights component name within sub `fb633419-…`.
-- Whether an `AndroidDeviceIds()` lookup function exists in `NaasProd`.
-
-**Queries: real vs hypothesis**
-- All 5 starter queries in `.squad/skills/android-kusto-starter/SKILL.md` are marked `STATUS: untested`.
-- Tunnel Health query (#5) has the highest confidence — `env_os == "Android"` filter is grounded in the confirmed `NaaSVPNZtnaConnectionLogsEvent` schema.
-- PKI query (#4) is fully blocked — placeholder only.
-
-**Top open questions for Saloni (also in `research/dashboard-analysis.md`):**
-1. Which dashboard page is fragment `#45c11f5e-…`?
-2. Where does PKI telemetry actually live?
-3. How does the dashboard implement `osType == Android` on `EdgeDiagnosticOperationEvent` (lookup function or just hide panel)?
-4. Aria cluster database + relevant Android client telemetry table(s)?
-5. AppInsights component/app-id under sub `fb633419-…`?
-6. Canonical definition of "Active Android device"?
-7. Valid enum values for `NetworkProfile` / `trafficProfile`?
-8. **Easiest unblock:** one panel query export from the dashboard UI.
-
-**Artifacts produced this session:**
-- `.squad/agents/scully/research/dashboard-analysis.md` — full hypothesis doc
-- `.squad/skills/android-kusto-starter/SKILL.md` — 5 starter KQL queries (all `STATUS: untested`)
-- `.squad/decisions/inbox/scully-dashboard-as-source-of-truth.md` — decision proposal to mirror the existing dashboard rather than fork query semantics
-
----
-
-## 2026-06-05T12:00:52Z — Team update: bootstrap complete
-
-Squad bootstrap arc closed. State of the team as of this checkpoint:
-
-- **Cast:** Mulder, Scully, Doggett, Skinner, Reyes, Scribe, Ralph — all standardized on `claude-opus-4.7`.
-- **Report template:** `.squad/templates/daily-livesite-report.md` + `daily-livesite-report-EXAMPLE.md` ready (Reyes). `{TBD — pending [Agent]}` slots make ownership unambiguous.
-- **Telemetry foothold:** `azure-mcp-kusto` confirmed against `idsharedwus / NaasProd` + `NaasAgentServicesApsProd`. Real schemas captured for `EdgeDiagnosticOperationEvent` and `NaaSVPNZtnaConnectionLogsEvent`. Five starter KQL queries in `.squad/skills/android-kusto-starter/SKILL.md` (untested). Existing Android GSA Kusto dashboard `8a1fa78a-032c-4b91-ba3d-9c83c8e0dd98` proposed as canonical source of truth.
-- **Defender-for-Android reuse:** discovery plan authored by Doggett, but **VSTS access wall** blocks repo inventory. Reuse-first posture is proposed, not yet executed.
-- **Open dependencies on Saloni:** (1) confirm dashboard-as-source-of-truth + export a panel query; (2) unblock VSTS access. **Open dependency on Mulder:** ack the two proposed decisions.
-- **Decisions merged this cycle:** model standardization, report skeleton, dashboard-as-source-of-truth, reuse-Defender-assets. See `.squad/decisions.md`.
-
----
-
-### 2026-06-05 (later) — Panel KQL unblock from Saloni
+### 2026-06-05 (later still) — GSA Kusto Catalog ingested
 
 **What changed:**
-- Saloni pasted verbatim KQL from one panel of dashboard `8a1fa78a-…` (the "Active Android Tenants (7d)" tile).
-- Schema-validated `TunnelServerOperationEvents` lives on `idsharedwus / NaasProd` (our primary cluster — no new cluster hop needed).
-- Ran the panel query verbatim through `azure-mcp-kusto`. **Returned 8 distinct active Android tenants** for the 2026-05-29 12:00 UTC → 2026-06-05 12:00 UTC window. Query is executable, schema is real, auth path works.
+- Saloni cloned `Identity-gsa-client-marketplace` locally; its `gsa-kusto-catalog` skill (`SKILL.md` + `catalog.json` + `catalog-semantics.json`) is the canonical registry for every GSA / NaaS Kusto cluster, database, table, time column, and platform-emission flag.
+- Adopted as ground truth. Wrote a local Android slice (`.squad/skills/gsa-kusto-catalog-android-slice/SKILL.md`), reconciled `agents/scully/research/dashboard-analysis.md`, bumped query confidences in `android-kusto-starter`, added four new starter queries (#8 PKI, #9 App Insights, #10 perf rollups, #11 Aria errorevent cross-check), filed decision `decisions/inbox/scully-kusto-catalog-adopted.md`.
 
-**Corrections to prior hypotheses (this is the important part):**
-- **Correct table:** `TunnelServerOperationEvents` (we had `EdgeDiagnosticOperationEvent` and `NaaSVPNZtnaConnectionLogsEvent` — both real, but neither was the dashboard's primary backing table for tenant/device counts).
-- **Correct Android filter (canonical):** `| where DeviceOs has_cs 'ANDROID'` — case-sensitive, value is literal `ANDROID` with no `v-` prefix. Earlier hypotheses (`env_os == 'Android'`, `osType == 'v-ANDROID'`) are wrong for this table family.
-- **Version format differs from Windows:** Android `ClientVersion` is `1.0.NNNN.NNNN` (4-segment numeric build, e.g. `1.0.7203.0401`). Windows uses `v2.28.96`. Same column name, fundamentally different format. Reyes's report template needs to know.
-- **URL ↔ column drift to remember:** `osType` → `DeviceOs`; `trafficProfile` → `ServiceType`; `device_id` → `DeviceId`. URL uses snake/camel, table uses Pascal.
-- **`TunnelServerOperationEvents` is richer than expected** — carries `DeviceId, ClientVersion, ServiceType, TenantId, LatencyMs, Status, FlowStatusError, FlowErrorClassification, OperationName, Region` natively. Most daily-report rows can be sourced from this single table without joins. This collapses several hypothetical join queries.
-- **Edge vs Tunnel are complementary, not alternates.** Edge = HTTP-layer (ResponseCode, DurationInMilliseconds). Tunnel = L4/flow-layer (LatencyMs, FlowStatusError). For tunnel-success / latency, prefer Tunnel. For HTTP 4xx/5xx, prefer Edge. Edge has NO `DeviceOs` column.
+**Big resolutions (three of four standing unknowns closed):**
+- **PKI source:** `naas-idsharedwus / NaasCloudPkiProd / EnrollCertificateOperationSummary` (time col `PreciseTimeStamp`). Same cluster we already use — earlier "empty table list" was misleading. Routing UNBLOCKED; query body still needs schema introspection.
+- **AppInsights component:** `wd-prod-android-client` under sub `fb633419-…`. `AndroidId` in `customDimensions`, version in `application_Version`. Endpoint is the App Insights REST API, NOT a Kusto cluster URL — `azure-mcp-kusto` will not route to it.
+- **Android client-side pipeline:** is **App Insights**, NOT Aria. The catalog explicitly says so. Earlier hypothesis that `mnap_xplat_telemetryprod_*` was Android-primary was wrong — those tables are Win/Mac primary. Android appears in Aria only opportunistically (errorevent via `App_Platform == 'Android'`).
 
-**What's still unknown after this unblock:**
-- Errors/latency panel KQL (this first panel was a simple distinct-count and doesn't reveal how errors are surfaced).
-- PKI source — unchanged.
-- Whether the 37-build `_application_Version` allowlist is manually curated or auto-discovered (affects query robustness).
-- APS-table Android-filter idiom (does `AgentGetSettingsOperationEvent` carry `DeviceOs`? Likely not — Aria-style envelope. Schema introspection needed.).
-- A handful of `TunnelServerOperationEvents` columns came back from schema introspection looking malformed/concatenated (e.g., `SoTransportProtocol`, `SournnerFlowDestinationPort`, `DestinatiedAt`). Either real schema corruption or MCP-response artifact — re-introspect next session.
+**Big surprises:**
+- `naas-idsharedwus / NaasProd` is a **2-table mirror** (`TunnelServerOperationEvents`, `EdgeDiagnosticOperationEvent`). The full 37-table NaasProd lives on **`naas-idsharedscus`** (`https://idsharedscus.southcentralus.kusto.windows.net`). For Roxy / Talon / ControlTower / NaaSVPN* / CertMonitor cross-checks, must hop to SCUS.
+- New Android-specific cluster: `androidgsa.eastus.kusto.windows.net / Metric`. Two tables: `MemoryCPUUsage`, `UploadDownloadSpeed` — perf rollups by AppVersion + day. Catalog-flagged as not live-verified (DNS failed during catalog generation).
+- Aria's `database` parameter must be the **GUID** (`f0eaa94222894be599b7cd0bc1e2ed6f`), not the friendly name `naas-prod`. Friendly name returns 400.
+- Time columns inconsistent across the family: `TIMESTAMP` vs `PreciseTimeStamp` vs `env_time` vs `EventInfo_Time` vs `timestamp` vs `ingestion_time()`. Wrong column silently returns zero rows.
 
-**Artifacts touched this turn:**
-- `.squad/skills/android-kusto-starter/SKILL.md` — full rewrite. Reconciled queries 1–5 against ground truth, added query #6 (verbatim panel mirror, executed) and #7 (active devices variant).
-- `.squad/agents/scully/research/dashboard-analysis.md` — appended "## Ground Truth From Panel KQL (2026-06-05)" section. Refreshed open-questions list. Marked panel-mappings CONFIRMED / CONTRADICTED / STILL HYPOTHESIS.
-- `.squad/decisions/inbox/scully-canonical-android-filter.md` — new decision proposal.
+### 2026-06-05 — Catalog structure (for future spawns)
 
-**Next ask of Saloni:** one more panel KQL, ideally an errors-or-latency panel, to lock down query #2 / #5 semantics.
+**`catalog.json` is for routing; `catalog-semantics.json` is for meaning.** Routing-only questions — `catalog.json` alone is enough. Composing a novel query — load both. Start with `catalog-semantics.json._indexes` for discovery.
+
+**All four lookup levels are dicts keyed by name, not arrays.** Iterate with `.items()`.
+
+**`platforms` array on a table is the observation set, not the contract.** If absent, don't bet on it; verify with `summarize count() by App_Platform` for certainty.
+
+**Aria `database` parameter is the GUID, every time.** Prod = `f0eaa94222894be599b7cd0bc1e2ed6f`. Sandbox = `632690c28fc843478e52c697bba7a7ae`. Friendly names → 400. #1 documented failure mode upstream.
+
+**Catalog cluster URLs include the App Insights placeholder.** `clusters.android-appinsights.url` literally contains `<appId>`; it's the AI REST API, not Kusto.
+
+**`status: obsolete` means "zero rows AT CATALOG GENERATION", not "broken".** Re-verify with a fresh activity query.
+
+**Cross-marketplace structure:** `Identity-gsa-client-marketplace` = client sub-system (Win32/macOS/Android/iOS); `Identity-GSA-Marketplace` (`gsa-plugins`) = cross-cutting. Reuse the catalog rather than duplicating — explicit "shared references" pattern in marketplace `AGENTS.md`.
+
+**Three filter idioms coexist:** `DeviceOs has_cs 'ANDROID'` (server-side Tunnel/Edge family), `env_os == "Android"` (Aria-envelope tables on SCUS), `App_Platform == 'Android'` (Aria `mnap_xplat_*` cross-checks). Pick by table family. Full matrix in `.squad/skills/gsa-kusto-catalog-android-slice/SKILL.md`.
+
+**WUS NaasProd is a 2-table mirror, not the source.** Future spawns will be tempted to look for `RoxyHttpOperationEvent` / `TalonOperationEvent` / `NaaSVPN*` on `idsharedwus` and hit "table not found". The full set is on `idsharedscus`. Route accordingly.
+
+## 2026-06-05T12:40:00Z — Team reinforcement: catalog ingest reception
+Cross-team note (reinforcement of own discovery, recorded for future spawn continuity):
+- Android client telemetry pipeline correction (App Insights `wd-prod-android-client`, NOT Aria) and the three closed unknowns from this cycle propagated to mulder, reyes, skinner, doggett histories. Charter point #2 flagged as wrong; correction owed in a future cycle.
+- Doggett independently corroborated the App Insights routing via the `wd-prod-` brand prefix — two independent paths strengthen confidence from MEDIUM toward HIGH for the routing fact (query-body confidence stays MEDIUM until live-validated).
+- Decision `scully-kusto-catalog-adopted.md` merged to `decisions.md`, awaiting Mulder ack.

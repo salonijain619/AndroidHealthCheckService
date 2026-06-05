@@ -113,3 +113,139 @@ The dashboard uses `has_cs` (case-sensitive contains-token). For Android scoping
 ## Asks
 - **Mulder:** ack this filter as canonical so Doggett/Reyes can rely on it.
 - **Saloni:** confirm whether the 37-version allowlist is auto-curated or manually maintained (affects whether our queries should hard-code or derive dynamically).
+
+# Decision: GSA Kusto Catalog adopted as canonical table/cluster reference for Android squad
+
+**By:** Scully (Telemetry Analyst)
+**Date:** 2026-06-05
+**Status:** PROPOSED — pending Mulder ack
+
+## What
+
+Adopt the `gsa-kusto-catalog` skill from the `Identity-gsa-client-marketplace` plugin marketplace as the canonical, single-source-of-truth registry for **all** GSA / NaaS Kusto clusters, databases, tables, time columns, and platform-emission metadata used by this squad. Local skills route through it; they do not duplicate it.
+
+**Upstream path:**
+- `/Users/salonijain/workspace/Identity-gsa-client-marketplace/plugins/gsa-client-telemetry-toolkit/skills/gsa-kusto-catalog/`
+  - `SKILL.md` (how to consume)
+  - `catalog.json` (clusters → databases → tables, aliases)
+  - `catalog-semantics.json` (per-column semantics, value enums, join recipes, indexes)
+
+**Local Android slice:** `.squad/skills/gsa-kusto-catalog-android-slice/SKILL.md` — derived subset, Android-relevant routes + filter idioms only. Confidence MEDIUM (derived, not independently re-verified).
+
+## Why
+
+- **Resolves three of our four standing unknowns in one pass:**
+  1. PKI source — `naas-idsharedwus / NaasCloudPkiProd / EnrollCertificateOperationSummary` (we had it on the right cluster all along — earlier `kusto_table_list` returned empty for reasons still unclear; catalog routing is verified-good per its own note).
+  2. AppInsights component — `wd-prod-android-client` under sub `fb633419-6bb2-4a7e-8993-fd9456d19c4c`. `AndroidId` lives in `customDimensions`, version in `application_Version`.
+  3. Aria DB for Android — Android primarily lives in **App Insights**, not Aria. Aria `mnap_xplat_*` is Win/Mac primary; Android appears only opportunistically (e.g., `errorevent` via `App_Platform == 'Android'`). Our prior assumption that Aria is the Android client-side pipeline is **wrong**.
+- **Discovers a new cluster we didn't know about:** `androidgsa.eastus.kusto.windows.net / Metric` — Android perf rollups (CPU, mem, throughput) per AppVersion per day. Two tables: `MemoryCPUUsage`, `UploadDownloadSpeed`.
+- **Discovers that `naas-idsharedwus / NaasProd` is a 2-table mirror, not the full server-side database.** The full 37-table NaasProd lives on `naas-idsharedscus` (South Central US). Our current panel queries against WUS continue to work for the tunnel/edge tables, but Roxy / Talon / ControlTower / NaaSVPN* / CertMonitor cross-checks require SCUS routing.
+- **Avoids drift:** the catalog is maintained by the GSA client team upstream; any cluster URL / db GUID / table change lands there first. Local hard-coding rots silently.
+- **Reusable across the squad:** Doggett (Android client engineer), Reyes (report writer), and any future telemetry-touching agent can consume the same registry without re-asking "what's the cluster URL again?"
+
+## Android-specific tables identified (final set after this pass)
+
+| Domain | Cluster / DB / Table | Time column | Android filter |
+|---|---|---|---|
+| Tunnel (primary KPIs) | `naas-idsharedwus / NaasProd / TunnelServerOperationEvents` | `TIMESTAMP` | `DeviceOs has_cs 'ANDROID'` |
+| Edge HTTP (cross-check) | `naas-idsharedwus / NaasProd / EdgeDiagnosticOperationEvent` | `TIMESTAMP` | (no DeviceOs — DeviceId join) |
+| APS settings | `naas-idsharedwus / NaasAgentServicesApsProd / AgentGetSettingsOperationEvent` | `TIMESTAMP` | TBD |
+| APS ack | `naas-idsharedwus / NaasAgentServicesApsProd / AgentSettingsAckOperationEvent` | `PreciseTimeStamp` | TBD |
+| **PKI (was blocked)** | `naas-idsharedwus / NaasCloudPkiProd / EnrollCertificateOperationSummary` | `PreciseTimeStamp` | TBD (column owed) |
+| ZTNA gateway view | `naas-idsharedscus / NaasProd / NaaSVPNZtnaConnectionLogsEvent` | `env_time` | `env_os == "Android"` |
+| **Android client-side (primary)** | `android-appinsights / wd-prod-android-client / customEvents` (App Insights REST API) | `timestamp` | implicit (entire pipeline is Android) |
+| Android perf rollups (NEW) | `androidgsa.eastus.kusto.windows.net / Metric / MemoryCPUUsage`, `UploadDownloadSpeed` | `ingestion_time()` | implicit |
+| Aria error-event cross-check | `aria-prod / naas-prod (db_guid f0eaa9…) / mnap_xplat_telemetryprod_errorevent` | `EventInfo_Time` | `App_Platform == 'Android'` |
+
+## Operational rules
+
+1. **Local skills do not hard-code cluster URLs or db GUIDs.** They name the cluster ID (`naas-idsharedwus`, `aria-prod`, etc.) and let the consumer resolve via catalog.
+2. **Conflicts: upstream catalog wins.** If our local slice says one thing and `catalog.json` says another, fix the slice (or open a PR upstream) — don't paper over it.
+3. **New routes discovered in our work get PR'd upstream**, not buried in our local `.squad/skills/`. Drift is the failure mode; the slice is for what's actually useful in *daily report* context, not new ground truth.
+4. **Aria `database` parameter is the GUID, not the friendly name.** Hard-coding `naas-prod` for the database field returns 400. (Top rationalization in upstream `SKILL.md`.)
+5. **Time-column awareness:** `TIMESTAMP` vs `PreciseTimeStamp` vs `env_time` vs `EventInfo_Time` vs `timestamp` vs `ingestion_time()` — wrong column silently returns nothing. Slice documents one per table.
+
+## Tradeoffs / risks
+
+- **Catalog freshness:** `_generated_at` and `_activity_window_days` in `catalog.json` declare a snapshot. If a table flips active → obsolete (or vice versa) between regenerations, our queries can go stale. Mitigation: re-run a cheap `kusto_table_list` weekly on the few tables in the daily report.
+- **Slice maintenance burden:** every catalog regeneration upstream means re-deriving the slice. Mitigation: keep the slice small (Android-relevant only), so re-derivation is cheap.
+- **Android perf-metrics cluster is catalog-flagged unverified** (DNS failed at generation). We should not promise the daily report uses this signal until we live-verify reachability + schema.
+- **Aria-for-Android is exception-only.** The catalog clarifies most `mnap_xplat_*` tables are Win/Mac. If a future query treats Aria as a primary Android source, it will quietly under-count.
+
+## Implications for other agents
+
+- **Doggett:** can drop the open question "where does Android client telemetry land" — it's `wd-prod-android-client` App Insights. Crash signal still owed (Watson is Win32; Android needs Play Console / Crashlytics — open question).
+- **Reyes:** the PKI Health report row now has a routing-confirmed source; can wire a `{TBD — pending Scully}` slot to a real cluster/DB/table reference rather than a blocker note. Final query body still owed.
+- **Mulder:** ack would let me close two of the "open question" items in `agents/scully/research/dashboard-analysis.md` and refocus the next round on (a) actual KQL validation against PKI/AI/perf clusters and (b) APS schema introspection.
+
+## Asks
+
+- **Mulder:** ack the catalog as canonical so local hard-coding of routes is treated as a code-smell going forward.
+- **Saloni:** no new ask — the catalog answered three of the four open routing questions on its own. Next round of validation can proceed against PKI + AI + perf without further unblocks.
+# Decision: GSA client telemetry marketplace inventoried; recommended skills to adopt
+
+**By:** Doggett (Android Engineer)
+**Date:** 2026-06-05
+**Status:** PROPOSED — pending Mulder ack and coordinator approval before any bulk-copy
+
+## Subject
+
+GSA client telemetry marketplace (`Identity-gsa-client-marketplace`) inventoried this cycle. Recommending **0 ADOPT, 2 REFERENCE, 0 SKIP** for the skills in scope (the third skill, `gsa-kusto-catalog`, is owned by Scully this cycle and excluded here).
+
+## What
+
+Inventoried the locally cloned `Identity-gsa-client-marketplace` (`gsa-client-plugins`) — the GitHub Copilot CLI / Claude Code plugin marketplace for the GSA client sub-system. Specifically the `gsa-client-telemetry-toolkit` plugin and its non-`gsa-kusto-catalog` skills. Full inventory: `.squad/agents/doggett/research/marketplace-plugin-inventory.md`.
+
+### Skills in scope and verdicts
+
+| Skill (path under marketplace clone) | Verdict | Justification (one-liner) |
+|---|---|---|
+| `plugins/gsa-client-telemetry-toolkit/skills/gsa-client-telemetry-toolkit/SKILL.md` | **REFERENCE** | Authoritative for Android telemetry routing (`android-appinsights / wd-prod-android-client`, NOT Aria), Aria's `App_Platform == 'Android'` filter, and `Client_Id` / `DeviceInfo_Id` / `UserInfo_Id` identity rules. Depends on a sibling catalog (`../gsa-kusto-catalog/`) and seven IdentityWiki pages we don't yet have wired up — copying the SKILL.md alone would break those paths. |
+| `plugins/gsa-client-telemetry-toolkit/skills/setup-prereqs/SKILL.md` | **REFERENCE** | Canonical bootstrap (Node.js, `kusto-mcp-server`, MCP registration, `az login` per cluster, `gsa-plugins` marketplace, `mcp-setup`, optional `bluebird`). Maintained upstream — forking it invites drift. Link from `.squad/README.md` instead. |
+| `plugins/gsa-client-telemetry-toolkit/skills/gsa-kusto-catalog/` | **DEFERRED** | Scully owns this read this cycle. Decision will follow her inventory. |
+
+**Net adoption count:** 0 ADOPT, 2 REFERENCE, 0 SKIP.
+
+### Concrete integration plan (no copies in this run)
+
+1. **Update** `.squad/skills/android-kusto-starter/SKILL.md` to reference the toolkit SKILL by absolute path for routing/identity/Aria rules, and add a `## KNOW` callout that Android client telemetry actually lives in App Insights `wd-prod-android-client` — our existing seven NaasProd server-side queries are *complementary* to, not replacements for, that App Insights data. Retrofit the file to the marketplace's KNOW/DO/CHECK/Common Rationalizations/Red Flags shape on the next dedicated pass.
+2. **Update** Scully's, Doggett's, and Skinner's charters to point at the toolkit SKILL for cross-platform identity rules and at `wd-prod-android-client` as the home of Android client telemetry.
+3. **Link** to `setup-prereqs/SKILL.md` from `.squad/README.md` (or wherever onboarding lives). Do not author our own bootstrap doc.
+4. **Adopt the marketplace's SKILL.md format** (KNOW / DO / CHECK / Common Rationalizations ≥3 / Red Flags ≥3, body < 500 lines, frontmatter description ≤ 250 chars) for any new `.squad/skills/` we author going forward, and retrofit existing skills opportunistically.
+
+## Why
+
+- Saloni flagged that pre-built Squad-style assets for GSA already exist; the marketplace clone is exactly that asset class. Reusing by reference (a) avoids forking maintained upstream content, (b) lets the catalog-reuse rule from the marketplace's `AGENTS.md` apply unchanged to our squad, and (c) keeps our SKILL footprint small.
+- The toolkit independently confirms Saloni's framing that GSA Android lives inside Defender's telemetry stack — the Android cluster name `wd-prod-android-client` carries the WD (Windows Defender) brand. This is the strongest evidence we've had to date that doesn't require WD.Client.Android repo access.
+- Copying skills that depend on a sibling catalog (`../gsa-kusto-catalog/catalog.json`) and on `ADOProd-wiki_get_page_content` MCP tooling would be lossy. REFERENCE preserves the dependencies; ADOPT would break them.
+
+## Tradeoffs / risks
+
+- **Reference paths drift if the marketplace clone is moved or pruned.** Mitigation: the marketplace upstream URL is captured in the inventory file (`Identity-gsa-client-marketplace`); a re-clone restores the reference target.
+- **No execution capability gained yet.** Reference-only adoption means our skills *cite* the toolkit's rules but don't execute against `kusto-execute_query` until `mcp-setup` is run by squad members. That is the same constraint we already have; not a regression.
+- **Format retrofit is real work.** Adopting KNOW/DO/CHECK/Rationalizations/Red Flags everywhere is non-trivial. Proposing opportunistic retrofit, not a single-shot rewrite.
+
+## Not deciding
+
+- Anything about `gsa-kusto-catalog` — Scully owns that this cycle, separate decision will follow.
+- Whether to publish a Squad-authored plugin upstream into `gsa-client-plugins`. Premature; needs at least one stable, tested squad asset before we'd consider it.
+- Final shape of the `android-kusto-starter` retrofit — proposing the link-and-callout step now; the structural retrofit is a separate scoped task.
+
+## Asks
+
+- **Mulder:** ack the REFERENCE-only posture and the integration plan above (charter updates, README link, starter-skill callout). No bulk-copy until you ack.
+- **Coordinator:** schedule the three charter updates and the `android-kusto-starter` callout as a follow-up batch.
+- **Saloni:** when ready, unblock WD.Client.Android — that's still the gating dependency for the on-device emitter / crash reporter / `EventName` constant inventory. The marketplace does not substitute.
+
+## Cited paths
+
+- Marketplace root: `/Users/salonijain/workspace/Identity-gsa-client-marketplace/`
+- Marketplace `AGENTS.md`: `/Users/salonijain/workspace/Identity-gsa-client-marketplace/AGENTS.md`
+- Toolkit README: `/Users/salonijain/workspace/Identity-gsa-client-marketplace/plugins/gsa-client-telemetry-toolkit/README.md`
+- Toolkit SKILL.md: `/Users/salonijain/workspace/Identity-gsa-client-marketplace/plugins/gsa-client-telemetry-toolkit/skills/gsa-client-telemetry-toolkit/SKILL.md` (Android routing line 96, App_Platform rule line 69, identity rules line 70)
+- Setup-prereqs SKILL.md: `/Users/salonijain/workspace/Identity-gsa-client-marketplace/plugins/gsa-client-telemetry-toolkit/skills/setup-prereqs/SKILL.md`
+- Inventory artifact: `.squad/agents/doggett/research/marketplace-plugin-inventory.md`
+- Discovery delta: `.squad/agents/doggett/research/defender-android-discovery.md` § "Marketplace Discovery (2026-06-05)"
+
+---
+

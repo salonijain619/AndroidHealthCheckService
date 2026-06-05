@@ -198,3 +198,74 @@ Panel uses `_startTime = datetime(2026-05-29T12:00:00Z)` and `_endTime = datetim
 ### Version-format note (Android vs Windows)
 
 Android `ClientVersion` is a **4-segment numeric** build identifier (`1.0.7203.0401`). Windows uses a 3-segment SemVer-ish tag (`v2.28.96`). Reyes's daily report should NOT assume the same format string when filling the "Client Version Distribution" row across squads. The 37-build allowlist in this panel is *manually curated* in the dashboard parameter — open question whether new Android builds auto-append.
+
+---
+
+## Catalog Confirmation (2026-06-05)
+
+Saloni cloned `Identity-gsa-client-marketplace` locally; its `gsa-kusto-catalog` skill is the canonical GSA/NaaS routing registry (clusters → databases → tables, plus per-cluster purpose). Adopting it as ground truth and reconciling here.
+
+**Source files (canonical):**
+- `Identity-gsa-client-marketplace/plugins/gsa-client-telemetry-toolkit/skills/gsa-kusto-catalog/catalog.json`
+- `…/catalog-semantics.json`
+- `…/SKILL.md`
+
+### A. Confirmations (no change required)
+
+| Claim | Catalog says |
+|---|---|
+| `cluster=idsharedwus, db=NaasProd, table=TunnelServerOperationEvents` is real and active | ✅ Confirmed — `clusters.naas-idsharedwus.databases.naas-prod-server-wus.tables.TunnelServerOperationEvents` (status `active`, `time_column: TIMESTAMP`). |
+| Time column is `TIMESTAMP` (uppercase) on the WUS mirror | ✅ Confirmed. |
+| `EdgeDiagnosticOperationEvent` exists on idsharedwus | ✅ Confirmed (mirror — full table is on idsharedscus). |
+| APS tables `AgentGetSettingsOperationEvent` / `AgentSettingsAckOperationEvent` are in `idsharedwus / NaasAgentServicesApsProd` | ✅ Confirmed. Note: `AgentSettingsAckOperationEvent` time column is `PreciseTimeStamp`, NOT `TIMESTAMP`. |
+| Aria cluster URL + prod GUID | ✅ Confirmed: `https://kusto.aria.microsoft.com`, db_guid `f0eaa94222894be599b7cd0bc1e2ed6f`. |
+
+### B. Corrections
+
+| Prior belief | Catalog correction |
+|---|---|
+| WUS is the primary server-side cluster. | **Both shards mirror.** `naas-idsharedwus / NaasProd` is a 2-table mirror (`TunnelServerOperationEvents`, `EdgeDiagnosticOperationEvent`). The full 37-table NaasProd lives on `naas-idsharedscus` (`https://idsharedscus.southcentralus.kusto.windows.net`). For the daily report the WUS mirror is sufficient, but cross-checks (Roxy/Talon/ControlTower/CertMonitor/etc.) require idsharedscus. |
+| Android client telemetry lives in Aria's `mnap_xplat_telemetryprod_*` tables. | **Mostly false.** Catalog's android-appinsights cluster description is explicit: "Android GSA client telemetry — published to the wd-prod-android-client Application Insights resource (NOT into Aria). Distinct pipeline from Mac/Win which use mnap_xplat_telemetryprod_*". Some Aria event tables DO carry Android rows (e.g., `errorevent`) — filter with `App_Platform == 'Android'` — but this is the exception, not the rule. The xplat-Aria-table-as-Android-source hypothesis was wrong as a primary route. |
+| `NaaSVPNZtnaConnectionLogsEvent` carries `env_os == 'Android'`. | Live schema introspection confirmed this; but per catalog this table lives canonically on `naas-idsharedscus / NaasProd` (idsharedwus mirror does not include it). Filter idiom unchanged. |
+
+### C. New tables / routes discovered
+
+| Need | Catalog answer |
+|---|---|
+| **PKI Health metric source** (was 🔴 blocked) | ✅ **`naas-idsharedwus / NaasCloudPkiProd / EnrollCertificateOperationSummary`** — `time_column: PreciseTimeStamp`. Catalog comment: "Cloud PKI (server-side) audit logs for client-cert enrollment. Records every PKI API request from clients (Win/Mac/iOS/Android)." Same cluster we already auth into; my earlier `kusto_table_list` returned empty likely due to a routing/permission detail that the catalog now resolves. **Validation query owed in next round.** |
+| **Android client-side telemetry (App Insights)** | ✅ Application Insights resource `wd-prod-android-client` (sub `fb633419-…` matches our prior knowledge). Catalog identifies it as `clusters.android-appinsights.databases.wd-prod-android-client.tables.customEvents` with the AI REST endpoint `https://api.applicationinsights.io/v1/apps/<appId>/query`. Schema notes: `id` parsed from `customDimensions['AndroidId']`, tenant from `customDimensions['TenantOrgName']`, version from `application_Version`. |
+| **Android perf rollups (CPU/mem/throughput)** | ✅ NEW cluster `https://androidgsa.eastus.kusto.windows.net`, db `Metric`, tables `MemoryCPUUsage` and `UploadDownloadSpeed`. Time column is `ingestion_time()`. Catalog flag: not yet live-verified (DNS resolution failed during catalog generation). |
+| **Android-cross-platform errorevent (Aria)** | ✅ Alias `gsa-android-errors-1h`: `mnap_xplat_telemetryprod_errorevent | where App_Platform == 'Android'`. Means Aria DOES surface Android errors despite App Insights being primary — useful as a cross-check. |
+| **ZTNA management plane / FusionExport tenant snapshots** | ✅ `naas-idsharedwus / ZTNAMgmtPlaneProd` (`MgmtPlaneLogs`, `FusionExport_tenantInfo`, etc.). Not on our daily report path today, but available. |
+| **Watson crash data** | Available on `wdgeventstore.kusto.windows.net / FUN` but described as Windows Error Reporting (Win32 user/kernel mode). Not the right source for Android crashes — Android crash signal still requires Play Console / Crashlytics-equivalent (open question). |
+
+### D. Filter idiom matrix — by cluster/table family
+
+| Where | Android filter | Time column |
+|---|---|---|
+| `naas-idsharedwus.NaasProd.TunnelServerOperationEvents` (and EdgeDiagnostic mirror) | `DeviceOs has_cs 'ANDROID'` | `TIMESTAMP` |
+| `naas-idsharedscus.NaasProd.NaaSVPNZtnaConnectionLogsEvent` (and other env-prefixed tables) | `env_os == "Android"` | `env_time` |
+| `naas-idsharedwus.NaasAgentServicesApsProd.AgentGetSettingsOperationEvent` | TBD (still owed schema introspection) | `TIMESTAMP` |
+| `naas-idsharedwus.NaasAgentServicesApsProd.AgentSettingsAckOperationEvent` | TBD | `PreciseTimeStamp` |
+| `naas-idsharedwus.NaasCloudPkiProd.EnrollCertificateOperationSummary` | TBD (catalog says all platforms emit; column name owed) | `PreciseTimeStamp` |
+| `aria-prod.naas-prod.mnap_xplat_telemetryprod_*` | `App_Platform == 'Android'` (when present — most events are Win/Mac only) | `EventInfo_Time` |
+| `android-appinsights.wd-prod-android-client.customEvents` | (Implicit — entire pipeline is Android) | `timestamp` (App Insights) |
+| `android-gsa-metric.Metric.{MemoryCPUUsage,UploadDownloadSpeed}` | (Implicit) | `ingestion_time()` |
+
+### E. Open mappings still hypothetical (catalog did NOT resolve)
+
+1. APS Android-cohort filter idiom — catalog tables don't expose column lists for these two tables; need a fresh `kusto_table_schema`.
+2. Whether the dashboard's 37-build `_application_Version` allowlist is auto-discovered or manually curated. Catalog has no opinion.
+3. Whether `EnrollCertificateOperationSummary` carries an OS column or whether Android rows are identified via DeviceId-join.
+4. Android crash signal — Watson catalog entry is Win32-flavored; real Android crash source (Play Console / Firebase Crashlytics) not in this catalog.
+5. The dashboard fragment `#45c11f5e-…` page identity — unrelated to catalog scope.
+
+### F. Net status of the four core unknowns from the prior pass
+
+| Unknown | Status after catalog ingest |
+|---|---|
+| PKI cluster/DB | ✅ RESOLVED — same idsharedwus, db `NaasCloudPkiProd`, table `EnrollCertificateOperationSummary`. Validation query owed. |
+| Aria DB / table for Android | ✅ Refined — Android primarily on App Insights (`wd-prod-android-client`), NOT Aria. Aria `mnap_xplat_*` is Win/Mac primary; Android shows up in errorevent via `App_Platform`. |
+| AppInsights component | ✅ RESOLVED — `wd-prod-android-client`. AndroidId in customDimensions, version in application_Version. |
+| Other Android-relevant tables | ✅ DISCOVERED — `androidgsa.eastus / Metric / MemoryCPUUsage` + `UploadDownloadSpeed` (perf rollups). |
+
