@@ -200,3 +200,98 @@ The marketplace tells us *where* Android telemetry lands, not *how it is emitted
 ### Net posture
 
 Reuse-first stance is **partially executable now**: we can cite App Insights routing, identity rules, and Aria filtering immediately by reference path. The code-side discovery — emitter classes, crash reporter, internal squad/skill assets inside WD.Client.Android — still requires VSTS read access to that repo. No on-device inventory has been performed; nothing in the marketplace substitutes for it.
+
+---
+
+## ICM-Copilot Doc Discovery (2026-06-05)
+
+Saloni cloned a sister repo, `WD.Client.Android-icm-copilot`, at `/Users/salonijain/workspace/android/WD.Client.Android-icm-copilot/`. Its `agent-docs/` directory is the canonical Defender-Android AI-agent doc set (README + 8 reference docs covering telemetry, feature flags, build, coding, testing, aggregated tables). Unblocks most of the pipeline-side discovery questions even without WD.Client.Android source. Source paths cited below are relative to that clone.
+
+### a. Telemetry pipeline architecture — raw → subtables → aggregated
+
+**Three layers, all hosted on the same ADX cluster** (`mdatpandroidcluster.westus2.kusto.windows.net`, database `MDATPAndroidDB`):
+
+1. **On-device emit (Layer 0).** Code calls `MDAppTelemetry.trackEvent(eventName, eventProperties)` / `MDAppTelemetry.trackEventException(...)` with `Flags.NORMAL` or `Flags.CRITICAL`. Two backend channels: **1DS for Defender** events, **Aria for Tunnel** events (`agent-docs/Telemetry.md`). Every event is auto-stamped with `AndroidId`, `TelemetryCorrelationId`, `Persona`, `EnrollmentType`, `SessionIdTenantId`, `TenantIdPII`, `MachineId`, `TenantLicenseType`, and `TenantOrgName` (last is gated on `allowSensitiveData`).
+2. **Raw landing — `customEvents` (Layer 1).** All 1DS Defender events land in `MDATPAndroidDB.customEvents` as the source-of-truth raw table. Each event row carries `name`, `timestamp`, and a JSON `EventProperty` blob.
+3. **Subtables (Layer 2).** 10 domain-specific subtables fed by Kusto update policies that `| where name in (...) | evaluate bag_unpack(EventProperty)`. `bag_unpack` dynamically materializes per-event property columns — schemas grow automatically as new properties appear. The 10 tables: `TelemetryMalwareScan`, `TelemetryAuth`, `TelemetryCompliance`, **`TelemetryVPNAndWebProtection`** (96 events — where GSA tunnel events live: `Vpn*`, `Tunnel*`, `Naas*`, `Edge*`, `Antiphishing*`, `OpenVpn*`, `LDNS*`, `CaptivePortal*`), `TelemetryAppLifecycle`, `TelemetryHeartbeat`, `TelemetryNetworkMonitoring`, **`TelemetryConfiguration`** (12 events — `ECS*`, `Config*`, `Feature*`, `Admin*`), `TelemetryProductHeartbeat`, `TelemetryGeneral` (catch-all). Each event lives in exactly one subtable. Routing patterns and the full 632-event list are in `agent-docs/TelemetrySubtables.md` + `agent-docs/TelemetryNewTable.md`.
+4. **Aggregated tables (Layer 3, optional).** Developers create pre-computed tables in the `"dashboard"` ADX folder by checking in a Python file at `libraries/AggregatedTables/*.py` in the Android repo. A shared **Azure Function `KustoQueryFunc`** (in `WD.Mobile.XPlat.Infra/KustoQueryFunc/`, .NET 8 isolated worker) ingests these via `.set-or-append` server-side every hour (`hoursSinceEpoch % interval == 0`, with `interval ∈ {6, 12, 24, 48, 72, 168, 720}`). Stateless modulo scheduling, 3-layer dedup, orphan cleanup of the `"dashboard"` folder. Full lifecycle in `agent-docs/AggregatedTableInfra.md`.
+5. **Alerts (Layer 3.5).** Same engine processes `libraries/Alerts/*.py` configs into an `AlertResults` table in the `"alerts"` folder. Static alerts (operator + threshold) or dynamic alerts (anomaly-detection KQL like `series_decompose_anomalies`).
+
+**Tunnel/Aria caveat.** GSA tunnel-side telemetry rides Aria, not 1DS — so a subset of GSA signal lives outside the 10-subtable model and surfaces in shared Aria tables (`mnap_xplat_telemetry*`, `App_Platform == 'Android'`). This is consistent with the marketplace finding that `wd-prod-android-client` (App Insights) and Aria are *both* in-scope for Android GSA — the device-side emitter routes by event class, not by feature.
+
+### b. Schema conventions — naming + columns
+
+- **Event + property names: PascalCase, enforced.** No snake_case, no camelCase. Must come from **codegen'd Kotlin classes** in the `WD.Mobile.Xplat.Infra` repo (e.g., `EnhancedAEDeviceEnrolmentEventProperties.NAME` for the event name, `EnhancedAEDeviceEnrolmentEventProperties.DynamicEventProperties.IS_ACTIVE_ADMIN_PRESENT` for properties). **Hardcoded string constants are not allowed** (`Telemetry.md` lines 27–32).
+- **Event name shape: `<Domain><Verb>` / `<Component><Outcome>`.** Examples: `AppLaunch`, `UserOnboardingStarted`, `FeatureEnabled`, `ErrorOccurred`, `ScanStarted`, `ThreatResolved`, `SignInSuccessful`, `VpnClientState`, `HeartbeatReported`, `NaasTunnelStartRequested` (Naas* events route to `TelemetryVPNAndWebProtection`).
+- **Subtable routing is prefix-based.** First-token prefix maps to subtable (e.g., `Naas*` → `TelemetryVPNAndWebProtection`). Add a new event → pick the correct prefix → add to that subtable's update policy → re-validate via `customEvents | where name == 'NewEventName' | evaluate bag_unpack(EventProperty)`.
+- **Aggregated table schema discipline.** Python config declares `name`, `version` (MAJOR.MINOR — must bump on schema change), `interval` (hours, restricted set), `targetTable`, `schema` (`[{"name": ..., "type": "string|long|int|real|bool|datetime|timespan|guid|dynamic|decimal"}]`). Version is persisted as the table docstring (`.alter table <name> docstring "version=X.Y"`). Schema evolution rules: add columns = automatic `.alter-merge`; drop columns = automatic `.drop column` with warning; **type changes are never auto-applied — they error and require manual migration**.
+- **Managed-folder guard.** All mutating ADX commands check `folder ∈ {"dashboard", "alerts"}` before executing. Tables outside those folders are off-limits to the engine — a clean ownership boundary that we should mirror if we ever introduce squad-managed tables.
+- **Retention / sampling.** Not centrally configured per-event; retention is set per-aggregated-table via the optional `retentionDays` field. Raw `customEvents` retention is whatever ADX cluster policy dictates — the docs don't pin a number; assume long enough for the 7d / 30d volume estimates in `TelemetryNewTable.md` (~3.5B 7d events) to be queryable but verify before relying on multi-month windows.
+
+### c. Feature-flag → version mapping — version-regression detection model
+
+**The flag-rollout model is ECS-side, not in-code.** `EcsManager.isFeatureEnabled("FeatureName", default)` queries the ECS (Experimentation Configuration Service) service at runtime. The ECS service evaluates audience predicates that explicitly include — per `FeatureFlags.md` line 11 — **"user type, enrollment, android version, device, tenant etc."** That means a flag can be rolled out to "Android client version ≥ 1.0.NNNN.NNNN" or "API level ≥ 33" or "tenant subset" without any code change.
+
+**Where ClientVersion shows up.** Per Scully's verified finding, every Android telemetry row carries `ClientVersion` in the `1.0.NNNN.NNNN` 4-segment format. Combined with the always-appended `TelemetryCorrelationId`, `Persona`, `EnrollmentType`, `MachineId`, and `TenantIdPII`, we can pivot any error rate **by ClientVersion + flag-evaluation outcome** in the same query.
+
+**Detecting a version-specific regression (Android analog of Windows v2.28.96):**
+1. Identify the suspect version `Vx.Y.A.B` from `ClientVersion` distribution + error-rate spike.
+2. Find flags that **changed evaluation** between `Vx.Y.(A-1).*` (or `(A).(B-1)`) and `Vx.Y.A.B`. The on-device hint is the `HANDLER_MSG_ECS_CONFIG_REFRESH` subscriber pattern (`FeatureFlags.md` lines 191–235) — feature managers fetch `EcsManager.isFeatureEnabled(...)` on refresh and cache via `AtomicBoolean`. Two ways the new version surfaces a regression: (a) **new audience predicate** (the flag started returning true for that version), or (b) **new code path** gated by an existing flag that the new version now compiles in.
+3. Cross-reference with ECS config snapshots (`TelemetryConfiguration` subtable: `ECS*`, `Config*`, `Feature*`, `Admin*` events) — these emit when ECS refreshes or when a feature evaluates. Diff the evaluated-flag set between versions.
+4. **Six-layer ECS pattern** (constant → `ConfigUtils` wrapper → `EcsManager` call → cached `AtomicBoolean` → gated logic → tests) tells you where to look in WD.Client.Android once we have repo access. The `ecs-cleanup` agent inside that repo (`.github/agents/ecs-cleanup.agent.md`) is the inverse operation and confirms the layer list.
+
+This pattern is codified as a new skill — see `.squad/skills/android-version-regression-detection/SKILL.md`.
+
+### d. Build / repo conventions — for future spawn work
+
+- **Toolchain:** Java 17 + Android Studio + NDK `25.2.9519653` (exact) + CMake `3.22.1` + Python 3.11 via **`uv`** (not pip directly) + **Conan `1.59.0` exact** (not 2.x) + Rust stable + `cargo-ndk` + Git ≥ 2.0. `local.properties` carries 9+ PAT/API keys (VSTS PAT, Klondike debug, BD, PowerLift, Firebase debug, Aria debug ingestion, Singular x2, lab credentials).
+- **Bootstrap:** `./init.sh` or `python3 init.py` (initializes git submodules, Conan deps, codegen, NaaS prerequisites, vcpkg bootstrap, Rust toolchain).
+- **Build / test entry points:** `./gradlew assembleDevDebug` (debug), `./gradlew testDevDebugUnitTest` (unit tests). ABI filter defaults to `arm64-v8a;x86_64`. Lint / Checkstyle / Jacoco off by default; PR gates run them regardless.
+- **Repo layout markers worth grep'ing for once VSTS access lands:** `libraries/AggregatedTables/`, `libraries/Alerts/`, `pipeline/PRGatePipeline.yaml`, `pipeline/job/AggregatedTableValidation.yaml`, `.github/copilot-instructions.md` (confirmed present in the icm-copilot mirror — likely present upstream), `.github/agents/ecs-cleanup.agent.md`, `.worklog/` (the icm-copilot mirror requires a per-branch workflow file at `.worklog/<git-branch>/<agent>/workflow.md` — a mandated agent-task ledger).
+- **Coding conventions:** SOLID + DRY, Hilt/Dagger DI (`@Inject` constructors, EntryPoints for non-Hilt access), event-driven via `MDRxBus` / `HandlerBusEvent`, MAM/MDM/Android-Enterprise/Personal-Profile awareness baked in. UI in Compose with an `MDApplicationTheme` design system; see `agent-docs/FigmaToCode.md` (not read this pass — `MDText`, `MDButton`, `MDTopAppBar` are the named primitives).
+
+### e. Test patterns — telemetry validation
+
+- **Framework stack:** JUnit 4 + **MockK** (Kotlin, required) + Mockito (legacy Java only) + Robolectric + AndroidX test core. **PowerMock is banned.** All unit tests extend `MDBaseUnitTest`.
+- **Telemetry-track mocking idiom** (`Testing.md` lines 131–139, 555–564):
+  ```kotlin
+  mockkStatic(TelemetryUtils::class)
+  every { TelemetryUtils.track(any()) } returns Unit
+  // ... exercise code under test ...
+  verify(exactly = 1) { TelemetryUtils.track(any()) }
+  ```
+  For combined events: `mockkStatic(CombinedTelemetryUtils::class)` + `every { CombinedTelemetryUtils.trackCombinedEvent(any(), any(), any(), any<EventProperties>()) } returns Unit`.
+- **What's verified:** that the right event was fired exactly N times, with the right properties. Combined with `EventProperties` capture (mockk slot), you can assert the property bag shape — useful for regression-guarding "did v1.0.NNNN.NNNN drop a property?".
+- **What's NOT verified by unit tests:** subtable routing (that lives in Kusto update policy, validated in ADX via `customEvents | where name == ... | evaluate bag_unpack(EventProperty) | take 10` per `TelemetrySubtables.md`) or aggregation correctness (validated at PR time by `ValidateKqlQueryADX.py --mode syntax|alert|schema` against live ADX). Subtable + aggregation regressions need integration-style checks, not unit tests.
+
+---
+
+## Open-questions close-out (status as of 2026-06-05)
+
+Below: every original "what we need from Saloni" / "still blocked" item, resolved against the new doc set.
+
+### From "What Doggett Needs From Saloni" punch list
+
+| # | Original ask | Status | Source / notes |
+|---|--------------|--------|----------------|
+| 1 | VSTS read access to WD.Client.Android | **STILL-BLOCKED** | The icm-copilot mirror gives us docs but not source. Code paths inside WD.Client.Android remain unreadable. |
+| 2 | GSA module root path within the repo | **PARTIAL** | Not pinned, but the telemetry subtables show GSA-relevant code emits `Vpn*`, `Tunnel*`, `Naas*`, `Edge*` (→ `TelemetryVPNAndWebProtection`) + `MSAL*`, `Token*` (→ `TelemetryAuth`). Code likely lives under `app/src/main/java/**/vpn/**`, `**/tunnel/**`, `**/naas/**`. Confirming exact path still needs VSTS. |
+| 3 | Directory listings for `.squad/` / `.copilot/` / `agents/` / `skills/` / `plugins/` | **PARTIAL** | The icm-copilot mirror has `.github/copilot-instructions.md` + a `.worklog/<branch>/<agent>/workflow.md` mandate + `.github/agents/ecs-cleanup.agent.md` (referenced in `FeatureFlags.md`). No `.squad/` or `skills/`. Upstream WD.Client.Android may or may not mirror this set. |
+| 4 | Android telemetry helper class name | **RESOLVED** | `MDAppTelemetry` (`trackEvent(name, props, flags?)`, `trackEventException(name, exception)`). `TelemetryUtils.track(...)` + `CombinedTelemetryUtils.trackCombinedEvent(...)` are higher-level wrappers tested via `mockkStatic`. Event names + property keys come from codegen'd Kotlin classes in `WD.Mobile.Xplat.Infra`. |
+| 5 | Which crash reporter is wired up | **PARTIAL** | `MDAppTelemetry.trackEventException` is the in-band exception path (1DS for Defender, Aria for Tunnel). Whether a separate Crashlytics / AppCenter / Breakpad uploader is also wired up is not stated in `agent-docs/`. `BuildSteps.md` mentions `FirebaseApiKeyDebug` and `AppCenter`-style keys absent — Firebase likely but unconfirmed. **Still requires repo access.** |
+| 6 | KQL / Workbook JSON checked into the repo | **RESOLVED** | Yes — `libraries/AggregatedTables/*.py` carries the KQL alongside its schema, and `libraries/Alerts/*.py` carries alert queries. Both are validated at PR time against live ADX. No raw `.kql` / `.workbook` files mentioned — KQL is embedded in Python configs. |
+| 7 | Sign-off on the seven proposed Android-specific report fields | **STILL-BLOCKED** | Needs Saloni + Mulder ack. Doc set neither confirms nor refutes the seven fields. |
+
+### From "Still blocked (require WD.Client.Android repo access)" section
+
+| # | Original blocked item | Status | Notes |
+|---|----------------------|--------|-------|
+| 1 | Android telemetry helper class name(s) | **RESOLVED** | `MDAppTelemetry`, `TelemetryUtils`, `CombinedTelemetryUtils`, `EventProperties`. |
+| 2 | On-device emitter (OneDS vs App Insights direct vs custom Defender uploader) | **RESOLVED** | **1DS for Defender events, Aria for Tunnel events.** Both flow through `MDAppTelemetry`. App Insights `wd-prod-android-client` is the *downstream* App Insights resource fed by 1DS — not a direct on-device emitter. |
+| 3 | Crash-reporter implementation + event taxonomy | **PARTIAL** | In-band: `MDAppTelemetry.trackEventException`. Out-of-band crash uploader unconfirmed. |
+| 4 | Pre-existing `.squad/` / `.copilot/` / `agents/` / `skills/` / `plugins/` inside WD.Client.Android | **STILL-BLOCKED** | Not enumerated by docs. |
+| 5 | Android-specific KQL / Workbook JSON | **RESOLVED** | Lives in `libraries/AggregatedTables/*.py` + `libraries/Alerts/*.py` (KQL embedded in Python). Aggregated outputs go to `MDATPAndroidDB` `"dashboard"` folder; alerts to `AlertResults` in `"alerts"` folder. |
+| 6 | Android `EventName` constants for GSA (505, `SuccessSettingsNotFound`, hypothesized 631/632 analog) | **PARTIAL** | We now know the source-of-truth: codegen'd classes in `WD.Mobile.Xplat.Infra` (e.g., `*EventProperties.NAME`). The exact event names for GSA failure modes still need repo grep — but routing tells us they will fall under `Naas*` / `Tunnel*` / `MSAL*` / `Token*` prefixes. |
+| 7 | Defender's existing Android dashboards (OEM mix, Doze, foreground-service, work-profile, API-level) | **PARTIAL** | The aggregated-table infrastructure exists and is the *mechanism* by which such dashboards would be built. Whether configs for those specific dimensions exist in `libraries/AggregatedTables/` still needs repo access to enumerate. |
+
+**Net:** 4 RESOLVED, 5 PARTIAL, 4 STILL-BLOCKED. The remaining blockers all reduce to "VSTS read on WD.Client.Android" — no further unblock possible from docs alone.

@@ -63,3 +63,58 @@ Cross-team note (reinforcement of own discovery, recorded for future spawn conti
 - Android client telemetry pipeline correction (App Insights `wd-prod-android-client`, NOT Aria) and the three closed unknowns from this cycle propagated to mulder, reyes, skinner, doggett histories. Charter point #2 flagged as wrong; correction owed in a future cycle.
 - Doggett independently corroborated the App Insights routing via the `wd-prod-` brand prefix — two independent paths strengthen confidence from MEDIUM toward HIGH for the routing fact (query-body confidence stays MEDIUM until live-validated).
 - Decision `scully-kusto-catalog-adopted.md` merged to `decisions.md`, awaiting Mulder ack.
+
+### 2026-06-05 (final pass) — Defender-for-Android ICM baseline ingested
+
+**What changed:**
+- Saloni surfaced a second canonical clone (`WD.Client.Android-icm-copilot`). Its `agent-docs/IcmBaselineQueries.md` is the Defender-for-Android team's production-vetted livesite KQL set (30 queries) — adopted as canonical starting point for client-side telemetry in the daily report.
+- Categorized all 30 queries to report sections; 22 map directly to specific Key Metrics / Top Insights / Cross-Domain / Drilldown rows; 2 are utility (E3 search, C1 device-lookup); 1 is off-charter for GSA (D4 malware-scan); the rest serve drilldown.
+- Restructured `android-kusto-starter/SKILL.md` into Part 1 (server-side, retained) + Part 2 (client-side, 30 new queries CL-A1…CL-N12 at HIGH confidence). Server-side starters (#1–#8, #10, #11) were COMPLEMENTED, not replaced — they cover signals (server tunnel success, PKI, APS, Aria, perf) the ICM client-side baseline cannot.
+- New skill `android-icm-baseline-mapping/SKILL.md` captures the cross-reference table so future spawns don't re-derive it.
+- Filed decision `decisions/inbox/scully-icm-baseline-adopted.md`.
+
+**Big resolution:**
+- **Android client-side telemetry IS Kusto-queryable.** Catalog said AI REST endpoint (`wd-prod-android-client`, requires App Insights REST client, not our MCP path). ICM confirms an ADX cluster `mdatpandroidcluster.westus2.kusto.windows.net / MDATPAndroidDB` carries the same SDK emissions and is reachable via `azure-mcp-kusto`. AI demoted to cross-check status.
+
+## Learnings
+
+### 2026-06-05 — Schema patterns from Defender-for-Android Telemetry.md (for future spawns)
+
+**SDK shape.** All Android client telemetry is emitted via `MDAppTelemetry.trackEvent(eventName, eventProperties[, Flags])` from Kotlin. Two telemetry pipelines: **1DS** for Defender telemetry, **Aria** for Tunnel telemetry. Event names and property keys MUST come from generated Kotlin classes (`WD.Mobile.Xplat.Infra` repo) — hard-coded strings are prohibited. PascalCase enforced for both names and properties.
+
+**Always-appended properties** (you don't have to add them; they are present on every event):
+- `AndroidId`
+- `TelemetryCorrelationId`
+- `Persona`
+- `EnrollmentType`
+- `SessionIdTenantId`
+- `TenantIdPII`
+- `MachineId`
+- `TenantOrgName` (only if `allowSensitiveData` is true)
+- `TenantLicenseType`
+
+Implication for KQL: `androidId`, `tenantId`, `machineId` (note: case-style is **lower** in the ADX projection of `customEvents`), `TenantOrgName` are reliable filter/pivot columns across every event. `TelemetryCorrelationId` enables stitched traces across events.
+
+**Subtable infrastructure (`MDATPAndroidDB`).** `customEvents` is the source table; 10 routed subtables are populated via Kusto Update Policies that run `evaluate bag_unpack(EventProperty)`. **Always query the subtable when you know the domain** — properties are already unpacked into typed columns, query is faster, and `EventProperty.<x>` accessors degrade to first-class columns.
+
+Subtable → domain map (memorize):
+- `TelemetryGeneral` → `SevereLog`, `ErrorScenario`, and catch-all (209 events — largest)
+- `TelemetryAuth` → `SignIn*`, `Auth*`, `MSAL*`, `Token*`, `PRT*` (41)
+- `TelemetryVPNAndWebProtection` → `Vpn*`, `Tunnel*`, `LDNS*`, `Antiphishing*`, `Naas*`, `OpenVpn*`, `Edge*`, `CaptivePortal*` (96 — **NaaS / GSA lives here**)
+- `TelemetryAppLifecycle` → `App*`, `Service*`, `Boot*`, `Onboarding*`, `Permission*`, `FRE*`, `EULA*`, includes crash/ANR events (89)
+- `TelemetryHeartbeat` → `Heartbeat*`, `EdrHeartbeat*` (16)
+- `TelemetryMalwareScan` → `Scan*`, `Threat*`, `Alert*`, `ML*`, `TFLite*` (76 — off-charter for GSA)
+- `TelemetryCompliance` → `MAM*`, `TVM*`, `Enrollment*`, `Compliance*`, `Edr*Registration*` (63)
+- `TelemetryConfiguration` → `ECS*`, `Config*`, `Feature*`, `Admin*` (12)
+- `TelemetryNetworkMonitoring` → `Network*`, `Wifi*`, `CA*`, `Trusted*`, `Suspicious*` (29)
+- `TelemetryProductHeartbeat` → just `ProductHeartbeat` (isolated for criticality)
+
+Routing rule: **every event goes to exactly ONE subtable** (no duplicates). New properties auto-add columns (dynamic schema via `bag_unpack`).
+
+**NaaS-specific call-site convention.** `NaaSTelemetrySender.logTelemetry(...)` sets `EventProperty.SubEvent = "NaaS"` (stable filter to scope to NaaS) and `EventProperty.Message = <free-form>` (distinguishes call sites that share an event name — e.g., `NaasVPNFailure` fires from two locations, distinguished by `Message starts with "Connecting failed"` vs `"Running failed"`). When in doubt about an Android NaaS event, filter by `tostring(EventProperty.SubEvent) == "NaaS"` first.
+
+**Cluster reachability gotcha.** Defender ADX cluster `mdatpandroidcluster.westus2.kusto.windows.net` is in `westus2`; our other Kusto work has been on `idsharedwus` (also WUS) and `idsharedscus` (SCUS). Auth posture should carry over (same tenant), but smoke-test owed before relying on it.
+
+**Time column on Defender ADX is `timestamp` (lowercase)** — App Insights / standard ADX convention. Different from NaasProd's `TIMESTAMP` (uppercase). Adds a fourth idiom to the existing three-idiom matrix; the time-column table in the starter skill now lists six total columns across our table family.
+
+**`androidId` 3-char truncation gotcha.** ICM's own C1 footnote: device-lookup queries sometimes need to fall back to `startswith substring(__ANDROID_ID__, 0, strlen(__ANDROID_ID__) - 3)`. Likely a PII-hash boundary or upstream-collector quirk. Any future cross-cluster join keyed on `androidId` must handle this.

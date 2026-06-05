@@ -269,3 +269,55 @@ Saloni cloned `Identity-gsa-client-marketplace` locally; its `gsa-kusto-catalog`
 | AppInsights component | ✅ RESOLVED — `wd-prod-android-client`. AndroidId in customDimensions, version in application_Version. |
 | Other Android-relevant tables | ✅ DISCOVERED — `androidgsa.eastus / Metric / MemoryCPUUsage` + `UploadDownloadSpeed` (perf rollups). |
 
+
+---
+
+## ICM Baseline Catalog (2026-06-05)
+
+Saloni surfaced a second canonical clone: `/Users/salonijain/workspace/android/WD.Client.Android-icm-copilot/` containing the Defender-for-Android team's production ICM (Incident Management) artifacts. The relevant files:
+
+- `agent-docs/IcmBaselineQueries.md` — 30 vetted KQL queries
+- `agent-docs/Telemetry.md` — emission rules (PascalCase, codegen, always-appended props)
+- `agent-docs/TelemetrySubtables.md` — 10-subtable routing infrastructure under `MDATPAndroidDB`
+
+### Major routing correction
+
+The catalog (previous pass) said Android client telemetry lives at App Insights `wd-prod-android-client` (REST API only, not Kusto-queryable from our MCP). ICM says the operational query surface is an **ADX cluster**: `https://mdatpandroidcluster.westus2.kusto.windows.net/ / MDATPAndroidDB`. Both can be true (AI is likely the SDK destination, ADX likely the routed/exported view) — but for our purposes the ADX cluster is the one we should query, because `azure-mcp-kusto` can route to it. **App Insights demoted to cross-check status.**
+
+### Categories of queries available
+
+| Section | Queries | Coverage |
+|---|---|---|
+| A. Triage ("is something burning?") | 3 (A1–A3) | overall error volume, top error names, crashes/ANR |
+| B. Tenant / Customer impact | 3 (B1–B3) | per-tenant activity, errors, device-count baseline |
+| C. Single device deep-dive | 3 (C1–C3) | event history, machineId lookup, app+OS version |
+| D. Domain-specific (uses subtables) | 6 (D1–D6) | auth, heartbeat, VPN/web umbrella, malware-scan, TVM, compliance |
+| E. Correlation helpers | 3 (E1–E3) | version-distribution, config refresh, event-name search |
+| N. NaaS call-site-targeted | 12 (N1–N12) | full NaaS surface — VPN failure phase split, MSAL silent/interactive, DNS, captive portal, admin config, cert handler, PA toggle, client toggle, per-device timeline |
+
+### What this closes in the dashboard analysis
+
+| Gap previously logged | Closed by |
+|---|---|
+| Android client-side primary route operationally reachable from our MCP | ✅ ADX cluster `mdatpandroidcluster` (Kusto-native). |
+| Android crash signal source (Watson is Win32-only per catalog) | ✅ ICM CL-A3 on `TelemetryAppLifecycle` (`name has_any "Crash","Anr","Boot"`). |
+| Auth signal client-side (catalog had server-side / Aria stubs only) | ✅ CL-D1 (general auth), CL-N3 (silent), CL-N4 (interactive), CL-N5 (funnel). |
+| NaaS call-site event-name discovery (would have needed source code) | ✅ Full call-site map in ICM Section N preamble. |
+| PKI Health client-side cross-check | ✅ CL-N9 (`NaaSCertificateHandleError`) complements server-side starter #8. |
+| Heartbeat / policy-delivery client signal | ✅ CL-D2 (heartbeat), CL-N8 (admin config at connect time). |
+| Feature/policy-toggle anomaly detection | ✅ CL-N10 (PA toggle source), CL-N11 (client master toggle). |
+
+### Gaps the ICM catalog does NOT close (still owed)
+
+1. **Authoritative server-side APS availability** — ICM has CL-D2 as a client proxy only; the real APS metric is server-side via starter #3 (`AgentGetSettingsOperationEvent`) and still owes schema introspection of its Android-cohort filter idiom.
+2. **PKI Health authoritative metric** — server side via starter #8 (`EnrollCertificateOperationSummary`); ICM only adds a client cross-check. Schema introspection still owed on the server table.
+3. **Server-side tunnel success rate + latency percentiles** — ICM has client-side failure attribution; server-side success/latency is starter #5 (`TunnelServerOperationEvents`).
+4. **Dashboard panel fragment `#45c11f5e-…`** — page identity unrelated to ICM scope; still unconfirmed with Saloni.
+5. **Active-device definition reconciliation** — dashboard's panel uses `TunnelServerOperationEvents` + 37-build version allowlist; ICM uses `dcount(androidId)` on `customEvents`. Server count and client count may diverge — that divergence is itself a finding once both run.
+6. **Cluster reachability check** — `mdatpandroidcluster.westus2.kusto.windows.net` has not yet been auth-tested from our MCP context. Next-round smoke-test owed.
+7. **Aria `mnap_xplat_*` Android coverage matrix** — catalog says `errorevent` carries Android; ICM does not touch Aria at all. Unchanged status.
+8. **Android perf rollups (CPU/mem/throughput)** — different cluster (`androidgsa.eastus`); ICM does not cover. Still gated on reachability (catalog flag: DNS failed at generation).
+
+### Adoption status
+
+Full categorization + adoption into `android-kusto-starter` and a new cross-reference skill `android-icm-baseline-mapping` is recorded in decision `decisions/inbox/scully-icm-baseline-adopted.md` (2026-06-05). Treat that decision as the operational handoff; this section is the research record.

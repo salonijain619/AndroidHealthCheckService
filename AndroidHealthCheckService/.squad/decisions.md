@@ -249,3 +249,67 @@ Inventoried the locally cloned `Identity-gsa-client-marketplace` (`gsa-client-pl
 
 ---
 
+
+---
+
+> **CLARIFICATION (appended 2026-06-05T12:55:00Z by Scribe):** the line above (in the "GSA Kusto Catalog adopted" decision) stating that "Android client-side primary = App Insights `wd-prod-android-client` REST endpoint" is **partially superseded** by the 2026-06-05 ICM baseline adoption decision below. Both Scully and Doggett independently confirmed `mdatpandroidcluster.westus2.kusto.windows.net / MDATPAndroidDB` as the canonical Android client telemetry cluster — Kusto-queryable via `azure-mcp-kusto`. App Insights `wd-prod-android-client` is demoted to cross-check status. Prior entry left intact for historical context.
+
+---
+
+### 2026-06-05: Defender-for-Android ICM baseline queries adopted as canonical client-side starting point
+**By:** Scully (Telemetry Analyst)
+**Status:** PROPOSED — pending Mulder ack
+**Supersedes (partially):** the "App Insights `wd-prod-android-client` REST endpoint is primary for Android client telemetry" element of the prior "GSA Kusto Catalog adopted" decision above. Catalog routing is still valid as reference; ICM-vetted ADX routing is now operationally preferred.
+
+**What:** Adopt the Defender-for-Android livesite team's `IcmBaselineQueries.md` (30 KQL queries across triage / tenant / device / domain / correlation / NaaS-call-site sections) as the canonical starting point for **client-side** telemetry in the daily Android GSA livesite report. 22 of 30 queries map directly to specific report sections (Key Metrics, Top Insights, Cross-Domain, Drilldown); 2 are utility (E3 search, C1 device-lookup); 1 is off-charter (D4 malware-scan); rest serve drilldown.
+
+**Source:** `/Users/salonijain/workspace/android/WD.Client.Android-icm-copilot/agent-docs/IcmBaselineQueries.md` (+ Telemetry.md, TelemetrySubtables.md for schema).
+
+**Why:**
+- **Production-vetted** by the Defender-for-Android livesite team — higher confidence than any locally-derived starter.
+- **Kusto-native client-side surface.** ICM points to `mdatpandroidcluster.westus2.kusto.windows.net / MDATPAndroidDB` — an ADX cluster reachable via `azure-mcp-kusto`. Unblocks programmatic execution of Android client telemetry queries from our MCP toolchain.
+- **NaaS coverage built-in.** Section N (12 queries) maps Android NaaS call sites (NaaSVPNClient, NaaSAuthenticator, NaaSDNSResolver, NaaSCertificateHandler, NetworkChangeEventListener, NaaSViewModel, etc.) to event names + distinguishing fields.
+- **Subtable routing built-in.** ICM uses MDATPAndroidDB's 10 routed subtables (TelemetryAuth, TelemetryVPNAndWebProtection, TelemetryHeartbeat, …) — pre-unpacked properties, faster than `customEvents | bag_unpack`.
+
+**Artifacts:**
+- `.squad/skills/android-kusto-starter/SKILL.md` restructured: Part 1 server-side (#1–#8, #10, #11 retained, sourced/confidence-tagged) + Part 2 client-side (30 new CL-A1…CL-N12 at HIGH confidence). Section-index table at top maps every report row to feeding query IDs.
+- `.squad/skills/android-icm-baseline-mapping/SKILL.md` — NEW (confidence MEDIUM). Cross-reference table ICM query → report section → cluster/subtable + rationale + coverage-gap notes.
+- `.squad/agents/scully/research/dashboard-analysis.md` — appended "ICM Baseline Catalog (2026-06-05)" section.
+
+**Conflicts called out explicitly:** App Insights routing demoted to cross-check (both routes likely view same underlying SDK emissions — Defender uses `MDAppTelemetry`, ADX is the routed/exported view; operational preference is ADX). Starter #9's standalone AI query is folded into the demoted-AI cross-check row. ICM CL-A3 unblocks the previously-missing crash signal. PKI Health row now runs starter #8 (server) AND CL-N9 (client) — divergence is itself a finding.
+
+**Tradeoffs:**
+- One repo's vetting ≠ our vetting; some queries (CL-D4) are off-charter and tagged in the mapping skill.
+- Coupling to upstream churn — re-read `IcmBaselineQueries.md` at the Defender team's cadence.
+- `androidId` may be truncated by 3 chars (ICM footnote) — cross-cluster joins on `DeviceId`/`androidId` must handle.
+- `mdatpandroidcluster` reachability from our MCP not yet smoke-tested — owed.
+
+**Asks:** Mulder — ack precedence rule (ICM > catalog > squad-original). Doggett — pair server+client signals in correlation. Reyes — use the section-index in `android-kusto-starter` as source of truth for "which query fills which row." Saloni — confirm `azure-mcp-kusto` can auth against `mdatpandroidcluster.westus2.kusto.windows.net`.
+
+---
+
+### 2026-06-05: Defender-for-Android telemetry docs ingested; discovery questions resolved
+**By:** Doggett (Android Engineer)
+**Status:** PROPOSED — pending Mulder ack
+**Independently confirms:** `mdatpandroidcluster.westus2.kusto.windows.net / MDATPAndroidDB` as the canonical Android client telemetry cluster (same as Scully's ICM-derived finding). Two independent paths to the same fact strengthens confidence on the supersession of the prior App-Insights-only assumption.
+
+**What:** Ingested the `agent-docs/` directory from the locally-cloned `WD.Client.Android-icm-copilot` mirror (8 docs: Telemetry, TelemetrySubtables, TelemetryNewTable, AggregatedTableInfra, FeatureFlags, CodingStandards, BuildSteps, Testing). New squad artifacts:
+- `.squad/agents/doggett/research/android-telemetry-model.md` — 1-page mental model + routing cheat-sheet + starter KQL for Reyes / Skinner / Mulder / Scully.
+- `.squad/skills/android-version-regression-detection/SKILL.md` — NEW (confidence LOW). Android analog of the Windows v2.28.96 version-regression playbook: ClientVersion pivot + ECS flag-evaluation diff + flag-gating concentration test + mitigation routing.
+- Updated `.squad/agents/doggett/research/defender-android-discovery.md` with "ICM-Copilot Doc Discovery (2026-06-05)" section closing 13 open questions (4 RESOLVED / 5 PARTIAL / 4 STILL-BLOCKED).
+
+**Why:** The marketplace clone (prior pass) gave *destination* routing. The icm-copilot mirror gives the *full pipeline* — emit conventions, raw → subtable → aggregated infra, feature-flag rollout model, build/test conventions. Unblocks every discovery question that didn't strictly require WD.Client.Android *source*.
+
+**Key resolutions (RESOLVED 4):**
+1. **Android telemetry helper:** `MDAppTelemetry.trackEvent(name, props[, Flags])` + `.trackEventException(name, throwable)`. Higher-level wrappers `TelemetryUtils.track()` / `CombinedTelemetryUtils.trackCombinedEvent()` (mockkStatic-testable). Event names + property keys codegen'd from `WD.Mobile.Xplat.Infra`; hardcoded strings PR-blocking.
+2. **On-device emitter:** **1DS for Defender events, Aria for Tunnel events.** Both via `MDAppTelemetry`. `wd-prod-android-client` AI is downstream of 1DS, not a direct emitter.
+3. **KQL checked into repo:** Yes — embedded in `libraries/AggregatedTables/*.py` (aggregation) and `libraries/Alerts/*.py` (alerts). PR-validated via `ValidateKqlQueryADX.py`. Outputs to `"dashboard"` + `"alerts"` folders in MDATPAndroidDB.
+4. **Pipeline architecture:** 3 layers, 1 cluster. `customEvents` (raw, JSON props) → 10 domain subtables (update policies + `bag_unpack`) → aggregated tables (Azure Function `KustoQueryFunc`, hourly modulo-scheduled). Cluster: **`mdatpandroidcluster.westus2.kusto.windows.net / MDATPAndroidDB`**. GSA lives in `TelemetryVPNAndWebProtection`. ECS feature flags target by `ClientVersion` — enables Windows-v2.28.96-style version-regression detection on Android.
+
+**Still blocked (4):** VSTS read on WD.Client.Android; sign-off on the seven proposed Android-specific report fields; out-of-band crash uploader confirmation (Crashlytics suspected); `.squad/`/`skills/`/`plugins/` dir enumeration inside WD.Client.Android.
+
+**Risks:** icm-copilot mirror may be a snapshot, not live; verify against upstream once VSTS lands. Version-regression skill unvalidated against a real regression (confidence LOW; pair with Scully on first use). Event/property names in starter KQL illustrative — `bag_unpack | take N` check required before relying on them.
+
+**Asks:** Mulder — ack. Reyes — cite `android-telemetry-model.md` for any report section touching Android telemetry routing.
+
+---
