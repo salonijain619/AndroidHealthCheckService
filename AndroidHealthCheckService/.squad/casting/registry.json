@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "agents": [
+    { "persistent_name": "Mulder",  "universe": "x-files", "created_at": "2026-06-05", "legacy_named": false, "status": "active", "role": "Lead" },
+    { "persistent_name": "Scully",  "universe": "x-files", "created_at": "2026-06-05", "legacy_named": false, "status": "active", "role": "Telemetry Analyst" },
+    { "persistent_name": "Doggett", "universe": "x-files", "created_at": "2026-06-05", "legacy_named": false, "status": "active", "role": "Android Engineer" },
+    { "persistent_name": "Skinner", "universe": "x-files", "created_at": "2026-06-05", "legacy_named": false, "status": "active", "role": "ICM Liaison" },
+    { "persistent_name": "Reyes",   "universe": "x-files", "created_at": "2026-06-05", "legacy_named": false, "status": "active", "role": "Report Writer" },
+    { "persistent_name": "Scribe",  "universe": "-",       "created_at": "2026-06-05", "legacy_named": false, "status": "active", "role": "Session Logger" },
+    { "persistent_name": "Ralph",   "universe": "-",       "created_at": "2026-06-05", "legacy_named": false, "status": "active", "role": "Work Monitor" }
+  ]
+}
