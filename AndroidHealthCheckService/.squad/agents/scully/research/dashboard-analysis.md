@@ -109,6 +109,16 @@ For each `{TBD}` in `.squad/templates/daily-livesite-report.md`, the likely dash
 
 ## 4. Open Questions (for Saloni)
 
+> **Refreshed punch list — 2026-06-05 post-panel-KQL unblock.** Several earlier items resolved by Saloni's panel paste. What REMAINS:
+>
+> 1. **Second panel KQL — preferably an errors or latency panel.** This first panel is a simple `distinct | count` (no error/latency logic), so it doesn't tell us whether the dashboard surfaces flow errors via `FlowStatusError`, `Status`, `OperationName`, or by joining to `EdgeDiagnosticOperationEvent`. One more export disambiguates query #2 and #5 in the skill.
+> 2. **PKI cluster + database** — still unknown. Both `NaasCloudPkiProd` and `NaasAgentServicesCloudPkiProd` on `idsharedwus` returned zero tables on this account. Need explicit cluster URI + DB name + table name (or confirmation that the panel pulls from a non-Kusto source).
+> 3. **`_application_Version` allowlist (37 builds) — auto-discovered or manually curated?** If auto, our queries should derive the list dynamically (e.g., `dcount(ClientVersion) | top-N by count`). If manual, hard-coding the panel's list is fine and we just need a process to update it when new builds ship.
+>
+> ---
+>
+> Earlier-version open questions, status after this unblock:
+
 1. **Which dashboard page is `#45c11f5e-b0ae-40d7-bb48-c2b1936011cc`?** Best guess: per-device drilldown. Please confirm or share the page title.
 2. **PKI Health telemetry source** — both `NaasCloudPkiProd` and `NaasAgentServicesCloudPkiProd` returned no tables. Is the PKI panel pulling from a different cluster, or do I need elevated permissions on this cluster?
 3. **How does the dashboard implement `osType == Android` on server-only tables?** Specifically `EdgeDiagnosticOperationEvent`, `RoxyHttpOperationEvent` — is there a device-registry function we should `let osLookup = ...` against, or do those panels only display when `osType == all`?
@@ -117,3 +127,74 @@ For each `{TBD}` in `.squad/templates/daily-livesite-report.md`, the likely dash
 6. **Canonical "Active" definition** — Active Android device = "any telemetry in last N days," or "completed at least one successful tunnel handshake," or "checked in with APS"? The number changes by 2–3× depending on definition.
 7. **Traffic profiles enum** — what are the valid `NetworkProfile` values? Best guess: `Internet`, `Private`, `M365`, `Microsoft365`, `PrivateAccess`. Need the canonical list to avoid silent misfilters.
 8. **One panel query export** — easiest unblock: in the dashboard UI, on any panel, "Edit → Share → View query" gives the exact KQL. One export per page would let me go from hypothesis to real in minutes.
+
+---
+
+## Ground Truth From Panel KQL (2026-06-05)
+
+Saloni pasted the verbatim KQL from one panel of the production dashboard. Treat the following as authoritative; previous hypotheses are reconciled below.
+
+### Confirmed facts
+
+| Fact | Value | Source |
+|---|---|---|
+| Primary table for tunnel/connection KPIs | `TunnelServerOperationEvents` | Panel KQL `FROM` clause |
+| Cluster / Database | `idsharedwus` / `NaasProd` | `azure-mcp-kusto kusto_table_schema` succeeded there |
+| Time column | `TIMESTAMP` (uppercase; `PreciseTimeStamp` also exists but unused by panel) | Panel KQL + live schema |
+| Android filter (canonical) | `DeviceOs has_cs 'ANDROID'` | Panel KQL — case-sensitive `has_cs`, value literally `ANDROID` |
+| Version column | `ClientVersion` (format `1.0.NNNN.NNNN`, e.g. `1.0.7203.0401`) | Panel KQL `_application_Version` allowlist (37 builds) |
+| Tenant pivot column | `TenantId` | Panel KQL |
+| Traffic-profile pivot column | `ServiceType` (URL says `trafficProfile` — DRIFT) | Panel KQL + schema |
+| Device pivot column | `DeviceId` | Schema (column exists; panel doesn't use but #7 will) |
+| Default time window | 7 days back, anchored at 12:00 UTC daily | Panel literals `2026-05-29T12:00:00Z` → `2026-06-05T12:00:00Z` |
+| `_osType` URL value `v-ANDROID` | Dashboard-binding syntax — `v-` prefix means "value", real column value is just `ANDROID` | Panel KQL `let _osType = 'ANDROID'` |
+| Panel verbatim execution result | 8 distinct active Android tenants in 7d window | Run via `azure-mcp-kusto kusto_query` |
+
+### Schema introspection — `TunnelServerOperationEvents` columns relevant to daily report
+
+- **Identity / scoping:** `TIMESTAMP`, `DeviceOs`, `DeviceOsVersion`, `ClientVersion`, `ClientOsType`, `ClientOsName`, `ClientOsVersion`, `ClientAgentVersion`, `TenantId`, `DeviceId`, `UserId`, `Region`, `NaasSDPRing`, `ServiceType`, `SkuType`
+- **Operation / outcome:** `OperationName`, `Status`, `Msg`, `Message`, `error`, `stacktrace`, `FlowStatusError`, `FlowErrorClassification`, `LogType`
+- **Performance:** `LatencyMs` (long) — gives us p50/p95/p99 latency natively; no separate insight-event join needed
+- **Flow / correlation:** `FlowCorrelationId`, `flowId`, `originalFlowId`, `TunnelId`, `TunnelType`, `TunnelCorrelationId`, `SessionId`, `CorrelationId`
+- **Network:** `SourceIp`, `SourcePort`, `DestinationIp`, `DestinationPort`, `DestinationFqdn`, `BranchSourceIp`, `Vip`, `NetworkProtocol`, `TransportProtocol`, `InnerFlow*` (8 columns)
+- **Auth:** `Token1PClaims`, `Token3PUniqueId`, `Token3PIssuedAt`, `Token3PValidFrom`, `Token3PExpiry`, `Token3PRepScope`, `IsNoTokenFlow`
+- **Schema notes:** A handful of columns appear corrupted/concatenated in the schema response (e.g. `SoTransportProtocol`, `TunnelTypNaasPolicyIds`, `SournnerFlowDestinationPort`, `DestinatiedAt`). Either the introspection truncated, or the table really has malformed column names. **Schema drift to flag** — re-run schema next session and confirm whether these are real or an MCP-response artifact.
+
+### Relationship vs prior tables in our inventory
+
+| Table | Relationship to `TunnelServerOperationEvents` |
+|---|---|
+| `EdgeDiagnosticOperationEvent` | **Complementary, not alternate.** Edge is the HTTP-layer (request/response/duration with `ResponseCode`); Tunnel is the L4/flow-layer view. For tunnel-success / latency / flow errors, prefer `TunnelServerOperationEvents`. For HTTP 4xx/5xx, prefer `EdgeDiagnosticOperationEvent`. Edge has NO `DeviceOs` column; Tunnel has it natively. |
+| `NaaSVPNZtnaConnectionLogsEvent` | **Alternate (Aria-envelope) view of overlapping signal.** Carries `env_os = "Android"`; Tunnel carries `DeviceOs has_cs 'ANDROID'`. Two filter idioms in the codebase. ZTNA log is gateway-side; if a client never reaches a gateway, only client-side Aria sees it. Use ZTNA as a cross-check view, not the primary. |
+| `NaaSVPNTunnelInsightEvent` | Likely complementary (per-flow insight rows), not yet schema-introspected. Open question whether it's needed once `LatencyMs` on `TunnelServerOperationEvents` is in play. |
+
+### Panel-to-Report Mapping — reconciled
+
+| Report row | Hypothesized panel | Hypothesized table | Reconciled status |
+|---|---|---|---|
+| Active Android Clients (weekday) | "Active Devices" tile | `EdgeDiagnosticOperationEvent` join + Aria | **CONTRADICTED** — actual mechanism (per Saloni's panel) is `TunnelServerOperationEvents | where DeviceOs has_cs 'ANDROID' | distinct DeviceId`. No join needed. The pasted panel was the tenant variant; device variant is the same shape (skill query #7). |
+| Fleet Errors (7d) | "Errors over time" / "Top error codes" | `EdgeDiagnosticOperationEvent` ResponseCode | **STILL HYPOTHESIS** — Edge HTTP-layer errors not refuted, but the dashboard may also surface `FlowStatusError` from `TunnelServerOperationEvents`. Need a second panel query to disambiguate. |
+| APS Availability | "APS Get-Settings success %" | `AgentGetSettingsOperationEvent` | **STILL HYPOTHESIS** — table confirmed, Android filter idiom on APS unknown (does `DeviceOs` apply?). |
+| PKI Health | (unknown panel) | (unknown table) | **STILL HYPOTHESIS / blocked** — both `NaasCloudPkiProd` DBs empty for this account. |
+| Tunnel Health | "ZTNA connection success" / "Tunnel latency" | `NaaSVPNZtnaConnectionLogsEvent` + `NaaSVPNTunnelInsightEvent` | **CONTRADICTED (partly)** — preferred backing table is `TunnelServerOperationEvents` itself (`LatencyMs` native, `DeviceOs` native). ZTNA log remains a useful cross-check. |
+| Android Client Version Distribution Health | "Version histogram" | Aria | **CONTRADICTED (likely)** — `ClientVersion` lives on `TunnelServerOperationEvents` directly; histogram can be built server-side without touching Aria. Format is `1.0.NNNN.NNNN`, NOT SemVer. |
+| Business Growth (7d) | "New devices over time" | Aria | **STILL HYPOTHESIS** — same query shape as #7 with first-seen logic; can be done server-side. |
+| Data Completeness Notes | Ingest-lag panels | All tables | **STILL HYPOTHESIS** — unchanged. |
+
+### URL-parameter ↔ column name drift (cheat sheet)
+
+| Dashboard URL param | Real column on `TunnelServerOperationEvents` |
+|---|---|
+| `p-_osType=v-ANDROID` | `DeviceOs` (value `ANDROID`, no `v-` prefix) |
+| `p-_trafficProfile=…` | `ServiceType` |
+| `p-_tenantId=…` | `TenantId` |
+| `p-device_id=v-DeviceIdPII_…` | `DeviceId` |
+| `p-_startTime=7days` / `p-_endTime=now` | `TIMESTAMP between (now-7d .. now)`, anchored at 12:00 UTC |
+
+### Window anchoring detail
+
+Panel uses `_startTime = datetime(2026-05-29T12:00:00Z)` and `_endTime = datetime(2026-06-05T12:00:00Z)` — i.e. the dashboard rounds "now" to the most recent 12:00 UTC, then walks back exactly 7d. Our reusable header (`startofday(now()) + 12h`) reproduces this convention.
+
+### Version-format note (Android vs Windows)
+
+Android `ClientVersion` is a **4-segment numeric** build identifier (`1.0.7203.0401`). Windows uses a 3-segment SemVer-ish tag (`v2.28.96`). Reyes's daily report should NOT assume the same format string when filling the "Client Version Distribution" row across squads. The 37-build allowlist in this panel is *manually curated* in the dashboard parameter — open question whether new Android builds auto-append.

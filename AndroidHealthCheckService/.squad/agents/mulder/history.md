@@ -24,3 +24,11 @@ Squad bootstrap arc closed. State of the team as of this checkpoint:
 - **Defender-for-Android reuse:** discovery plan authored by Doggett, but **VSTS access wall** blocks repo inventory. Reuse-first posture is proposed, not yet executed.
 - **Open dependencies on Saloni:** (1) confirm dashboard-as-source-of-truth + export a panel query; (2) unblock VSTS access. **Open dependency on Mulder:** ack the two proposed decisions.
 - **Decisions merged this cycle:** model standardization, report skeleton, dashboard-as-source-of-truth, reuse-Defender-assets. See `.squad/decisions.md`.
+
+## 2026-06-05T12:20:25Z — Cross-agent: canonical Android KQL pattern established
+Scully confirmed via verbatim panel KQL execution against `idsharedwus/NaasProd/TunnelServerOperationEvents`:
+- Canonical filter: `| where DeviceOs has_cs 'ANDROID'` (case-sensitive)
+- Android `ClientVersion` format: `1.0.NNNN.NNNN` (4-segment numeric, NOT Windows SemVer)
+- See `.squad/skills/android-kusto-starter/SKILL.md` (7 queries reconciled with ground truth)
+- Decision in `.squad/decisions.md` (PROPOSED, pending Mulder ack)
+

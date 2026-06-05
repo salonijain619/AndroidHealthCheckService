@@ -65,3 +65,34 @@ Squad bootstrap arc closed. State of the team as of this checkpoint:
 - **Defender-for-Android reuse:** discovery plan authored by Doggett, but **VSTS access wall** blocks repo inventory. Reuse-first posture is proposed, not yet executed.
 - **Open dependencies on Saloni:** (1) confirm dashboard-as-source-of-truth + export a panel query; (2) unblock VSTS access. **Open dependency on Mulder:** ack the two proposed decisions.
 - **Decisions merged this cycle:** model standardization, report skeleton, dashboard-as-source-of-truth, reuse-Defender-assets. See `.squad/decisions.md`.
+
+---
+
+### 2026-06-05 (later) — Panel KQL unblock from Saloni
+
+**What changed:**
+- Saloni pasted verbatim KQL from one panel of dashboard `8a1fa78a-…` (the "Active Android Tenants (7d)" tile).
+- Schema-validated `TunnelServerOperationEvents` lives on `idsharedwus / NaasProd` (our primary cluster — no new cluster hop needed).
+- Ran the panel query verbatim through `azure-mcp-kusto`. **Returned 8 distinct active Android tenants** for the 2026-05-29 12:00 UTC → 2026-06-05 12:00 UTC window. Query is executable, schema is real, auth path works.
+
+**Corrections to prior hypotheses (this is the important part):**
+- **Correct table:** `TunnelServerOperationEvents` (we had `EdgeDiagnosticOperationEvent` and `NaaSVPNZtnaConnectionLogsEvent` — both real, but neither was the dashboard's primary backing table for tenant/device counts).
+- **Correct Android filter (canonical):** `| where DeviceOs has_cs 'ANDROID'` — case-sensitive, value is literal `ANDROID` with no `v-` prefix. Earlier hypotheses (`env_os == 'Android'`, `osType == 'v-ANDROID'`) are wrong for this table family.
+- **Version format differs from Windows:** Android `ClientVersion` is `1.0.NNNN.NNNN` (4-segment numeric build, e.g. `1.0.7203.0401`). Windows uses `v2.28.96`. Same column name, fundamentally different format. Reyes's report template needs to know.
+- **URL ↔ column drift to remember:** `osType` → `DeviceOs`; `trafficProfile` → `ServiceType`; `device_id` → `DeviceId`. URL uses snake/camel, table uses Pascal.
+- **`TunnelServerOperationEvents` is richer than expected** — carries `DeviceId, ClientVersion, ServiceType, TenantId, LatencyMs, Status, FlowStatusError, FlowErrorClassification, OperationName, Region` natively. Most daily-report rows can be sourced from this single table without joins. This collapses several hypothetical join queries.
+- **Edge vs Tunnel are complementary, not alternates.** Edge = HTTP-layer (ResponseCode, DurationInMilliseconds). Tunnel = L4/flow-layer (LatencyMs, FlowStatusError). For tunnel-success / latency, prefer Tunnel. For HTTP 4xx/5xx, prefer Edge. Edge has NO `DeviceOs` column.
+
+**What's still unknown after this unblock:**
+- Errors/latency panel KQL (this first panel was a simple distinct-count and doesn't reveal how errors are surfaced).
+- PKI source — unchanged.
+- Whether the 37-build `_application_Version` allowlist is manually curated or auto-discovered (affects query robustness).
+- APS-table Android-filter idiom (does `AgentGetSettingsOperationEvent` carry `DeviceOs`? Likely not — Aria-style envelope. Schema introspection needed.).
+- A handful of `TunnelServerOperationEvents` columns came back from schema introspection looking malformed/concatenated (e.g., `SoTransportProtocol`, `SournnerFlowDestinationPort`, `DestinatiedAt`). Either real schema corruption or MCP-response artifact — re-introspect next session.
+
+**Artifacts touched this turn:**
+- `.squad/skills/android-kusto-starter/SKILL.md` — full rewrite. Reconciled queries 1–5 against ground truth, added query #6 (verbatim panel mirror, executed) and #7 (active devices variant).
+- `.squad/agents/scully/research/dashboard-analysis.md` — appended "## Ground Truth From Panel KQL (2026-06-05)" section. Refreshed open-questions list. Marked panel-mappings CONFIRMED / CONTRADICTED / STILL HYPOTHESIS.
+- `.squad/decisions/inbox/scully-canonical-android-filter.md` — new decision proposal.
+
+**Next ask of Saloni:** one more panel KQL, ideally an errors-or-latency panel, to lock down query #2 / #5 semantics.

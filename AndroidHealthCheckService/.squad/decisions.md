@@ -48,3 +48,68 @@ Append-only ledger of team decisions. Scribe merges from `decisions/inbox/`.
 **Blocker:** WD.Client.Android lives on `microsoft.visualstudio.com` (VSTS), auth-gated. No VSTS MCP, no PAT/Entra, no public GitHub mirror (verified — 0 hits on `GlobalSecureAccess`, `SuccessSettingsNotFound GSA`, `WD.Client.Android GsaTunnel`). Anonymous fetch returns only sign-in stub. Cannot execute until Saloni grants VSTS access, pastes file listings, or runs the patterns themselves.
 **Not deciding:** Specific telemetry library / KQL pattern / crash-reporter choice — those wait until inventory completes. Not committing to mirror Defender 1:1 — only to consider reuse before reinvention.
 **Asks:** Mulder approve "reuse-first" posture (strict vs. case-by-case); Saloni unblock VSTS access.
+
+---
+
+# Decision: Canonical Android Filter for Squad KQL
+
+**By:** Scully (Telemetry Analyst)
+**Date:** 2026-06-05
+**Status:** PROPOSED — pending Mulder ack
+
+## What
+The canonical Android-scoping clause for all server-side KQL produced by this squad is:
+
+```kusto
+| where DeviceOs has_cs 'ANDROID'
+```
+
+…run against `cluster('idsharedwus').database('NaasProd').TunnelServerOperationEvents` (and any other `NaasProd` table that exposes the `DeviceOs` column with the same convention).
+
+Earlier hypothesis filters are **WRONG** for this table family and must not be used:
+- ❌ `env_os == 'Android'` — that's the Aria envelope pattern; works on `NaaSVPNZtnaConnectionLogsEvent`, not on `TunnelServerOperationEvents`.
+- ❌ `osType == 'v-ANDROID'` — `v-ANDROID` is dashboard-binding URL syntax (`v-` = "value"); the column never literally contains `v-`.
+- ❌ `DeviceOs == 'Android'` (mixed case, equality) — column value is upper-case `ANDROID`, and the dashboard uses case-sensitive `has_cs`, so equality with `'Android'` would silently zero-out.
+
+## Why
+- Saloni pasted the verbatim KQL from one panel of the production Android GSA Kusto dashboard (`8a1fa78a-…`). It is authoritative ground truth.
+- Schema introspection via `azure-mcp-kusto` against `idsharedwus / NaasProd / TunnelServerOperationEvents` confirmed the `DeviceOs` column exists (type `string`).
+- Running the panel query verbatim through `azure-mcp-kusto` succeeded and returned a sensible single-row result (distinct active tenant count over the 7-day window). No syntax/permission/schema errors.
+
+## Evidence (panel KQL excerpt)
+```kusto
+TunnelServerOperationEvents
+| where TIMESTAMP between (_startTime .. _endTime)
+| where DeviceOs has_cs _osType        // _osType = 'ANDROID'
+| where ClientVersion in (_application_Version)
+| where isempty(_trafficProfile) or ServiceType in (_trafficProfile)
+| where isempty(_tenantId)        or TenantId    in (_tenantId)
+```
+
+## Implications
+
+### 1. New canonical table on the inventory
+`TunnelServerOperationEvents` (NaasProd) is added as the **primary** Android-scoping table for tunnel/connection KPIs. It is richer than expected — also carries `DeviceId`, `ClientVersion`, `ServiceType`, `TenantId`, `LatencyMs`, `Status`, `FlowStatusError`, `FlowErrorClassification`, `OperationName`. Most metric rows on the daily report can be sourced from this single table.
+
+### 2. Version format differs from Windows
+Android `ClientVersion` follows `1.0.NNNN.NNNN` (e.g., `1.0.7203.0401`) — fundamentally different from Windows `v2.28.96`. The dashboard's `_application_Version` allowlist enumerates 37 specific Android builds. When the report says "version", on Android it means a 4-segment numeric build, NOT a SemVer tag. Reyes's report template should reflect this when filling the "Android Client Version Distribution Health" row.
+
+### 3. Pivot column-name drift vs URL parameter names
+- Dashboard URL says `trafficProfile`; table column is `ServiceType`.
+- Dashboard URL says `osType`; table column is `DeviceOs`.
+- Dashboard URL says `device_id`; table column is `DeviceId`.
+- Time column is uppercase `TIMESTAMP` (a `PreciseTimeStamp` also exists; the panel uses `TIMESTAMP`).
+
+Document URL→column mapping wherever queries quote URL-style names so future readers don't trip on the rename.
+
+### 4. Operator choice: `has_cs` (case-sensitive)
+The dashboard uses `has_cs` (case-sensitive contains-token). For Android scoping this is functionally equivalent to `==` but cheaper on indexed tokens. The squad standardizes on `has_cs 'ANDROID'` to match dashboard semantics exactly. Do **not** lowercase to `'android'`.
+
+## Tradeoffs / risks
+- This filter only works on tables that carry `DeviceOs` (Tunnel family in `NaasProd`). Aria-envelope tables (`NaaSVPNZtnaConnectionLogsEvent`) still need `env_os == 'Android'` — we now have **two** filter idioms in the codebase, and reusable headers must pick one based on table.
+- The `_application_Version` allowlist of 37 builds is hard-coded in the panel — open question whether the dashboard auto-discovers new builds or requires manual curation. Until clarified, our queries either hard-code (matches dashboard exactly) or omit the version filter (broader cohort, may double-count side-loaded debug builds).
+- Schema may drift; re-run `kusto_table_schema` weekly via the existing dashboard-as-source-of-truth ceremony.
+
+## Asks
+- **Mulder:** ack this filter as canonical so Doggett/Reyes can rely on it.
+- **Saloni:** confirm whether the 37-version allowlist is auto-curated or manually maintained (affects whether our queries should hard-code or derive dynamically).
