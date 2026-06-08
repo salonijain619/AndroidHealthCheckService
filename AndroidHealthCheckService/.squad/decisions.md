@@ -313,3 +313,176 @@ Inventoried the locally cloned `Identity-gsa-client-marketplace` (`gsa-client-pl
 **Asks:** Mulder — ack. Reyes — cite `android-telemetry-model.md` for any report section touching Android telemetry routing.
 
 ---
+
+---
+
+### 2026-06-05: First executable Android NAAS-only daily livesite report assembled
+**By:** Reyes (Report Writer)
+**Date:** 2026-06-05T13:45Z
+**Status:** PROPOSED — pending Mulder/Saloni review
+**Confidence:** medium-high (real data from Scully's NAAS-only execution; scope-limited; 0 fabricated numbers)
+**Supersedes:** none (additive — v1 is the first executable report cycle)
+
+**What:** Assembled the first executable Android GSA Daily Livesite Report against Scully's freshly-executed NAAS 7-day data, in the Windows-reference report style.
+
+**Sections filled with real numbers:** Active Devices (27,489) / Active Tenants (1,241) / Tunnel Events (130.05M) / Tunnel Health (99.711%) / APS (99.997% Get-Settings / 99.99966% Ack) / PKI Health (✅ 0.0007% error) / Version Distribution Health / Business Growth (weekday/weekend patterns).
+
+**P-level findings:**
+- **P2 (anchor):** Tunnel server-side failure-rate ~5× ramp over 7d (0.074% → 0.36%). Top Insight #1.
+- **P2:** Private Access ~4× M365 failure rate (0.688% vs 0.174%).
+- **P2:** `PROFILE_UNDEFINED` 100% failure (4,003 events / 245 devices) — config-bootstrap race.
+- **Info:** Ghost-column defect on `TunnelServerOperationEvents` (`FlowStatusError`, `LatencyMs`, `Msg` unqueryable).
+
+**TBD count:** 4 explicit markers — all gated by Defender-client-side scope lock or schema defects.
+
+**Report file:** `/Users/salonijain/workspace/AndroidHealthCheckService/daily-livesite-report-android-2026-06-05.md`
+
+**Asks:** Mulder ack format/scope. Saloni review v2 unblockers: (1) Defender-client-side scope unlock, (2) SCUS hop authorization, (3) on-call config, (4) ghost-column defect filed.
+
+---
+
+### 2026-06-05: NAAS-only 7d Android report data captured
+**By:** Scully (Telemetry Analyst)
+**Date:** 2026-06-05T13:30Z
+**Status:** Adopted
+**Confidence:** medium-high (real data from live clusters; 0 fabricated numbers)
+**Supersedes:** none (additive — first executable data run)
+
+**What:** Executed the NAAS-server-side, Android-filtered, all-tenants slice for a 7-day window (2026-05-29T13:26Z .. 2026-06-05T13:26Z UTC).
+
+**Clusters hit:** `idsharedwus.kusto.windows.net` — 3 databases (`NaasProd`, `NaasCloudPkiProd`, `NaasAgentServicesApsProd`).
+
+**Queries:** 20 attempted, 17 passed, 5 recovered (column discovery/casing), 0 final failures. All 22 ICM client-side queries dropped per scope lock (NAAS-only).
+
+**Key findings:**
+1. Tunnel failure ~5× ramp (0.074% → 0.36% sustained); 12× volume growth vs 2.6× traffic growth.
+2. Fleet: 27,489 active devices / 1,241 tenants / 130.05M events / 99.711% success.
+3. Private Access fails 4× vs M365 (0.69% vs 0.17%); `PROFILE_UNDEFINED` = 100% failure (4,003 events).
+4. APS: 270.3M Get-Settings at 99.997%; 268.6M Ack at 99.99966%.
+5. PKI: 595,712 events, 4 errors (0.0007%) — healthy.
+
+**Caveats:** Ghost columns on `TunnelServerOperationEvents` (`FlowStatusError`, `LatencyMs`, `Msg`). Region casing duplicates. APS schema diverges (missing `HttpResponseStatusCode`). PKI `DeviceId` empty on Android.
+
+**Data file:** `.squad/agents/scully/research/naas-7d-report-data-2026-06-05.md`
+
+---
+
+### 2026-06-06: First live ICM pull for team 106961
+**By:** Scully (Telemetry Analyst)
+**Date:** 2026-06-06T10:07Z (ICM server timestamp)
+**Status:** PROPOSED — pending Mulder ack
+**Confidence:** medium (first live run; verify on second pull next cycle)
+
+**What:** First live ICM data pull executed for queue **106961** ("GSA Client - Android") via the HarryPotter-pattern collector, ported into `tools/icm/` under squad root.
+
+**How:**
+1. Ported `livesite/scripts/icm_collector.py` (HP commit d35a114) → `tools/icm/icm_collector.py` with `team_id 115956→106961`, `team_name`, `env AHCS_ICM_TEAM_ID`, `client-name`, config path `.squad/config.json`. No change to: JSON-RPC handshake, `WARMUP_DELAY_S=6`, `tools/list`-then-sleep-then-`tools/call` ordering, D-138 no-`dateRange` discipline.
+2. Ported test suite (19 tests) → `tools/icm/tests/test_icm_collector.py`. **All 19 tests pass**, including 3 D-138 regression tests.
+3. Created `.squad/config.json` with `icm.team_id=106961` as single source of truth (CLI > env > config > default).
+4. Live run: 26s elapsed, exit 0, raw JSON at `tools/icm/runs/icm-run-2026-06-06.json`.
+
+**Headline numbers:**
+- **Active+Mitigating:** 1 ICM (Sev3, customer-reported, TestICM-flagged [#810723164], 5d old, unacknowledged).
+- **Mitigated:** 0
+- **On-call:** Primary `dileepkusuma`, Backup `samirnen`.
+- **Effective real-incident count after TestICM filter:** **0**
+
+**Caveats:**
+- **Bucketing bug (port-faithful):** collector buckets by `source startswith "customer"`; ICMProd returns `type=CustomerReported`. Lone ICM lands in `system_created_active` array. Raw `type` preserved — Doggett/Reyes can re-bucket v2.1.
+- **Team-name drift:** `owningTeamId=106961` returns `owningTeamName="GSA  Client - XPlat"` (double-space typo). Saloni to confirm 106961 is Android vs XPlat parent.
+- **Detector silence is suspicious:** Zero system-detected ICMs while NaaS shows 0.36% tunnel failure (5× ramp). Mulder/Skinner ack owed.
+
+**Collector:** `tools/icm/icm_collector.py`
+**Tests:** `tools/icm/tests/test_icm_collector.py`
+**Config:** `.squad/config.json`
+**Raw JSON:** `tools/icm/runs/icm-run-2026-06-06.json`
+**Structured data:** `.squad/agents/scully/research/icm-team-106961-data-2026-06-06.md`
+
+---
+
+### 2026-06-06: icm-queue-ingest skill authored
+**By:** Doggett (Android Engineer)
+**Date:** 2026-06-06T11:25Z
+**Status:** Adopted
+**Confidence:** MEDIUM
+
+**What:** Authored `.squad/skills/icm-queue-ingest/SKILL.md` formalizing the HP-ported ICM collector pattern (`agency mcp icm` stdio JSON-RPC, 5-step handshake with 6s warmup, 4-tool sequence: `search_incidents` ×2 / `get_on_call_schedule_by_team_id` / optional `get_ai_summary`, no `dateRange` per D-138) for ICM team `106961` ("GSA Client - Android").
+
+Single source of truth for `team_id` is `.squad/config.json :: icm.team_id` with override hierarchy: CLI > env `AHCS_ICM_TEAM_ID` > config > default. Confidence MEDIUM because upstream pattern is regression-tested by HP but our first live run lands today; promote to HIGH after one clean unattended cycle.
+
+**Implications for squad:**
+- **Scully** executes the collector per report run; skill is her operational reference.
+- **Reyes** consumes the envelope to populate `📟 On-Call Today` and `🚨 Active ICM Incidents`.
+- **Skinner** owns `Patterns:` narrative bullets once live incident lands.
+- **Doggett** owns skill-doc maintenance; future MCP drift, auth modes, or upstream ICM changes are skill-doc updates.
+
+**Artifacts:** Skill at `.squad/skills/icm-queue-ingest/SKILL.md`. Discovery lineage in `.squad/agents/doggett/research/harrypotter-icm-port-plan.md`.
+
+---
+
+### 2026-06-06: Adopt HarryPotter's `agency mcp icm` pattern as new skill icm-queue-ingest
+**By:** Doggett (Android Engineer)
+**Date:** 2026-06-06T11:18Z
+**Status:** Adopted
+**Confidence:** HIGH on pattern (fully reverse-engineered from working sibling-squad implementation with passing tests); MEDIUM on first-run UX (depends on Saloni completing one-time Entra browser auth)
+**Supersedes:** none
+
+**Context:** Reyes's v1 Android livesite report ships with no Active ICMs section and explicit `TBD` for On-Call. Saloni's ICM team queue `106961` is corp-SSO-walled. HarryPotter sister squad solved the equivalent problem for macOS team `115956` at `/Users/salonijain/workspace/HarryPotter`.
+
+**Decision:**
+
+Adopt HP's pattern wholesale, parameterized on our team id:
+
+1. **Auth/transport:** drive Microsoft-internal `agency mcp icm` (stdio JSON-RPC, Entra interactive auth on first run, token cached thereafter). Reject three dead-end alternatives HP proved out (ICM REST + `az` token, hypothetical `icm-mcp-server` binary, `agency tool` subcommand) — keep their history-of-removed-paths in our ported skill doc.
+2. **Code port:** copy `livesite/scripts/icm_collector.py` (290 lines mechanics, 290 lines orchestration) and `tests/test_icm_collector.py` near-verbatim. Substitute `team_id 115956→106961`, `team_name`, env `HP_ICM_TEAM_ID→AHCS_ICM_TEAM_ID`.
+3. **Skill port:** create `.squad/skills/icm-queue-ingest/SKILL.md` from HP's `icm-via-mcp/SKILL.md` (24-tool catalog, handshake with `WARMUP_DELAY_S=6`, failure-mode table, history).
+4. **Template port:** Reyes adds two sections to report template — `📟 On-Call Today` (replacing `TBD`) and `🚨 Active ICM Incidents` with three sub-tables + Patterns bullets.
+5. **Topology:** no new agent. Scully runs collector; Doggett owns skill; Reyes owns template; Skinner owns narrative. Config at `.squad/config.json :: icm.team_id` with CLI/env override hierarchy.
+6. **Port D-138 verbatim:** Active and Mitigated `search_incidents` calls must not include `dateRange.createdAfter`. Use `top:50` + `sortBy LastModifiedDate Desc` for Mitigated. Mirror regression tests.
+
+**Rationale:** HP's collector battle-tested (12 unit tests, D-138 coverage, partial-degrade contract). `agency` CLI already present. No new secrets/PATs/webhooks. Pattern is the only path HP found that works; their `History` documents three failed alternatives.
+
+**Pre-reqs (asks of Saloni):**
+1. One-time interactive `agency mcp icm` to complete Entra browser auth.
+2. Confirm corp identity has read on ICM team `106961`.
+3. Greenlight first live collector run under her credentials.
+
+**Out of scope:** Teams/Email delivery (separate); `.squad/cache/icm-last-good.json` cache layer (defer to v3); cross-reference active ICMs with KQL telemetry (narratively, v3 programmatic).
+
+**Discovery artifact:** `.squad/agents/doggett/research/harrypotter-icm-port-plan.md`
+
+---
+
+### 2026-06-06: v2 NAAS + ICM Report Assembled
+**By:** Reyes (Report Writer)
+**Date:** 2026-06-06T11:50Z
+**Status:** PROPOSED — pending Mulder ack
+**Supersedes:** none
+
+**What:** v2 of the daily livesite report assembled at `/Users/salonijain/workspace/AndroidHealthCheckService/daily-livesite-report-android-2026-06-06.md`. NAAS analysis from v1 preserved verbatim (window: 2026-05-29T13:26Z → 2026-06-05T13:26Z). Three new live-ICM sections added, sourced from Scully's first pull against team 106961 via ported HarryPotter collector.
+
+**What's new vs v1:**
+
+1. **`📟 On-Call Today`** — replaced `TBD/TBD` with live roster: Primary `dileepkusuma`, Backup `samirnen`, from `get_on_call_schedule_by_team_id(106961)`.
+2. **New top-level `🚨 Active ICM Incidents`** section with:
+   - Counts (1 active total, Sev3, customer-reported, TestICM-flagged)
+   - Three tables: Customer-Created Active (1 row, #810723164), System-Created Active (empty), Mitigated Highlights last 7d (empty, genuine per D-138)
+   - Bucketing footnote on `source` vs `type` mismatch; v2.1 fix queued
+   - 5 Patterns bullets: detector-silence, aging-without-ack, queue-identity open question
+3. **`Data Quality Notes`** extended with `ICM Integration (v2 — first cycle)` sub-section + 2 new Open Questions (queue identity, detector→ICM correlation).
+4. **Contributors** appended with Doggett (port-plan + skill), Scully (collector port + first pull), Reyes (v2 assembly).
+
+**Headline ICM situation:** **Effective real-incident count on team 106961 = 0** (one Active Sev3 is TestICM), but **detector silence on a 5× tunnel-failure ramp is itself a finding** — flagged for Mulder/Skinner.
+
+**Queue identity question for Saloni:** `owningTeamId=106961` returns `owningTeamName="GSA  Client - XPlat"`, not "GSA Client - Android". Confirm 106961 is the right Android queue vs an XPlat parent with Android sub-queue. If sub-queue exists, entire ICM section scoped to wrong target.
+
+**For v2.1/v3:**
+- **v2.1 (collector):** swap bucketing from `source startswith "customer"` to `type == "CustomerReported"`.
+- **v2.1 (scope):** re-target ICM pull to Android sub-queue once Saloni confirms.
+- **v3:** wire detector → ICM correlation (cross-check NAAS ramps vs ICM creation).
+- **v3:** re-pull telemetry alongside ICM each cycle.
+
+**Report file:** `/Users/salonijain/workspace/AndroidHealthCheckService/daily-livesite-report-android-2026-06-06.md`
+**Raw JSON:** `tools/icm/runs/icm-run-2026-06-06.json`
+**Structured data:** `.squad/agents/scully/research/icm-team-106961-data-2026-06-06.md`
+

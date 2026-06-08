@@ -1,0 +1,9 @@
+{
+  "icm": {
+    "team_id": 106961,
+    "team_name": "GSA Client - Android",
+    "lookback_days": 7,
+    "cross_team_ids": [115956, 95422],
+    "active_states": ["Active", "Mitigating", "Correlating"]
+  }
+}

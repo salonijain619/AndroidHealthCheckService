@@ -14,62 +14,77 @@
 ## Summarized history (full content → `history-archive.md`)
 
 ### 2026-06-05 — Initial Defender-for-Android discovery [SUMMARIZED]
-GSA Android is a module *inside* Microsoft Defender for Android (not a standalone APK). VSTS auth blocker hard. Drafted file-pattern inventory for the Defender repo (squad/agent/skill/plugin defs, telemetry helpers, crash reporters, KQL/dashboards). Proposed 7 Android-specific report fields (install channel, API level, OEM, Doze, FG-service notif, work-profile, Defender×GSA version pairing). Hypothesized error-code mapping (505 shared server-side; 631/632 has no Android analog — propose new "tunnel UI vs VpnService state divergence" code; `SuccessSettingsNotFound` likely same token). Wrote `agents/doggett/research/defender-android-discovery.md` + inbox decision `doggett-reuse-defender-assets.md`.
+VSTS blocker. Inventory plan drafted. 7 Android fields proposed. Error code mapping hypothesized. See archive.
 
 ### 2026-06-05T12:00:52Z — Bootstrap complete [SUMMARIZED]
-Squad on `claude-opus-4.7`. Report template ready (Reyes). Kusto MCP confirmed against `idsharedwus`. Dashboard `8a1fa78a-…` proposed as canonical source of truth. Decisions: model standardization, report skeleton, dashboard-as-SoT, reuse-Defender-assets.
+Squad on Opus 4.7. Report template ready. Dashboard proposed. See archive.
 
 ### 2026-06-05T12:20:25Z — Canonical Android KQL pattern [SUMMARIZED]
-Scully established `| where DeviceOs has_cs 'ANDROID'` (case-sensitive) on `idsharedwus/NaasProd/TunnelServerOperationEvents`. Android `ClientVersion` = `1.0.NNNN.NNNN` (NOT Windows SemVer). 7 starter queries reconciled.
+Panel KQL executed. Filter reconciled. Version format confirmed. See archive.
 
 ### 2026-06-05 — Marketplace inventory [SUMMARIZED]
-Inventoried `Identity-gsa-client-marketplace` (`gsa-client-plugins`). Verdict: **0 ADOPT, 2 REFERENCE, 0 SKIP** (toolkit + setup-prereqs; gsa-kusto-catalog deferred to Scully). REFERENCE-only because skills depend on sibling catalog + 7 IdentityWiki pages — copying breaks them. Output: `agents/doggett/research/marketplace-plugin-inventory.md`, decision `doggett-marketplace-inventory.md`. Key conventions for re-use: two-tier marketplace model (`gsa-plugins` cross-cutting vs `gsa-client-plugins` client-only — same plugin in only one); plugin layout `plugins/<n>/.claude-plugin/plugin.json` + `README.md` + `skills/<s>/SKILL.md`; mandatory SKILL.md sections KNOW/DO/CHECK/Common Rationalizations(≥3)/Red Flags(≥3), body <500 lines, description ≤250 chars; no inline reference dumps (use `references/*.json` or runtime wiki fetch); MCP-first, no installers; catalogs as data with reverse-lookup `_indexes`; PR convention `user/<alias>/feature/<plugin>`. Android signals: GSA Android → App Insights `wd-prod-android-client` (NOT Aria); Aria filter `App_Platform == 'Android'`; identity rules — `Client_Id` rotates, `DeviceInfo_Id` stable, **`UserInfo_Id` access-restricted, never use**; iOS analog `ios-mdatp/MDATPiOSDB`.
+2 REFERENCE (toolkit + setup-prereqs). Conventions cataloged. Artifact: marketplace-plugin-inventory.md. See archive.
 
 ### 2026-06-05T12:40:00Z — App Insights confirmation cross-agent [SUMMARIZED]
-`wd-prod-android-client` corroborated independently — but see CORRECTION below in latest entry; this finding is partially superseded.
+Corroborated, but partially superseded by later MDATPAndroidDB finding. See archive.
 
 ## Current learnings (active)
 
-### 2026-06-05 (final pass) — Defender-for-Android `agent-docs/` ingested
+### 2026-06-05 (final pass) — Defender-for-Android agent-docs ingested [SUMMARIZED]
+Codebase grounded. Telemetry 3-layer model mapped. 4 resolved, 5 partial, 4 still blocked (VSTS-gated). **MAJOR CORRECTION:** Android telemetry Kusto-queryable via MDATPAndroidDB (not just App Insights REST). See archive.
 
-**Headline:** First real codebase grounding. Saloni cloned `WD.Client.Android-icm-copilot` locally; its `agent-docs/` directory (8 docs: Telemetry, TelemetrySubtables, TelemetryNewTable, AggregatedTableInfra, FeatureFlags, README, CodingStandards, BuildSteps, Testing) gives end-to-end visibility into how Android telemetry actually works. **4 RESOLVED / 5 PARTIAL / 4 STILL-BLOCKED** of the original open-question set; all remaining blockers reduce to "VSTS read on WD.Client.Android".
+## 2026-06-06T11:18Z — HarryPotter ICM-integration discovery + port plan
 
-**MAJOR CORRECTION:** Android client telemetry is **Kusto-queryable directly** via `mdatpandroidcluster.westus2.kusto.windows.net / MDATPAndroidDB` — same finding Scully arrived at independently from `IcmBaselineQueries.md`. The prior "Android client = App Insights `wd-prod-android-client` REST endpoint only" framing is partially wrong: `wd-prod-android-client` is downstream of 1DS, not the canonical Kusto-queryable surface. AI demoted to cross-check status.
+**Headline:** Reverse-engineered Mac's (HP squad's) ICM ingest end-to-end. **One backend:** `agency mcp icm` — Microsoft-internal `agency` CLI's stdio MCP proxy fronting ICMProd. **Auth:** Entra interactive browser on first run, AzureAuth-cached thereafter → unattended afterwards. No PAT / no `az` bearer / no webhook secret. HP's docs (`icm-via-mcp/SKILL.md` § History) record three dead-end alternatives (ICM REST + `az` token, hypothetical `icm-mcp-server` binary, `agency tool` subcommand) — keeping that history in the ported skill so we don't re-attempt.
 
-**Telemetry pipeline — 3 layers, 1 cluster:**
-1. **On-device:** `MDAppTelemetry.trackEvent(name, props[, Flags])` / `.trackEventException(name, throwable)`. **1DS for Defender events, Aria for Tunnel events** — both via `MDAppTelemetry`. Auto-stamps 9 common props (AndroidId, TelemetryCorrelationId, Persona, EnrollmentType, SessionIdTenantId, TenantIdPII, MachineId, TenantLicenseType, TenantOrgName).
-2. **Raw landing:** 1DS → `MDATPAndroidDB.customEvents` on `mdatpandroidcluster.westus2.kusto.windows.net`. JSON props column = `EventProperty`.
-3. **10 domain subtables (one event → one subtable):** `TelemetryMalwareScan`, `TelemetryAuth`, `TelemetryCompliance`, **`TelemetryVPNAndWebProtection`** (GSA's home — `Vpn*`/`Tunnel*`/`Naas*`/`Edge*`), `TelemetryAppLifecycle`, `TelemetryHeartbeat`, `TelemetryNetworkMonitoring`, **`TelemetryConfiguration`** (ECS flag evals), `TelemetryProductHeartbeat`, `TelemetryGeneral` (catch-all). Update policy idiom: `| where name in (...) | evaluate bag_unpack(EventProperty)`. 632 events total (Feb 2026 validation).
-4. **Aggregations:** `libraries/AggregatedTables/*.py` configs → Azure Function `KustoQueryFunc`, hourly modulo-scheduled (`hoursSinceEpoch % interval == 0`), interval ∈ {6,12,24,48,72,168,720}. Server-side `.set-or-append`, zero egress. Outputs to `"dashboard"` folder; alerts to `"alerts"` (via `libraries/Alerts/*.py`). PR-validated against live ADX via `ValidateKqlQueryADX.py`. **No standalone `.kql` files — all KQL embedded in Python configs.**
+**Verified `agency` is already on Saloni's machine:** `/Users/salonijain/.config/agency/CurrentVersion/agency`. ICMProd is NOT registered in her `~/.copilot/mcp-config.json` — irrelevant for the Python-subprocess path (the Copilot prefix `ICMProd-` only applies inside Copilot runtime).
 
-**Discipline (strict):** PascalCase for event names + property keys (enforced). No hardcoded strings — names + keys come from codegen'd Kotlin classes in `WD.Mobile.Xplat.Infra` (`*EventProperties.NAME`); hardcoded literals are PR-blocking. `"dashboard"` + `"alerts"` are the only folders the engine mutates.
+**Key technical contract (port verbatim):**
+- Handshake: `initialize` (60s) → `notifications/initialized` → `tools/list` → **sleep 6s** (`WARMUP_DELAY_S`) → `tools/call`. Skipping the sleep triggers upstream "A new session can only be created by an initialize request" race.
+- Per-run sequence: `search_incidents`(states=Active,Mitigating, **no** dateRange) → `search_incidents`(states=Mitigated, sortBy LastModifiedDate Desc, no dateRange) → `get_on_call_schedule_by_team_id` → optional `get_ai_summary` per active Sev≤2 ICM.
+- **D-138 lesson:** removing `dateRange.createdAfter` is critical — earlier HP versions silently dropped long-running open ICMs created >7d ago. Mirror the regression tests.
+- `collect()` never raises — `source:"partial"` envelope on auth/CLI failure, banner renders in template.
 
-**Feature-flag model — `EcsManager` + `ConfigUtils`, 6-layer cleanup pattern.** Runtime: `EcsManager.isFeatureEnabled("Feature/Name", default)`. Hierarchical slash-separated names (`Tunnel/EnhancedConnectivity`, `Experiments/OnboardingFlow/StepOptimization`). **Audience predicates include `user type, enrollment, android version, device, tenant`** (FeatureFlags.md L11) — that's the version-rollout mechanism that creates Windows-v2.28.96-style regressions on Android. Cache pattern: `AtomicBoolean` in `@Singleton FeatureManager`, subscribed to `HANDLER_MSG_ECS_CONFIG_REFRESH` on `MDRxBus`. 6-layer footprint (per `ecs-cleanup.agent.md`): constant → `ConfigUtils` wrapper → `EcsManager` call → cached `AtomicBoolean`+refresh subscriber → gated `if/else` → test mocks. 100%-rolled-out flags must come down through all 6.
+**Port topology decision (no new agent):**
+- New skill: `.squad/skills/icm-queue-ingest/SKILL.md` (port HP's `icm-via-mcp/SKILL.md`, swap team_id literal `115956→106961`).
+- New script: `tools/icm_collector.py` (port HP's verbatim, swap defaults).
+- Config knob: `.squad/config.json :: icm.team_id = 106961` (canonical, override hierarchy CLI > env `AHCS_ICM_TEAM_ID` > config > default).
+- Scully runs the collector; Reyes extends the report template with `📟 On-Call Today` (replace TBD) and new `🚨 Active ICM Incidents` block (3 tables: Customer-Created Active / System-Created Active / Mitigated Highlights + Patterns bullets); Skinner owns narrative Patterns when live; Doggett owns the skill doc.
 
-**Tests:** MockK is the law; PowerMock banned. All extend `MDBaseUnitTest`. Telemetry idiom: `mockkStatic(TelemetryUtils::class); every { TelemetryUtils.track(any()) } returns Unit` + `verify(exactly = 1) {...}`. For combined events: `mockkStatic(CombinedTelemetryUtils::class)`. **Unit tests do NOT cover subtable routing** (Kusto update policy — validate via `customEvents | where name == ... | bag_unpack | take 10`) **or aggregation correctness** (PR-time `ValidateKqlQueryADX.py`).
+**v2 report-section shape:** 3 tables with columns `ICM ID | Sev | Age | Title | Status` (or `… | Mitigated` for mitigated); sort Active by `Severity Asc, CreatedDate Desc`, Mitigated by `LastModifiedDate Desc`; severity emoji prefix (🔴 Sev0/1, 🟠 Sev2, 🟡 Sev3, ⚪ Sev4, 🧪 TestICM-tagged surfaced not filtered); portal link template `https://portal.microsofticm.com/imp/v3/incidents/details/<id>/home`.
 
-**Build:** Java 17 + NDK `25.2.9519653` (exact) + CMake `3.22.1` + Python 3.11 via `uv` + Conan `1.59.0` (exact, NOT 2.x) + Rust stable + `cargo-ndk`. Bootstrap `./init.sh` or `python3 init.py`. `local.properties` carries 9+ PAT/API keys — `vstsPassword` is the gate.
-
-**Shared engine (NOT in WD.Client.Android — in `WD.Mobile.XPlat.Infra`):** `KustoQueryFunc/` (.NET 8 isolated-worker Azure Function) + `AutomationInfra/scripts/python/AggregatedTableInfra/` (Python validation + manifest gen) + 5-stage deploy pipeline.
-
-**Gotchas worth memorizing:**
-- Cluster reachability: `mdatpandroidcluster.westus2.kusto.windows.net` is `westus2`; auth posture should carry over from `idsharedwus`/`idsharedscus` (same tenant), but **smoke-test owed**.
-- Time column on Defender ADX is **`timestamp` (lowercase)** — AI/standard ADX convention. Differs from NaasProd's `TIMESTAMP` (uppercase).
-- `androidId` 3-char truncation (ICM C1 footnote) — cross-cluster joins keyed on `androidId` must fall back to `startswith substring(__ANDROID_ID__, 0, strlen(__ANDROID_ID__) - 3)`.
-- NaaS call-site convention: `NaaSTelemetrySender.logTelemetry(...)` sets `EventProperty.SubEvent = "NaaS"` + `EventProperty.Message = <free-form>`. When in doubt about an Android NaaS event, filter by `tostring(EventProperty.SubEvent) == "NaaS"` first. `NaasVPNFailure` fires from two locations distinguished by `Message starts with "Connecting failed"` vs `"Running failed"`.
+**Pre-reqs for Saloni (blockers for first live run):**
+1. One interactive `agency mcp icm` invocation to complete Entra browser auth (one-time, ~30s).
+2. Confirm her identity has read on ICM team `106961`.
+3. Greenlight first live collector run under her creds.
 
 **Worked this pass:**
-- Updated `agents/doggett/research/defender-android-discovery.md` with "ICM-Copilot Doc Discovery (2026-06-05)" section.
-- NEW `agents/doggett/research/android-telemetry-model.md` — 1-page reference.
-- NEW `.squad/skills/android-version-regression-detection/SKILL.md` — confidence LOW; Android analog of Windows v2.28.96 playbook. ClientVersion pivot + per-version metric divergence + ECS flag-eval diff + flag-gating concentration test + 3-way mitigation routing (flag rollback / version rollback / audience narrow). **First real use must pair with Scully.**
-- Decision `decisions/inbox/doggett-android-telemetry-docs-ingested.md` (merged to `decisions.md` this scribe pass).
+- `agents/doggett/research/harrypotter-icm-port-plan.md` (full A–F).
+- `decisions/inbox/doggett-harrypotter-icm-discovery.md` (decision = adopt HP pattern as `icm-queue-ingest` skill, confidence HIGH on pattern / MEDIUM on first-run UX, supersedes none).
 
-**Still blocked (all VSTS-gated):**
-- GSA module exact path inside WD.Client.Android (only inferred via routing prefixes: `vpn`/`tunnel`/`naas`/`edge`).
-- Internal `.squad/`/`.copilot/`/`agents/`/`skills/`/`plugins/` dirs inside WD.Client.Android.
-- Out-of-band crash reporter confirmation (Firebase Crashlytics suspected from `FirebaseApiKeyDebug` in `local.properties`).
-- Exact `*EventProperties.NAME` constants for GSA failure modes (505, `SuccessSettingsNotFound`, hypothesized 631/632 analog) — known to live in codegen'd classes in `WD.Mobile.Xplat.Infra`, exact strings need grep.
-- Whether any of the 7 proposed Android-specific report fields already have `libraries/AggregatedTables/*.py` configs.
+**Did NOT do (per task hard rules):** ran no live ICM calls; spawned no sub-agents; committed nothing.
 
-## 2026-06-05T12:55:00Z — Scribe cross-agent
-Scribe summarized this history file (was 21,534 bytes, over the 15,360 gate). Full prior content preserved at `agents/doggett/history-archive.md`. Both new decisions (Scully's ICM baseline + Doggett's telemetry docs ingest) merged to `decisions.md` with explicit supersession clarification on the prior "GSA Kusto Catalog adopted" decision. Mulder/Reyes/Skinner histories updated with MDATPAndroidDB correction + GSA→`TelemetryVPNAndWebProtection` routing + 22 ICM-vetted queries mapped + version-regression skill availability.
+**Open questions parked for Saloni:** lookback window confirmation (7d default proposed), cross-team routing-rot check ids (95422 Windows + 115956 Mac?), AI-summary default on/off, final landing path for `tools/icm_collector.py` (top-level `tools/` vs new `androidlivesite/` package skeleton).
+
+## 2026-06-06T11:25Z — Authored `icm-queue-ingest` skill
+
+**Headline:** Turned the HP port-plan discovery into a durable team-knowledge skill so future Scully/Reyes/Skinner runs (and any future agent picking up ICM work) have one canonical reference. Skill doc is the operational summary; discovery doc remains the audit trail (linked, not duplicated).
+
+**Output:** `/Users/salonijain/workspace/AndroidHealthCheckService/.squad/skills/icm-queue-ingest/SKILL.md` (~17KB). Structure follows the existing `gsa-kusto-catalog-android-slice` shape (Owner / Confidence header + KNOW / DO / CHECK / Common Rationalizations / Red Flags + Citations + Evolution). Confidence chosen: **MEDIUM** — HP pattern is regression-tested (D-138 suite), but first live run against team `106961` lands today; promote to HIGH after one clean unattended cycle.
+
+**Locked-in contract in the skill (the non-negotiables):**
+- `agency mcp icm` stdio JSON-RPC; 5-step handshake including load-bearing `WARMUP_DELAY_S = 6`.
+- 4 tools per run: `search_incidents` ×2 / `get_on_call_schedule_by_team_id` / optional `get_ai_summary` (Sev ≤ 2.5 + CRIs only — upstream restriction).
+- **No `dateRange`** on either `search_incidents` call (D-138 regression discipline).
+- Single source of truth for `team_id`: `.squad/config.json :: icm.team_id` with override hierarchy CLI > env `AHCS_ICM_TEAM_ID` > config > default. Hardcoding `106961` is a red flag.
+- `collect()` never raises — `source: "partial"` envelope is the failure contract.
+
+**Citations included** (HP audit lineage): `livesite/scripts/icm_collector.py`, `livesite/scripts/tests/test_icm_collector.py`, `.squad/skills/icm-via-mcp/SKILL.md`, `.squad/skills/mac-active-icm/SKILL.md`, HP template line ranges (15–28 on-call, 601–653 active ICMs).
+
+**Decision dropped:** `/Users/salonijain/workspace/AndroidHealthCheckService/.squad/decisions/inbox/doggett-icm-queue-ingest-skill-authored.md` ("Adopted: icm-queue-ingest skill formalizes HP-ported ICM collector pattern for team 106961. confidence: medium. supersedes: none.").
+
+**Did NOT do (per task hard rules):** committed nothing (Scribe's job); spawned no sub-agents; did not duplicate the discovery doc; did not write/touch the collector code (Scully's port).
+
+## 2026-06-08T16:23Z — Scribe: Orchestration log + multi-day arc summary
+
+Scribe wrote orchestration logs for the 2026-06-06 spawn batch (4 entries: doggett-3, doggett-4, scully-4, reyes-1) and a session log covering the HP discovery → skill authoring → collector port → v2 report arc. Mulder and Skinner flagged for cross-team review on: (1) new `icm-queue-ingest` skill (confidence MEDIUM, promote to HIGH after second clean cycle), (2) team 106961 queue-identity open question (confirm Android vs XPlat parent), (3) detector-silence finding (zero system-detected ICMs while server shows 0.36% tunnel failure 5× ramp).

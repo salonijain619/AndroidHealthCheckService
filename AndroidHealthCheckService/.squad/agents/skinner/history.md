@@ -49,3 +49,17 @@ Scully + Doggett ran in parallel against `WD.Client.Android-icm-copilot/agent-do
 - **22 of 30 Defender-vetted ICM queries** now mapped to specific daily-livesite-report sections — see Scully's new `android-icm-baseline-mapping/SKILL.md` and the section-index table at the top of `android-kusto-starter/SKILL.md`.
 - **Version-regression detection pattern** for Android (analog of Windows v2.28.96 playbook) — see Doggett's new `android-version-regression-detection/SKILL.md` (confidence LOW; pairs Doggett+Scully on first use). Uses ECS feature-flag `ClientVersion`-targeting + per-version metric divergence.
 - Decisions `scully-icm-baseline-adopted` + `doggett-android-telemetry-docs-ingested` merged to `decisions.md`, PROPOSED, pending Mulder ack. Clarification note appended to prior "GSA Kusto Catalog adopted" decision flagging the supersession.
+
+## 2026-06-08T16:23Z — Cross-team notification: ICM v1 integration shipped + detector silence finding
+
+**From:** Doggett, Scully, Reyes (orchestrated by Scribe)
+
+**New skill:** `.squad/skills/icm-queue-ingest/SKILL.md` (confidence MEDIUM, promote to HIGH after second clean cycle). HarryPotter's `agency mcp icm` pattern ported for team 106961. Single source of truth `.squad/config.json :: icm.team_id`. Doggett owns doc maintenance; Scully executes per report cycle; Reyes owns template sections (On-Call + Active ICM Incidents + Patterns).
+
+**v2 report shipped:** `daily-livesite-report-android-2026-06-06.md` at repo root. NAAS v1 preserved verbatim. Three new ICM sections live (On-Call roster, Active ICM counts/tables, Patterns). Effective real-incident = 0 (one TestICM-flagged Sev3 doesn't count). On-call primary `dileepkusuma`, backup `samirnen`.
+
+**Findings for your review:**
+1. **Detector silence is suspicious.** Zero system-detected ICMs on team 106961 while Scully's NAAS 7d pull shows 0.36% sustained tunnel failure (5× ramp). Either no Android-tagged detector exists on the queue or routing isn't hooking detector-emitted ICMs. Your narrative Patterns bullets in the report and your severity-escalation logic both need to account for this disconnect: a real failure ramp with zero ICM creation is either "detector unaware" or "routing broken." Worth an ack from you that this isn't a "false reassurance" artifact before we ship the report.
+2. **Queue identity open question for Saloni.** `owningTeamId=106961` returns `owningTeamName="GSA  Client - XPlat"` (with double-space typo from ICM). Confirm 106961 is the Android queue vs a parent queue with an Android sub-queue. If sub-queue exists, entire ICM section is scoped to the wrong target.
+
+**Decisions merged:** 6 inbox files (HP discovery, skill authored, NAAS 7d, v1 report, ICM first pull, v2 report) into `.squad/decisions.md`.
