@@ -12,6 +12,7 @@
 
 ## Learnings
 
+- On-Call section: keep the table, drop the sourcing/freshness prose. Saloni wants the data, not the metadata.
 - v3 trim — Saloni wants ICM data-first (table over prose), no on-call section in weekly cadence, no DQ tail. Pattern for v4+: lead with data, push commentary into Top Insights / Cross-Domain only.
 
 ### 2026-06-05: Daily Livesite Report Skeleton Established

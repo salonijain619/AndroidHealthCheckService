@@ -36,6 +36,13 @@ _Live as of 2026-06-08, no movement in 24h. Queue: team 106961._
 
 🔁 **Data-quality recurring row — ghost columns + region casing duplicates still unfixed at day 4.** `FlowStatusError` / `FlowErrorClassification` / `LatencyMs` / `Msg` reproduced SEM0100 today; `WestEurope`/`westeurope`, `CentralUs`/`centralus`, etc. still split across two rows. Recommend filing schema and normalization tickets — these are silently degrading every report's latency and per-region rollup.
 
+## 📟 On-Call Today
+
+| Role | Engineer |
+|---|---|
+| 🔴 Primary | dileepkusuma |
+| 🟡 Backup | samirnen |
+
 ---
 
 ## Key Metrics
