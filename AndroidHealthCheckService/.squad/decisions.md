@@ -486,3 +486,52 @@ Adopt HP's pattern wholesale, parameterized on our team id:
 **Raw JSON:** `tools/icm/runs/icm-run-2026-06-06.json`
 **Structured data:** `.squad/agents/scully/research/icm-team-106961-data-2026-06-06.md`
 
+---
+
+## 2026-06-08 — NAAS Kusto reachability blocker (RESOLVED)
+
+**Filed by:** Scully  
+**Status:** RESOLVED — cluster reachability restored 2026-06-09  
+**Source:** `.squad/decisions/inbox/scully-naas-kusto-reachability-blocker-2026-06-08.md`
+
+**Incident:** `idsharedwus.kusto.windows.net` cluster unreachable at TCP layer on 2026-06-08T12:00Z. Two `azure-mcp-kusto` queries and direct `curl` attempts all returned HTTP 503 / `Operation timed out (idsharedwus.kusto.windows.net:443)`.
+
+**Root cause:** Corporate VPN/firewall egress filtering. Cleared overnight 2026-06-09 by Saloni.
+
+**Verification:** 2026-06-09T09:11Z — HTTP 401 unauth challenge confirmed (port 443 TCP reachable), all three Kusto databases queried successfully.
+
+**Impact on reporting:**
+- 3 days of NAAS telemetry (2026-06-06..2026-06-08) unavailable for real-time analysis
+- v1 baseline (last-good = 2026-06-05) served as "no movement detected" floor
+- v3 NAAS pull executed post-unblock with fresh 7d window (2026-06-02..2026-06-09)
+
+**Legacy artifacts:** `naas-7d-report-data-2026-06-08.md` retained as blocked-stub (documented yesterday's attempt; superseded by 06-09 drop).
+
+---
+
+## 2026-06-09 — NAAS tunnel failure-rate ramp escalating: second-step confirmed, 1P hypothesis falsified (ACTIVE)
+
+**Filed by:** Scully  
+**Status:** ACTIVE — P2 trending toward P1  
+**Source:** `.squad/decisions/inbox/scully-naas-ramp-second-step-20260609.md`
+
+**Headline:** Re-running v1 query suite over 2026-06-02..2026-06-09 (7d closed window) confirms tunnel failure-rate ramp continues past v1 plateau, reaching **0.447% on 2026-06-08** (highest single-day rate in 11d observation).
+
+**Key findings:**
+1. **Ramp escalation confirmed:** 0.074% (5/29) → 0.36% plateau (6/02–6/04) → **0.385% (7d total), +35% failures vs prior 7d** — all-quality-driven (traffic essentially flat).
+2. **Microsoft 1P hypothesis FALSIFIED:** S6b non-1P probe shows fail-rate 0.49–0.60%, HIGHER than 0.39% global. Regression is platform-wide, not dogfood-rollout artifact.
+3. **Strongest single-version anchor:** `1.0.9003.0401` (`.04xx` ring) cohort +55% growth, fail-rate +131% (0.271% → 0.626%). Concentrated in 2 tenants (likely internal ring).
+4. **EU regions intensifying:** germanywestcentral +67%, NorthEurope +61%, SwedenCentral +114%. UK South remains largest absolute (118K fails/7d).
+5. **Detector silence confirmed across 3-pull span** (06-05, 06-06, 06-08): no ICM incidents flagged while server-side ramp crosses 0.44%.
+6. **Ghost columns unfixed 4 days:** `FlowStatusError`, `FlowErrorClassification`, `LatencyMs`, `Msg` still SEM0100 on `TunnelServerOperationEvents`. Recurring DQ issue upstream.
+
+**Immediate actions:**
+- **Mulder (triage):** Investigate tenant `9cf9036f-5fc5-475d-846d-94ea941e4bfc` (105 fails/device, 45 devices) and `0e17f90f-…` (+40% failures, 165/device).
+- **Doggett (ring owner):** Identify `.04xx` build flavor and `1.0.9003.0401` identity (likely internal ring, 2 tenants).
+- **Skinner (incidents):** Treat detector silence as confirmed routing gap; escalate to platform team.
+- **Platform (escalation):** Ghost columns + Region casing upstream defects, 4 days unfixed.
+
+**Source files:**
+- Current drop: `.squad/agents/scully/research/naas-7d-report-data-2026-06-09.md`
+- v1 baseline: `.squad/agents/scully/research/naas-7d-report-data-2026-06-05.md`
+
