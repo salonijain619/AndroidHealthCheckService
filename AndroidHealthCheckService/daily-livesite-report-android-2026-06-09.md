@@ -4,51 +4,21 @@
 
 > **v3 note (2026-06-09):** This cycle re-pulled NAAS telemetry in full (10/10 substantive queries succeeded; 1 deliberate ghost-column re-check reproduced verbatim). ICM data is **live as of 2026-06-08** — Scully confirmed zero state movement in the prior 24h, so v3 reuses the 06-08 envelope without a re-pull. Major v3 changes vs v2: (1) ramp anchor **strengthened, not stabilized** — second step up; (2) v1/v2 Microsoft-1P cross-domain candidate **falsified** and removed; (3) new `1.0.9003.0401` ring promoted to top single-version suspect; (4) detector silence now 3 consecutive pulls with zero auto-ICMs against a 6× ramp.
 
-## 📟 On-Call Today
-🔴 **Primary**    dileepkusuma
-🟡 **Backup**     samirnen
+## ICM Snapshot
 
-*Source: `get_on_call_schedule_by_team_id` on team 106961, live 2026-06-08; unchanged across 3 consecutive pulls (06-06, 06-08, 06-09 — no rotation movement in 3 days).*
+_Live as of 2026-06-08, no movement in 24h. Queue: team 106961._
 
----
+| Bucket | Count | Notes |
+|---|---|---|
+| 🔴 Active + Mitigating | 1 | Sev3 #810723164 (TestICM, unack'd 5+ days) |
+| By Severity | Sev1: 0 · Sev2: 0 · Sev3: 1 · Sev4: 0 | — |
+| Customer-reported (`type=CustomerReported`) | 1 | — |
+| System-detected | 0 | 🔴 Detector silence — 3-pull confirmed |
+| 🧪 TestICM-flagged | 1 | Excluded from real-incident count |
+| Mitigated last 7d | 0 | Same observation 3 pulls running |
+| **Effective real-incident count** | **0** | After TestICM filter |
 
-## 🚨 Active ICM Incidents
-
-> **ICM Snapshot (live as of 2026-06-08, no movement in 24h)** — Scully's 06-08 envelope was byte-identical to the 06-06 envelope (5,335 bytes) and the lone active ICM's `lastModifiedDate` is frozen at `2026-06-06T06:01:04.97Z`. Coordinator confirmed no re-pull required for 06-09.
-
-🔴 **Active+Mitigating: 1**  &nbsp;|&nbsp;  **Severity:** Sev1: 0 · Sev2: 0 · **Sev3: 1** · Sev4: 0  &nbsp;|&nbsp;  **Customer-reported (`type=CustomerReported`):** 1 · **System-detected:** 0  &nbsp;|&nbsp;  🧪 **TestICM-flagged:** 1  &nbsp;|&nbsp;  **Effective real-incident count: 0**
-
-### 👤 Customer-Created Active
-
-| ICM ID | Sev | Age | Title | Status |
-|---|---|---|---|---|
-| [#810723164](https://portal.microsofticm.com/imp/v3/incidents/details/810723164/home) | 🟡 Sev3 🧪 TestICM | **5d+** (created 2026-06-03; last-modified 2026-06-06T06:01Z — untouched ~2.5 days) | `[Copilto testing] GSA Android client not working` | ACTIVE (**unacknowledged**) |
-
-> ⚠️ **Bucketing note (v2.1 still pending):** Collector still buckets via HP's `source startswith "customer"` convention; ICMProd's payload actually uses the `type` field (returns `CustomerReported` / `LiveSite` / `Deployment`) and `source` is `None` for this queue. As shipped, this ICM lands in `system_created_active` in the raw envelope. **Workaround: classify on `type == "CustomerReported"` when reading the JSON.** The table above is bucketed correctly on `type`. Bug filed 06-06, still present in 06-08 collector — Doggett owns the one-line predicate swap for v2.1.
-
-> 🏷️ **Owning team (verbatim):** `"GSA  Client - XPlat"` (double-space typo between "GSA" and "Client") — `owningTeamId=106961`. Same drift as 06-06 and 06-08; still not corrected upstream after 5 days. Reinforces the open queue-identity question (is 106961 an XPlat parent rather than an Android-only sub-queue?).
-
-### 🤖 System-Created Active
-
-| ICM ID | Sev | Age | Title | Status |
-|---|---|---|---|---|
-| — | — | — | _No system-detected (LiveSite / Deployment / detector-emitted) ICMs on team 106961_ | — |
-
-### 🟡 Mitigated Highlights (last 7d)
-
-| ICM ID | Sev | Age | Title | Status |
-|---|---|---|---|---|
-| — | — | — | _Zero mitigated ICMs returned for `owningTeamId=106961`_ | — |
-
-> Empty result is a **real signal**, not a windowing regression — D-138 discipline preserved (no `dateRange`, `sortBy=LastModifiedDate Desc, top=50`). Either nothing has ever been mitigated under this team or mitigated work files under the `GSA Client - XPlat` parent. Same observation 3 pulls running.
-
-**Patterns:**
-
-- 🔴 **Detector silence is now a 3-pull confirmed pattern** (06-06, 06-08, 06-09). NAAS server-side fail-rate has ramped from a 0.074% baseline to **0.447% on 6/08** — a **6× ramp** with failure volume +35% week-on-week — and **zero auto-detector ICMs** have fired against team 106961. This is a control-plane gap, not a data-plane gap. Escalation already on books (Mulder/Skinner pending); v3 is the third corroborating data point.
-- ➡️ **Real-incident count stays 0** after TestICM filter. The lone ACTIVE item (#810723164) is a 5+ day unacknowledged test ICM with `keywords: "[IcM Copilot] Test incident / no validated production issue"`. Same incident, same `lastModifiedDate`, third pull in a row.
-- ⚠️ **Aging-without-ack hygiene gap persists.** TestICM has sat unacknowledged on `dileepkusuma`'s queue for 5+ days. Recommend close/non-actionable so it stops skewing active-count optics.
-- ❓ **Queue-identity question still open** — `owningTeamName="GSA  Client - XPlat"` (typo intact). For Saloni: is there an Android-only child queue we should re-target? If so, v3's ICM section may be scoped to a parent.
-- 🔁 **Collector bucketing bug ships for the 3rd consecutive pull.** Workaround is documented and stable, but downstream consumers still need to classify by `type` not `source` until v2.1.
+> ICM data is pulled on a weekly cadence aligned to this report.
 
 ---
 
@@ -85,11 +55,6 @@
 | Android Client Version Distribution Health | Mainstream `.01xx` builds (`8921.0101`, `9002.0102`, `8913.0101`) in 0.33–0.48% band (+21–117%). **`.04xx` ring is now the worst high-volume cohort: `1.0.9003.0401` at 0.626% (+131%), devices +55%.** Long-tail pre-`8900` builds 0.87–2.67% (unchanged decay shape). | ⬆️ Regression on `.04xx` cohort; mainstream ramp is real but bounded. |
 | Business Growth (7d) | Weekday floor: ~23K devices / ~1.1K tenants / ~21M events per day. Weekend dip (6/06–6/07) ~19–20K devices / ~11M events. | ➡️ Flat WoW on active devices; tenant + device counts essentially unchanged. |
 | Client-side cascade (client version × auth × policy fetch × notification) | TBD — Defender-client-side scope locked, pending unlock. | TBD |
-
-**Data Completeness Notes:**
-- All values above are **server-observed** from NaasProd / APS / PKI databases on `idsharedwus`. Run completed 2026-06-09T09:12Z.
-- The **APS device count (818K) is much larger than the Tunnel device count (27.7K)** — same shape as v1; APS counts every device that pings for settings while Tunnel only counts devices that reach the tunnel stage. Both correct for their surfaces; do not equate.
-- The 2026-06-09 window edge (closed at `00:00:00Z`) catches a 187-event sliver tagged exactly at the boundary — negligible noise, called out for traceability.
 
 ---
 
@@ -162,44 +127,6 @@ Two-step tunnel fail-rate ramp (0.074% → 0.36% → 0.42–0.45%)
 4. ⏳ Doggett: PROFILE_UNDEFINED join — Tunnel failures (empty TenantId) ↔ APS GetSettings on `DeviceId` within ±5min to confirm config-bootstrap race; measure first-non-empty-profile lag per device.
 5. ⏳ Mulder/Skinner: detector-silence escalation — why is no auto-ICM firing on a 6× server-side ramp? (3 pulls of corroboration.)
 6. ⏳ Client-side cascade — **deferred until Defender-client-side scope is unlocked.** Cannot confirm whether the ramp has a client-side antecedent (new build, ECS flag flip) without `MDATPAndroidDB`.
-
----
-
-## 📊 Data Quality Notes
-
-- **Telemetry sources (this cycle):** Kusto `idsharedwus.kusto.windows.net` — databases `NaasProd` (TunnelServerOperationEvents), `NaasAgentServicesApsProd` (AgentGetSettingsOperationEvent, AgentSettingsAckOperationEvent), `NaasCloudPkiProd` (EnrollCertificateOperationSummary). Auth via `azure-mcp-kusto` default credential (Azure CLI) — clean, no auth walls; yesterday's TCP-timeout block is cleared.
-- **Out of scope (active scope lock):**
-  - `mdatpandroidcluster.westus2.kusto.windows.net / MDATPAndroidDB` (all Defender client-side; 22 ICM baseline queries CL-A1…CL-N12 still deferred).
-  - `naas-idsharedscus` (full 37-table NaasProd) — not consulted this cycle; needed for Private Access / EU path attribution next cycle.
-
-### Recurring DQ Row (escalating visibility — open 4 days, no upstream fix)
-
-| # | Issue | First Seen | Status | Recommended Action |
-|---|-------|-----------|--------|---------------------|
-| 1 | **Ghost columns on `TunnelServerOperationEvents`** — `FlowStatusError`, `FlowErrorClassification`, `LatencyMs`, `Msg` advertised in `getschema` but return `SEM0100: Failed to resolve scalar expression` at query time. Server-side latency p50/p95/p99 silently unavailable. SEM0100 reproduced today at 2026-06-09T09:12:49Z. | 2026-06-05 (v1) | 🔴 **OPEN 4d, no upstream fix** | **File schema ticket with NaaS data-platform team.** Owner: Skinner/Mulder. Reyes continues surfacing each cycle until closed. |
-| 2 | **Region casing duplicates** — `WestEurope`/`westeurope`, `CentralUs`/`centralus`, `NorthEurope`/`northeurope`, `SouthAfricaNorth`/`southafricanorth` all still split across two rows from two ingestion paths. Aggregating by `tolower(Region)` recommended but not done in raw drop (preserved as-emitted for cross-cycle comparability). | 2026-06-05 (v1) | 🔴 **OPEN 4d, no normalization** | **File normalization ticket** (canonical casing decision + sink-side `tolower` OR ingestion-path fix). Owner: Doggett to identify the two paths. |
-
-### Other DQ items (carried forward, lower urgency)
-
-- **APS sibling-table schema divergence** — `HttpResponseStatusCode` present on `AgentGetSettingsOperationEvent`, absent on `AgentSettingsAckOperationEvent`. Worked around using `ResultStatus` only. Same as v1.
-- **PKI `DeviceId` placeholder for Android** — Android enrollments return `Devices=1` (placeholder). Use TenantId for valid per-tenant counts (1,326). Same as v1.
-- **Upstream string typos preserved as emitted** — `ClientFailureAuthenticaiton` (APS GetSettings), `ProcceedSuccessfully` + `ClientFailureAuth` (APS Ack). Not silently corrected; Doggett's upstream team owns.
-- **Owning-team typo** — ICM returns `owningTeamName="GSA  Client - XPlat"` (double-space) for `owningTeamId=106961`, still uncorrected upstream after 5 days. Cosmetic but reinforces queue-identity open question.
-
-### ICM Integration (v3 cycle — 3rd live pull)
-
-- **Source:** `agency mcp icm` (collector ported from HarryPotter) → `search_incidents` (Active+Mitigating, Mitigated×Desc), `get_on_call_schedule_by_team_id`. ICM data live as of **2026-06-08**, no movement in 24h (envelope byte-identical to 06-06).
-- **Raw output:** `tools/icm/runs/icm-run-2026-06-08.json` (5,335 bytes).
-- **Collector bug v2.1 STILL PRESENT** (3 pulls running): bucketing predicate uses HP's `source startswith "customer"` heuristic but ICMProd's payload uses the `type` field (`CustomerReported` / `LiveSite` / `Deployment`) with `source: None`. **Workaround for downstream consumers: classify by `type == "CustomerReported"` when reading JSON.** Bucketing fix owed in v2.1 (one-line predicate swap, Doggett).
-
-### Open Questions
-
-1. Should Play Store vs sideload/MAM channel adoption be segmented? (Cannot answer without client-side install-source telemetry.)
-2. Android OS-version split health tracking — baseline expectations by API level? (Client-side.)
-3. Device model/OEM error variance — reportable signal or noise? (Client-side.)
-4. Is the 6× tunnel-failure ramp driven by a client build rollout? (Cannot answer without client-side `ClientVersion × time` pivot — though `.04xx` is the new lead.)
-5. **Confirm 106961 is the correct Android queue, or re-target to an Android-only sub-queue.** `owningTeamName="GSA  Client - XPlat"` suggests parent-queue routing; an Android-only child queue may exist that we're missing. (Open since v2; still unanswered.)
-6. **Why is no detector firing on a 6× server-side ramp?** 3 consecutive ICM pulls have shown zero auto-detector ICMs. Either no Android detectors are wired in, or routing is misdirecting them to a different queue. (Open since v2; escalation in flight.)
 
 ---
 

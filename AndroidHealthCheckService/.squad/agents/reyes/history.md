@@ -12,6 +12,8 @@
 
 ## Learnings
 
+- v3 trim — Saloni wants ICM data-first (table over prose), no on-call section in weekly cadence, no DQ tail. Pattern for v4+: lead with data, push commentary into Top Insights / Cross-Domain only.
+
 ### 2026-06-05: Daily Livesite Report Skeleton Established
 **Template files created:**
 - `.squad/templates/daily-livesite-report.md` — canonical skeleton with placeholders for metrics, insights, and correlations
