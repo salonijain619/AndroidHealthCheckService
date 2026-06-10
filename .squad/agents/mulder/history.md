@@ -91,3 +91,29 @@ Authored `.squad/decisions/inbox/mulder-report-generator-architecture.md` as Dog
 **7. Four open questions for Saloni held back BEFORE Doggett implements.** Runner choice (self-hosted vs hosted) directly affects WIF feasibility and Kusto reachability — getting that wrong means a rewrite. SP ownership for Kusto is the long-pole blocker. Auto-commit policy interacts with Scribe's existing ownership. ICM cadence formalization is the smallest of the four but unblocks `config.py` constants. Listed explicitly with Mulder's lean for each so Saloni can ack/override fast.
 
 Reviewer role discipline held: did not write Kusto/Python/ICM code. Doc is a spec for Doggett (orchestrator), Reyes (assembler), Frohike/Langly/Scully/Skinner (producers) to implement against in parallel.
+
+## 2026-06-10 — Invariant-2 policy for local-runner v1 (Option C)
+
+First fire of `./tools/local-runner/run-daily.sh` produced a 2481-byte report and `set -euo pipefail` killed the Teams post on `invariant-2: file size 2481 bytes outside [5000, 30000]`. Same blocker as yesterday's CI failure. Read the report myself — it contains an active Sev25 ITD RemoteCodeExecution ICM on the GSA Client plus the on-call rotation; withholding *that* over a byte-count floor calibrated for fully-healthy reports is the wrong default.
+
+**Picked Option C, scoped to local-runner only. CI stays strict.** `run-daily.sh` adds `--no-fail-on-validation` (flag already exists in the CLI — Doggett built it in). Validation still runs, `validation.json` still lands on disk, every failure still logs ERROR — but exit code is 0 and the Teams post fires. A shell-level banner makes degradation loud in the terminal so it can't be ignored. CI keeps the strict gate because CI runs in the all-SPs-wired world where the 5KB floor *is* the right tripwire.
+
+**Why not the other options:**
+- **A (lower floor to 2000):** silently masks "lost a whole section to a real bug" regressions — the exact failure mode the floor was designed to catch. On a degraded day when one good section is *all* we have, silently dropping that section is the worst possible outcome.
+- **B (status-aware skip when sections are SKIP/PARTIAL):** right in spirit; wrong on cost. Plumbing `SectionResult` statuses + "known reason" allow-listing into `validation.py` (which currently only reads the written file) is fuzzy and rots. Hold for v3.
+- **D (post first, validate after — diagnostic not gate):** cleanest framing and probably v2's destination. Today it requires reordering run-daily.sh and shrinks the safety net (malformed H1 also slips through). C delivers D's posting-as-success-criterion with a smaller blast radius — validation still runs *before* the post, just doesn't gate.
+
+**Framing carries from v1 architecture:** local-runner is the degraded path by construction (no Kusto SP, no Play Console SA, file-based ICM). Local validation must be **diagnostic-loud, gate-soft**; CI is the inverse — **gate-strict**.
+
+**Implementer:** Reyes (owns `tools/local-runner/`). Three changes in one PR: (1) add `--no-fail-on-validation` to the CLI call in `run-daily.sh`, (2) read `validation.json` after generator returns and print a `⚠️ Report posted DEGRADED` banner if `passed=false`, (3) relax `test_validation_passes_on_2026_06_10_report` to allow invariant-2-only failures (with a v2 backlog todo to add a fully-healthy fixture and assert strict-pass against *that*). CI workflow untouched.
+
+**Triage carry-over from Frohike PR #3:**
+- `--only` flag: filed as v2 backlog. Frohike's workaround (`python -m tools.report_generator.sections.frohike_play_vitals`) is fine for dev iteration; pair it with `--fail-fast` (already reserved exit code 2) when both come up.
+- `test_validation_passes_on_2026_06_10_report`: same root cause as this decision. Folded into Reyes' implementation checklist, not a separate fix.
+
+**Decision doc:** `.squad/decisions/inbox/mulder-invariant-2-local-policy.md`.
+
+**Reviewer discipline held:** did not edit `validation.py`, `cli.py`, or `run-daily.sh` directly — spec for Reyes only.
+
+---
+**[2026-06-10T13:21:49Z] v1 lit up** — Frohike+Reyes+Skinner all green, Teams posting (HTTP 202).

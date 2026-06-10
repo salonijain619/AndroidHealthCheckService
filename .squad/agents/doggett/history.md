@@ -131,3 +131,6 @@ The active `gh` token had scopes `gist, read:org, repo` but NOT `workflow`. The 
 - Saloni needs to run interactively: `gh auth refresh -h github.com -s workflow` and then `cd AndroidHealthCheckService && git push origin master`. After that push, the workflow becomes visible to Actions and `gh workflow run` will work.
 
 So: visibility is one `git push` away, blocked only on a token-scope refresh that requires Saloni's browser. Everything else (restructure, backup branch, local bundle, workspace cleanup, tests) is done.
+
+---
+**[2026-06-10T13:21:49Z] v1 lit up** — Frohike+Reyes+Skinner all green, Teams posting (HTTP 202).

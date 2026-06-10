@@ -77,3 +77,6 @@ Paired with Reyes; Skinner owned the producer rewrite. Branch `track3-track4-fil
 - **Skip hatches preserved:** `REPORT_GENERATOR_SKIP_ICM=1` short-circuits to SKIP before any file read. CI still has this set; code is ready for the workflow-scoped PR to drop it.
 - **Producer publishes for downstream:** `metadata = {auth_path, input_path, pull_date, pull_age_hours, on_call: {primary, backup}, active_count, mitigated_count}`. Reyes reads `on_call` from here.
 - **Helper:** `tools/icm/refresh-local.sh` redirects `python -m tools.icm.icm_collector --team-id 106961` to `.squad/agents/skinner/icm-latest.json`. (Collector emits JSON on stdout; no `--out` flag.)
+
+---
+**[2026-06-10T13:21:49Z] v1 lit up** — Frohike+Reyes+Skinner all green, Teams posting (HTTP 202).
