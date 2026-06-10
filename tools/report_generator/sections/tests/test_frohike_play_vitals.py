@@ -353,3 +353,86 @@ def test_resolve_credentials_missing(monkeypatch):
     monkeypatch.delenv("PLAY_CONSOLE_SA_KEY", raising=False)
     monkeypatch.delenv("GOOGLE_APPLICATION_CREDENTIALS", raising=False)
     assert fpv._resolve_credentials().status == "missing"
+
+
+# ---------------------------------------------------------------------------
+# _metric_resource — discovery doc shape (v1beta1 Play Developer Reporting)
+# ---------------------------------------------------------------------------
+#
+# The v1beta1 discovery doc exposes metric sets nested under `vitals()`, with
+# the resource name segment lowercased. errorCountMetricSet lives one level
+# deeper (`vitals().errors().counts()`), NOT as a flat sibling. The original
+# implementation called `svc.vitals().crashRateMetricSet()`, which raised
+# AttributeError on the real service object. These tests would have caught
+# that bug and now lock in the correct dispatch.
+
+
+def _fake_service():
+    """Build a chainable mock matching the real v1beta1 discovery shape."""
+    from unittest.mock import MagicMock
+
+    svc = MagicMock(name="service")
+    vitals = MagicMock(name="vitals")
+    svc.vitals.return_value = vitals
+
+    crashrate_res = MagicMock(name="crashrate_resource")
+    anrrate_res = MagicMock(name="anrrate_resource")
+    errors = MagicMock(name="errors")
+    counts_res = MagicMock(name="counts_resource")
+
+    vitals.crashrate.return_value = crashrate_res
+    vitals.anrrate.return_value = anrrate_res
+    vitals.errors.return_value = errors
+    errors.counts.return_value = counts_res
+
+    return svc, {
+        "crashRateMetricSet": crashrate_res,
+        "anrRateMetricSet": anrrate_res,
+        "errorCountMetricSet": counts_res,
+    }
+
+
+@pytest.mark.parametrize(
+    "metric_set",
+    ["crashRateMetricSet", "anrRateMetricSet", "errorCountMetricSet"],
+)
+def test_metric_resource_returns_correct_resource(metric_set):
+    svc, expected = _fake_service()
+    client = fpv.PlayVitalsClient(package_name="com.microsoft.scmx", sa_key_path="/dev/null")
+    assert client._metric_resource(svc, metric_set) is expected[metric_set]
+
+
+def test_metric_resource_rejects_unknown_metric_set():
+    svc, _ = _fake_service()
+    client = fpv.PlayVitalsClient(package_name="com.microsoft.scmx", sa_key_path="/dev/null")
+    with pytest.raises(ValueError, match="Unknown metric set"):
+        client._metric_resource(svc, "bogusMetricSet")
+
+
+def test_metric_resource_uses_lowercase_discovery_accessors_not_camelcase():
+    """Regression guard: the prior bug was `svc.vitals().crashRateMetricSet()`,
+    which AttributeErrors on the real service. The fix must NOT call any
+    camelCase metric-set accessor on `vitals()`."""
+    from unittest.mock import MagicMock
+
+    svc = MagicMock(name="service")
+
+    # Simulate the real discovery doc: vitals() exposes only the lowercase
+    # accessors. Any camelCase access raises AttributeError.
+    class StrictVitals:
+        def __init__(self):
+            self.crashrate = MagicMock(return_value=MagicMock(name="crashrate_res"))
+            self.anrrate = MagicMock(return_value=MagicMock(name="anrrate_res"))
+            errors = MagicMock(name="errors")
+            errors.counts = MagicMock(return_value=MagicMock(name="counts_res"))
+            self.errors = MagicMock(return_value=errors)
+
+        def __getattr__(self, name):  # pragma: no cover - only hit on bug
+            raise AttributeError(f"'Resource' object has no attribute '{name}'")
+
+    svc.vitals.return_value = StrictVitals()
+    client = fpv.PlayVitalsClient(package_name="com.microsoft.scmx", sa_key_path="/dev/null")
+
+    for ms in ("crashRateMetricSet", "anrRateMetricSet", "errorCountMetricSet"):
+        # Must not raise:
+        client._metric_resource(svc, ms)
