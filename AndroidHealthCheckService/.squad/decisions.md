@@ -101,3 +101,35 @@ This is structural, not one-off: every per-version regression Scully or Frohike 
 - **Coordinator:** confirm Langly runs daily ahead of Reyes assembly.
 - **Saloni:** confirm header format is what she wants exec-visible at the top of the report.
 
+---
+
+### 2026-06-10: Mac HarryPotter README — Inaccessible
+**By:** Doggett (Backend/Integration)
+**Status:** NEEDS SALONI INPUT
+
+Attempted to fetch Mac HarryPotter README source for porting four sections (Quick Start / Where reports go / Daily Cadence / Manual Invocation) using curl + gh CLI — both inaccessible (404, gh not installed). Proceeded using checkpoint-004 cached knowledge (Doggett's local 2026-06-06 read of Mac repo) and best-effort structural analogy. Four README sections written and ready; only gap is potential structural divergence from Mac's exact formatting.
+
+**Saloni options:**
+- **(A)** Share Mac HarryPotter README so Doggett can final-pass alignment.
+- **(B)** Confirm current Android README is close enough.
+- **(C)** Grant this environment `gh` CLI access.
+
+Impact: Does NOT block Teams webhook setup. Four sections + workflow scaffold are ready for review.
+
+---
+
+### 2026-06-10: Teams Webhook Setup — Livesite - Mobile Client
+**By:** Doggett (Backend/Integration)
+**Status:** BLOCKED ON SALONI ACTION
+
+Livesite - Mobile Client Teams channel deep-link captured and documented in README.md + `.github/workflows/daily-livesite-report.yml`. Deep-link is navigation-only; automated posting requires Incoming Webhook URL stored as GitHub Actions secret `MOBILE_LIVESITE_TEAMS_WEBHOOK`. Currently workflow runs report-generation but skips Teams post (graceful degradation).
+
+**Saloni action required:**
+1. Create Incoming Webhook in Teams channel (Option A: classic Incoming Webhook; Option B: Power Automate if connectors unavailable).
+2. Store webhook URL as repo secret `MOBILE_LIVESITE_TEAMS_WEBHOOK`.
+3. Uncomment cron schedule in workflow when report-generator is ready.
+
+Channel reference: Group ID `a3312108-40d2-4d8d-a401-066749108606`, Channel ID `19:uDpMueKuWUKAMPQ1RO5qOzAL_R8Dq-ZJrXTUPxM63ZY1@thread.tacv2`.
+
+Open items after webhook: cron activation, report-generator build, Adaptive Card upgrade, webhook test.
+
