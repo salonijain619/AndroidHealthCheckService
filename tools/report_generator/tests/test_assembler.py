@@ -326,9 +326,28 @@ def test_reframe_callout_omitted_when_absent():
 
 
 def test_oncall_falls_back_to_TBD_when_missing():
+    """When Skinner has no on_call metadata and ctx has no override, the
+    on-call resolver falls through to .squad/config/on-call.yaml. The shipped
+    seed entry for 2026-06-10 carries `TBD-update-me` sentinels for both
+    roles, so that's what should render."""
     md = assemble(DATE, _all_go(), {"started_at": datetime(2026, 6, 10, tzinfo=timezone.utc)})
-    assert "| 🔴 Primary | TBD |" in md
-    assert "| 🟡 Backup | TBD |" in md
+    assert "| 🔴 Primary | TBD-update-me |" in md
+    assert "| 🟡 Backup | TBD-update-me |" in md
+
+
+def test_oncall_resolves_from_skinner_metadata():
+    """Skinner JSON-derived on-call metadata is hoisted into the table when
+    ctx doesn't override it (Mulder plan §4 hybrid)."""
+    sections = _all_go()
+    skinner = sections["skinner_icm"]
+    skinner.status = Status.GO
+    skinner.metadata = dict(skinner.metadata or {})
+    skinner.metadata["on_call"] = {"primary": "dileepkusuma", "backup": "samirnen"}
+    md = assemble(
+        DATE, sections, {"started_at": datetime(2026, 6, 10, tzinfo=timezone.utc)}
+    )
+    assert "| 🔴 Primary | dileepkusuma |" in md
+    assert "| 🟡 Backup | samirnen |" in md
 
 
 def test_alias_scully_server_key_accepted():

@@ -172,9 +172,134 @@ def format_date_header(date: str) -> str:
 # --- Block builders -------------------------------------------------------------
 
 
-def _oncall_block(ctx: dict) -> str:
-    primary = ctx.get("oncall_primary") or "TBD"
-    backup = ctx.get("oncall_backup") or "TBD"
+_ONCALL_YAML_PATH = _REPO_ROOT / ".squad" / "config" / "on-call.yaml"
+
+
+def _oncall_from_skinner(sections: dict[str, SectionResult]) -> tuple[str | None, str | None]:
+    """Pull on-call aliases from Skinner's section metadata (preferred source).
+
+    Skinner's producer publishes ``metadata['on_call'] = {'primary': alias,
+    'backup': alias}`` when it loads `.squad/agents/skinner/icm-latest.json`
+    (Mulder plan §4 hybrid recommendation).
+    """
+    skinner = _get(sections, "skinner_icm")
+    if skinner is None or not skinner.metadata:
+        return None, None
+    on_call = skinner.metadata.get("on_call") or {}
+    if not isinstance(on_call, dict):
+        return None, None
+    return on_call.get("primary"), on_call.get("backup")
+
+
+def _oncall_from_yaml(date: str) -> tuple[str | None, str | None]:
+    """Fallback: read manual rotation from ``.squad/config/on-call.yaml``.
+
+    Picks the schedule entry whose ``from <= date <= to`` window contains the
+    report date. Returns (None, None) if the file is missing, unparseable, or
+    no matching entry. Tolerates PyYAML being absent — falls back to a minimal
+    inline parser for the simple schema we ship.
+    """
+    if not _ONCALL_YAML_PATH.exists():
+        return None, None
+    try:
+        text = _ONCALL_YAML_PATH.read_text(encoding="utf-8")
+    except OSError:
+        return None, None
+    data: Any = None
+    try:
+        import yaml  # type: ignore[import-not-found]
+
+        data = yaml.safe_load(text)
+    except ImportError:
+        data = _parse_oncall_yaml_minimal(text)
+    except Exception:  # noqa: BLE001 — best-effort
+        return None, None
+    if not isinstance(data, dict):
+        return None, None
+    schedule = data.get("schedule") or []
+    if not isinstance(schedule, list):
+        return None, None
+    for entry in schedule:
+        if not isinstance(entry, dict):
+            continue
+        frm = str(entry.get("from") or "")
+        to = str(entry.get("to") or "")
+        if frm and to and frm <= date <= to:
+            primary = entry.get("primary")
+            backup = entry.get("backup")
+            primary = str(primary) if primary is not None else None
+            backup = str(backup) if backup is not None else None
+            return primary, backup
+    return None, None
+
+
+def _parse_oncall_yaml_minimal(text: str) -> dict[str, Any]:
+    """Tiny YAML subset reader for the on-call.yaml shape we ship.
+
+    Handles only the documented schema:
+        schedule:
+          - from: YYYY-MM-DD
+            to: YYYY-MM-DD
+            primary: alias
+            backup: alias
+
+    PyYAML is the supported path; this is a no-dependency fallback.
+    """
+    schedule: list[dict[str, str]] = []
+    current: dict[str, str] | None = None
+    in_schedule = False
+    for raw in text.splitlines():
+        line = raw.split("#", 1)[0].rstrip()
+        if not line.strip():
+            continue
+        if not line.startswith(" "):
+            in_schedule = line.strip() == "schedule:"
+            current = None
+            continue
+        if not in_schedule:
+            continue
+        stripped = line.lstrip()
+        if stripped.startswith("- "):
+            if current is not None:
+                schedule.append(current)
+            current = {}
+            stripped = stripped[2:]
+        if current is None or ":" not in stripped:
+            continue
+        key, _, val = stripped.partition(":")
+        current[key.strip()] = val.strip().strip('"').strip("'")
+    if current:
+        schedule.append(current)
+    return {"schedule": schedule}
+
+
+def _resolve_oncall(
+    ctx: dict, sections: dict[str, SectionResult], date: str
+) -> tuple[str, str]:
+    """Resolve the on-call (primary, backup) tuple per Mulder §4 hybrid.
+
+    Precedence: explicit ctx override → Skinner JSON metadata →
+    `.squad/config/on-call.yaml` → "TBD" sentinel.
+    """
+    primary = ctx.get("oncall_primary")
+    backup = ctx.get("oncall_backup")
+    if not primary or not backup:
+        sp, sb = _oncall_from_skinner(sections)
+        primary = primary or sp
+        backup = backup or sb
+    if not primary or not backup:
+        yp, yb = _oncall_from_yaml(date)
+        primary = primary or yp
+        backup = backup or yb
+    return (primary or "TBD"), (backup or "TBD")
+
+
+def _oncall_block(
+    ctx: dict,
+    sections: dict[str, SectionResult] | None = None,
+    date: str | None = None,
+) -> str:
+    primary, backup = _resolve_oncall(ctx, sections or {}, date or "")
     return (
         "## 📟 On-Call Today\n\n"
         "| Role | Engineer |\n"
@@ -453,7 +578,7 @@ def assemble(date: str, sections: dict[str, SectionResult], ctx: dict | None = N
         parts.append("")
 
     # 5. On-Call Today
-    parts.append(_oncall_block(ctx))
+    parts.append(_oncall_block(ctx, sections, date))
     parts.append("")
     parts.append("---")
     parts.append("")
