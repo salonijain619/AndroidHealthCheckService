@@ -107,3 +107,27 @@ Prior entries (2026-06-05 through 2026-06-08) summarized to archive. See `histor
 - `.github/workflows/daily-livesite-report.yml` — replaced placeholder echo with `python -m tools.report_generator.cli --date ... --output ...`; switched deps install to `-r requirements.txt`; cron stays disabled per the "manual workflow_dispatch first" rule.
 
 **Did NOT touch:** `assembler.py` (Reyes), `sections/langly_version.py` (Langly). Stubs for Scully/Frohike are intentionally minimal SKIP returns — they overwrite freely.
+
+---
+
+### 2026-06-10 — Repo restructure (Option A): AHS is now its own git repo
+
+**Root cause of the workflow invisibility (the bug Saloni hit when `gh workflow run` returned 404):**
+The git root was `/Users/salonijain/workspace`, not the AHS project. That workspace-level git tracked AHS as a subdirectory and pushed `AndroidHealthCheckService/` as a top-level folder to `salonijain619/AndroidHealthCheckService`. GitHub Actions only scans `.github/workflows/` at the **repo root**, so the file at `AndroidHealthCheckService/.github/workflows/daily-livesite-report.yml` was invisible to Actions. The webhook was fine; the workflow definition simply did not exist as far as GitHub was concerned.
+
+**Safety-belt pattern used for the destructive restructure:**
+1. **Local bundle** of the workspace git before any change (`git bundle create --all`) — at `/Users/salonijain/workspace/.ahs-backups/ahs-workspace-backup-*.bundle`. Stored under the workspace dir (NOT `/tmp` — runtime forbids `/tmp` writes; the original plan said `/tmp`, we relocated).
+2. **Remote backup branch** at the exact malformed SHA, created via `gh api -X POST .../git/refs` BEFORE the force-push. Branch: `pre-restructure-backup-2026-06-10` → `02e0434`. Recoverable forever with `git fetch origin pre-restructure-backup-2026-06-10`.
+3. **`--force-with-lease=master:<expected-sha>`** on the push. Refuses to overwrite if someone else pushed in the meantime. The lease succeeded — remote was still at `02e0434`.
+
+**New workflow Saloni should use:**
+- `cd AndroidHealthCheckService && git ...` — the AHS project is now its OWN git repo whose root IS the project. No more `git -C /Users/salonijain/workspace ...` for AHS work.
+- The workspace-level git at `/Users/salonijain/workspace` still exists for Saloni's other purposes, but its remote was renamed `origin` → `OLD-DO-NOT-USE-ahs` to prevent accidentally pushing the malformed layout back. It no longer tracks AHS contents (committed `Untrack AHS — …`).
+
+**One gotcha during execution (and the workaround):**
+The active `gh` token had scopes `gist, read:org, repo` but NOT `workflow`. The first `git push` was rejected with `refusing to allow an OAuth App to create or update workflow ... without 'workflow' scope`. Workaround:
+- Amended the restructure commit to exclude `.github/workflows/daily-livesite-report.yml`, pushed everything else (succeeded — remote master is now `53ae74b`, the flat-root restructure).
+- Re-added the workflow file as a SEPARATE local commit `b49e573` on master. It is **committed locally but unpushed**.
+- Saloni needs to run interactively: `gh auth refresh -h github.com -s workflow` and then `cd AndroidHealthCheckService && git push origin master`. After that push, the workflow becomes visible to Actions and `gh workflow run` will work.
+
+So: visibility is one `git push` away, blocked only on a token-scope refresh that requires Saloni's browser. Everything else (restructure, backup branch, local bundle, workspace cleanup, tests) is done.
