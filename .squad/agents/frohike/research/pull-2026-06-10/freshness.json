@@ -1,0 +1,27 @@
+{
+  "crashRate": {
+    "HOURLY": "2026-06-10",
+    "DAILY": "2026-06-08"
+  },
+  "anrRate": {
+    "HOURLY": "2026-06-10",
+    "DAILY": "2026-06-08"
+  },
+  "errorCount": {
+    "HOURLY": "2026-06-10",
+    "DAILY": "2026-06-09",
+    "FULL_RANGE": "2026-06-09"
+  },
+  "slowStartRate": {
+    "DAILY": "2026-06-08"
+  },
+  "excessiveWakeupRate": {
+    "DAILY": "2026-06-08"
+  },
+  "stuckBgWakelockRate": {
+    "DAILY": "2026-06-08"
+  },
+  "lmkRate": {
+    "DAILY": "2026-06-08"
+  }
+}

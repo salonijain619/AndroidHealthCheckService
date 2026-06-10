@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.pytest_cache/
+
+# Editor / OS noise
+.DS_Store
+
+# Report generator ephemera (per Mulder §6)
+tools/report_generator/runs/
+
+# Squad ephemera
+.squad/.pip-cache/
+.squad/.pydeps/
+

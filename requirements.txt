@@ -1,0 +1,13 @@
+# Daily livesite report generator + collectors.
+# Stdlib-first; only deps that producers actually import belong here.
+pyyaml
+
+# Scully — server-side NAAS telemetry (Kusto)
+azure-identity>=1.15
+azure-kusto-data>=4.5
+
+# Frohike — Google Play Vitals (Play Developer Reporting API, service-account auth)
+# Langly also uses requests for the Play Store listing scrape fallback.
+google-auth>=2.27
+google-api-python-client>=2.110
+requests>=2.31

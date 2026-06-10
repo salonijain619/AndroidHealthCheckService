@@ -1,0 +1,4548 @@
+{
+  "3e11c004ac1da2e009d8395ae8c47ec0": [
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "Blackview",
+          "valueLabel": "Blackview"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "15"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "4"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "CUBOT",
+          "valueLabel": "CUBOT"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "6"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "DOCOMO",
+          "valueLabel": "DOCOMO"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "HEADWOLF",
+          "valueLabel": "HEADWOLF"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "3"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "Lenovo",
+          "valueLabel": "Lenovo"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "21"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "5"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "Nokia",
+          "valueLabel": "Nokia"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "31"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "8"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "Nothing",
+          "valueLabel": "Nothing"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "OPPO",
+          "valueLabel": "OPPO"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "6"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "3"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "OUKITEL",
+          "valueLabel": "OUKITEL"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "72"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "2"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "OnePlus",
+          "valueLabel": "OnePlus"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "31"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "2"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "Ulefone",
+          "valueLabel": "Ulefone"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "50"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "7"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "VGO_TEL",
+          "valueLabel": "VGO_TEL"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "10"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "Xiaomi",
+          "valueLabel": "Xiaomi"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "aiwa",
+          "valueLabel": "aiwa"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "asus",
+          "valueLabel": "asus"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "10"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "6"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "google",
+          "valueLabel": "google"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "51"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "25"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "iQOO",
+          "valueLabel": "iQOO"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "6"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "6"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "motorola",
+          "valueLabel": "motorola"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "533"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "106"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "realme",
+          "valueLabel": "realme"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "samsung",
+          "valueLabel": "samsung"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2679"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "148"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "vivo",
+          "valueLabel": "vivo"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "172"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "29"
+          }
+        }
+      ]
+    }
+  ],
+  "e216e51099939b7421de40c9c34e002b": [
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "Alldocube",
+          "valueLabel": "Alldocube"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "CUBOT",
+          "valueLabel": "CUBOT"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "25"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "3"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "Lenovo",
+          "valueLabel": "Lenovo"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "47"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "7"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "Nokia",
+          "valueLabel": "Nokia"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "8"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "3"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "OPPO",
+          "valueLabel": "OPPO"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "OUKITEL",
+          "valueLabel": "OUKITEL"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "14"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "OnePlus",
+          "valueLabel": "OnePlus"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "3"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "2"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "Redmi",
+          "valueLabel": "Redmi"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "9"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "2"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "SG",
+          "valueLabel": "SG"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "65"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "2"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "Ulefone",
+          "valueLabel": "Ulefone"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "google",
+          "valueLabel": "google"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "13"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "8"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "motorola",
+          "valueLabel": "motorola"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "118"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "30"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "samsung",
+          "valueLabel": "samsung"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "302"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "30"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "vivo",
+          "valueLabel": "vivo"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "33"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "4"
+          }
+        }
+      ]
+    }
+  ],
+  "6ab4dc76a10f6b8ec8524f4c1f020cf1": [
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "AIWA",
+          "valueLabel": "AIWA"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "ATT",
+          "valueLabel": "ATT"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "2"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "Alldocube",
+          "valueLabel": "Alldocube"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "BLU",
+          "valueLabel": "BLU"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "BMAX",
+          "valueLabel": "BMAX"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "Cloud_Mobile",
+          "valueLabel": "Cloud_Mobile"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "3"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "3"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "DEERTiME",
+          "valueLabel": "DEERTiME"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "DOCOMO",
+          "valueLabel": "DOCOMO"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "DOOGEE",
+          "valueLabel": "DOOGEE"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "4"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "4"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "FCNT",
+          "valueLabel": "FCNT"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "3"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "3"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "Infinix",
+          "valueLabel": "Infinix"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "8"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "8"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "JOVI",
+          "valueLabel": "JOVI"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "3"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "3"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "KDDI",
+          "valueLabel": "KDDI"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "3"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "3"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "LAVA",
+          "valueLabel": "LAVA"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "2"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "Lenovo",
+          "valueLabel": "Lenovo"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "7"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "7"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "Mobicel",
+          "valueLabel": "Mobicel"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "Nokia",
+          "valueLabel": "Nokia"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "OUKITEL",
+          "valueLabel": "OUKITEL"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "PEICHENG",
+          "valueLabel": "PEICHENG"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "POCO",
+          "valueLabel": "POCO"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "3"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "3"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "PRITOM",
+          "valueLabel": "PRITOM"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "Rebecco",
+          "valueLabel": "Rebecco"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "Redmi",
+          "valueLabel": "Redmi"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "23"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "23"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "Relndoo",
+          "valueLabel": "Relndoo"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "3"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "3"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "SKYEGG",
+          "valueLabel": "SKYEGG"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "SUXI",
+          "valueLabel": "SUXI"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "Sony",
+          "valueLabel": "Sony"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "3"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "3"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "Spectra",
+          "valueLabel": "Spectra"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "T-Mobile",
+          "valueLabel": "T-Mobile"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "3"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "3"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "TABWEE",
+          "valueLabel": "TABWEE"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "2"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "TECNO",
+          "valueLabel": "TECNO"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "10"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "10"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "Xiaomi",
+          "valueLabel": "Xiaomi"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "ZIOVO",
+          "valueLabel": "ZIOVO"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "ZTE",
+          "valueLabel": "ZTE"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "docomo",
+          "valueLabel": "docomo"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "8"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "8"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "google",
+          "valueLabel": "google"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "6"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "6"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "iQOO",
+          "valueLabel": "iQOO"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "17"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "16"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "motorola",
+          "valueLabel": "motorola"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "nubia",
+          "valueLabel": "nubia"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "2"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "realme",
+          "valueLabel": "realme"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "165"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "155"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "samsung",
+          "valueLabel": "samsung"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "476"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "454"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "vivo",
+          "valueLabel": "vivo"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "455"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "436"
+          }
+        }
+      ]
+    }
+  ],
+  "868ca86b7a9b6b19278fbe252f496d30": [
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "ALPHAWOLF",
+          "valueLabel": "ALPHAWOLF"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "ATMPC",
+          "valueLabel": "ATMPC"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "ATOZEE",
+          "valueLabel": "ATOZEE"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "DeutscheTelekom",
+          "valueLabel": "DeutscheTelekom"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "HONOR",
+          "valueLabel": "HONOR"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "Infinix",
+          "valueLabel": "Infinix"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "11"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "10"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "KDDI",
+          "valueLabel": "KDDI"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "LAVA",
+          "valueLabel": "LAVA"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "2"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "Lenovo",
+          "valueLabel": "Lenovo"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "OUKITEL",
+          "valueLabel": "OUKITEL"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "POCO",
+          "valueLabel": "POCO"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "2"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "Redmi",
+          "valueLabel": "Redmi"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "10"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "10"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "SVITOO",
+          "valueLabel": "SVITOO"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "Sony",
+          "valueLabel": "Sony"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "Spectra",
+          "valueLabel": "Spectra"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "T-Mobile",
+          "valueLabel": "T-Mobile"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "2"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "TABWEE",
+          "valueLabel": "TABWEE"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "3"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "3"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "TECNO",
+          "valueLabel": "TECNO"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "16"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "16"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "Xiaomi",
+          "valueLabel": "Xiaomi"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "2"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "ZTE",
+          "valueLabel": "ZTE"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "5"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "4"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "docomo",
+          "valueLabel": "docomo"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "google",
+          "valueLabel": "google"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "6"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "6"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "iQOO",
+          "valueLabel": "iQOO"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "5"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "5"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "meizu",
+          "valueLabel": "meizu"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "motorola",
+          "valueLabel": "motorola"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "nubia",
+          "valueLabel": "nubia"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "realme",
+          "valueLabel": "realme"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "101"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "95"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "samsung",
+          "valueLabel": "samsung"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "291"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "283"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "vivo",
+          "valueLabel": "vivo"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "166"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "163"
+          }
+        }
+      ]
+    }
+  ],
+  "6056db512c32b4370dd8325264e3a503": [
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "ATT",
+          "valueLabel": "ATT"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "FCNT",
+          "valueLabel": "FCNT"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "HONOR",
+          "valueLabel": "HONOR"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "Infinix",
+          "valueLabel": "Infinix"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "8"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "8"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "KDDI",
+          "valueLabel": "KDDI"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "Lenovo",
+          "valueLabel": "Lenovo"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "4"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "3"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "PEICHENG",
+          "valueLabel": "PEICHENG"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "POCO",
+          "valueLabel": "POCO"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "4"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "4"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "Rebecco",
+          "valueLabel": "Rebecco"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "Redmi",
+          "valueLabel": "Redmi"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "14"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "13"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "Relndoo",
+          "valueLabel": "Relndoo"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "T-Mobile",
+          "valueLabel": "T-Mobile"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "3"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "3"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "TABWEE",
+          "valueLabel": "TABWEE"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "TECNO",
+          "valueLabel": "TECNO"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "Xiaomi",
+          "valueLabel": "Xiaomi"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "5"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "5"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "iQOO",
+          "valueLabel": "iQOO"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "3"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "3"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "itel",
+          "valueLabel": "itel"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "2"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "realme",
+          "valueLabel": "realme"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "3"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "3"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "samsung",
+          "valueLabel": "samsung"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "503"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "480"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "deviceBrand",
+          "stringValue": "vivo",
+          "valueLabel": "vivo"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "19"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "19"
+          }
+        }
+      ]
+    }
+  ]
+}

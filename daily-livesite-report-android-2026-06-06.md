@@ -1,0 +1,181 @@
+# 📋 GSA Android Daily Livesite Report — Sat Jun 06, 2026
+
+> **Scope (v1):** Server-observed slice only. This cycle is built from NAAS-server-side telemetry (`idsharedwus` — `NaasProd`, `NaasAgentServicesApsProd`, `NaasCloudPkiProd`) over a 7-day window ending **2026-06-05T13:26 UTC**. Defender-client-side telemetry (`mdatpandroidcluster / MDATPAndroidDB`) is **intentionally out of scope** for this cycle per the active scope lock. Sections that depend on client-side signal (client-version regression detail, NaaS call-site failure attribution, crash/ANR, MAM/compliance, tray-icon-equivalent cascade) are explicitly marked `TBD — Defender-client-side scope locked, pending unlock`.
+
+> **v2 note (2026-06-06):** This is v2 of the 2026-06-05 report. The additions over v1 are: (1) a real On-Call roster (live `get_on_call_schedule_by_team_id` on ICM team **106961**), and (2) a new top-level `🚨 Active ICM Incidents` section sourced from a live `agency mcp icm` pull via the ported HarryPotter collector. **NAAS / APS / PKI telemetry numbers in this report are unchanged from v1** — we did not re-pull telemetry for v2; the server-observed window is still `2026-05-29T13:26Z → 2026-06-05T13:26Z`. Only ICM data is fresh (as of 2026-06-06).
+
+## 📟 On-Call Today
+🔴 **Primary**    dileepkusuma
+🟡 **Backup**     samirnen
+
+*Source: live `get_on_call_schedule_by_team_id` on team 106961, 2026-06-06.*
+
+---
+
+## 🚨 Active ICM Incidents
+
+🔴 **Active+Mitigating: 1**  &nbsp;|&nbsp;  **Severity:** Sev1: 0 · Sev2: 0 · **Sev3: 1** · Sev4: 0  &nbsp;|&nbsp;  **Customer-reported (`type=CustomerReported`):** 1 · **System-detected:** 0  &nbsp;|&nbsp;  🧪 **TestICM-flagged:** 1
+
+### 👤 Customer-Created Active
+
+| ICM ID | Sev | Age | Title | Status |
+|---|---|---|---|---|
+| [#810723164](https://portal.microsofticm.com/imp/v3/incidents/details/810723164/home) | 🟡 Sev3 🧪 TestICM | 5d (created 2026-06-03) | `[Copilto testing] GSA Android client not working` | ACTIVE (unacknowledged) |
+
+> ⚠️ **Bucketing note:** Per Scully's data drop, the ported collector buckets via HP's `source startswith "customer"` convention. ICMProd's actual payload uses the `type` field (`CustomerReported` / `LiveSite` / `Deployment` / …) and returns `source: None` on this queue — so this row ends up in the `system_created_active` array in the raw envelope despite being genuinely customer-reported. The table above is bucketed on the correct `type=CustomerReported` field. **A v2.1 collector fix will swap the bucketing heuristic to `type` directly.** Raw `type` is preserved per-incident in the JSON; downstream re-bucket is one line.
+
+### 🤖 System-Created Active
+
+| ICM ID | Sev | Age | Title | Status |
+|---|---|---|---|---|
+| — | — | — | _No system-detected active ICMs on team 106961_ | — |
+
+### 🟡 Mitigated Highlights (last 7d)
+
+| ICM ID | Sev | Age | Title | Status |
+|---|---|---|---|---|
+| — | — | — | _No mitigated ICMs returned for team 106961_ | — |
+
+> 0 mitigated in last 7d — **genuine empty per Scully, not a windowing regression** (D-138 regression tests green: no `dateRange` applied; `sortBy=LastModifiedDate Desc, top:50` confirmed in the request envelope).
+
+**Patterns:**
+
+- **Real-incident count is 0 after TestICM filter.** The only Active item (#810723164, Sev3, 5d old, unacknowledged) is a TestICM titled `[Copilto testing] GSA Android client not working` with `keywords: "Test incident / no validated production issue"`. Recommend the reporter clean it up before it skews next cycle's optics.
+- **Detector silence is suspicious, not reassuring.** Zero system-detected ICMs (no LiveSite / Deployment / detector-emitted incidents) on team 106961 — yet v1's NAAS pull (still in force this report) shows a **5× sustained tunnel failure ramp** (0.074% → 0.36%) on Android plus a `PROFILE_UNDEFINED = 100% failure` cohort. Either (a) no Android-tagged detector exists at all, or (b) detector-emitted ICMs are routing to a different team queue. **Action: Mulder + Skinner ack + investigate which hypothesis holds.**
+- **Aging-without-ack hygiene gap.** The TestICM has sat unacknowledged for 5 days on the primary's queue. Even granting it is a test, the routing/ack hygiene shows a real process gap — rotation isn't watching 106961 closely. Primary (`dileepkusuma`) should triage today.
+- **Queue identity question (open, for Saloni):** `owningTeamId=106961` returns `owningTeamName="GSA  Client - XPlat"` (with a double-space typo from ICM), not `"GSA Client - Android"`. Is 106961 the Android-specific queue, or an XPlat parent with an Android sub-queue we should be targeting instead? If a sub-queue exists, we may be missing real Android incidents this cycle. Surfaced to Saloni; also captured in Data Quality Notes → Open questions.
+- **On-call rotation healthy at structure level.** Two distinct contacts, single active shift block, no cache fallback, no warning flags from the schedule endpoint — the structural rotation is sound; what's missing is engagement, not configuration.
+
+---
+
+## Executive Summary
+
+🟡 **P2 — Tunnel server-side failure-rate climbing ~5× over the window.** Daily Android tunnel failure % rose from **0.074% (5/29)** to a sustained **~0.36% (6/02–6/04)**; absolute failure volume jumped **12×** (6,315 → 79,753/day) while traffic only grew ~2.6×. Below the 1% incident threshold but trending wrong — anchor signal of the week.
+
+🟡 **P2 — Private Access + `PROFILE_UNDEFINED` profiles concentrate failure.** Private Access fails at **0.688%** (≈4× M365's 0.174%), carrying 33% of all failures from just 12% of events. `PROFILE_UNDEFINED` is **100% failure** (4,003 events / 245 devices) — discrete config-bootstrap edge case.
+
+✅ **Fleet status: healthy at headline.** 130.05M tunnel events / **99.711% server-side success**, **27,489 active Android devices**, **1,241 active tenants** across 7 days. APS and PKI both green.
+
+⚠️ **Data-quality caveat (read before acting on rates):** `FlowStatusError`, `FlowErrorClassification`, `LatencyMs`, `Msg` on `TunnelServerOperationEvents` are **ghost columns** — they appear in `getschema` but Kusto rejects them at query time. Server-side **latency p50/p95/p99 is unavailable** this cycle; richer error categorization is unavailable. See Data Quality Notes.
+
+📌 **Tenant correction (supersedes prior "8 tenants" reading):** The historical 8-distinct-tenants number from dashboard panel `8a1fa78a-…` was an artifact of an outdated `ClientVersion in (...)` cohort filter. Real fleet is **1,241 tenants** (155× larger). Treat as the new baseline.
+
+---
+
+## Key Metrics
+
+> **NAAS telemetry window (unchanged from v1):** server-observed `2026-05-29T13:26Z → 2026-06-05T13:26Z`. v2 did **not** re-pull telemetry; only ICM data above this section is fresh as of 2026-06-06.
+
+| Metric | Value | Trend |
+|--------|-------|-------|
+| Active Android Devices (7d distinct, server-observed) | **27,489** | ⚠️ Weekday floor ~22–23K; weekend dip to ~19–20K. |
+| Active Android Tenants (7d distinct) | **1,241** | 📌 Corrected baseline (prior "8" was a stale cohort artifact). |
+| Fleet Tunnel Events (7d) | **130,050,841** total — 129,675,127 success / 375,714 failure | ⬆️ Weekday volume ~22M/day; +~2.6× weekend→weekday step. |
+| Tunnel Health (server-side success) | **99.711%** overall | 🟡 Daily fail% climbed 0.074% → ~0.36% (5× ramp; see Insight #1). |
+| Tunnel Latency p50/p95/p99 | TBD — `LatencyMs` is a ghost column on `TunnelServerOperationEvents`; unavailable this cycle. | TBD |
+| APS Get-Settings Availability (7d) | **99.997%** (270,307,940 events / 270,298,775 success; 825,511 devices; 24,216 tenants) | ✅ Healthy. |
+| APS Settings-Ack Success (7d) | **99.99966%** (268,589,274 / 268,590,196; 922 auth fails) | ✅ Healthy. |
+| PKI Cert Enrollment Health (7d) | **✅ 4 errors / 595,712 events = 0.0007% error rate** (1,326 tenants). | ✅ Healthy. |
+| Android Client Version Distribution Health | Top-3 versions (`1.0.8921.0101`, `1.0.9002.0102`, `1.0.8913.0101`) all 0.22–0.27% fail — **uniform & healthy**. Long-tail pre-`8900` builds at 0.87–2.6% (5–10× modern baseline, stale-binary decay). No regression on current builds. | ➡️ Stable on current versions. |
+| Business Growth (7d) | Weekday floor: 22K–23K devices / ~1.1K tenants / ~22M events per day. Weekend↔weekday step ~ +18% devices, +7% tenants, +~2× events (Sun→Mon). | ➡️ Flat WoW on active devices; growth signal is volume, not seat count. |
+| Client-side cascade (client version × auth × policy fetch × notification) | TBD — Defender-client-side scope locked, pending unlock. | TBD |
+
+**Data Completeness Notes:**
+- All values above are **server-observed** from NaasProd / APS / PKI databases on `idsharedwus`. Run completed 2026-06-05T13:30Z; 20 queries attempted, 17 passed, 5 recovered (column-discovery / casing), 0 final failures.
+- The **APS device count (825K) is much larger than the Tunnel device count (27.5K)** because APS counts every device that pings for settings — many consumer/unmanaged installs never reach the tunnel stage. Both numbers are correct for their respective surfaces; do not equate them.
+- 6/05 is a **partial day** (cut at 13:26Z) — daily trend rows for 6/05 should not be compared directly with full days.
+
+---
+
+## 🔍 Top 5 Insights
+
+| # | Severity | Insight Title | Blast Radius | Action / Owner |
+|---|----------|---------------|--------------|----------------|
+| 1 | 🟡 **P2** | **Android tunnel failure-rate ~5× ramp over 7d** (0.074% → 0.36% sustained, 12× absolute volume increase, traffic only 2.6×). Trend is genuine quality degradation, not a traffic artifact. | 79,753 failures/day on 6/04 across ~23K active devices / ~1.1K tenants. Microsoft 1P dogfood tenant alone contributes **37%** of failures (140,697 / 11,682 devices). | **Doggett:** bisect the ramp by `ServiceType` × `Region` × `ClientVersion` × `TenantId` (especially with/without 1P) to localize. **Scully:** re-run daily fail-rate trend excluding the 1P tenant — if curve flattens, regression is dogfood-localized; if not, broader platform. **Mulder:** escalate to P1 if sustained fail% crosses 1%. |
+| 2 | 🟡 **P2** | **Private Access profile fails ~4× the M365 baseline** (0.688% vs 0.174%); 33% of all failures from 12% of events. | 105,778 failures / 8,990 devices on PRIVATE_ACCESS over 7d. Geographic co-incidence: UK South (0.465%) + West Europe (0.441%) are 2–3× WUS baseline (0.172%), and EU dominates Private Access traffic. | **Doggett:** confirm Private Access path component is responsible (Talon? policy distribution?) — requires a SCUS hop (`naas-idsharedscus`) to query `NaaSVPNZtnaConnectionLogsEvent` / `TalonOperationEvent`; not run this cycle. **Mulder:** authorize SCUS scope for next cycle. |
+| 3 | 🟡 **P2** | **`PROFILE_UNDEFINED` ServiceType = 100% failure** (every single event fails). Pairs 1:1 with the empty-`TenantId` bucket in the failing-tenants list. | 4,003 events / 245 devices / 7d. Low volume but discrete bug — almost certainly a config-bootstrap race (device connects before profile assignment lands). | **Doggett:** join Tunnel failures (empty TenantId) to APS GetSettings on `DeviceId` within ±5min to confirm the race and measure time-from-first-APS-call to first-non-empty-profile per device. **Scully:** standing query for new occurrences. |
+| 4 | ⚠️ **Info** | **Two ghost-column families on `TunnelServerOperationEvents`** (`FlowStatusError`, `FlowErrorClassification`, `LatencyMs`, `Msg`) — advertised in schema, unqueryable at runtime. Server-side latency p50/p95/p99 and richer error categorization are **silently unavailable** today; any dashboard panel that depends on them is silently degraded. | Squad-wide observability gap; affects every future report's "Tunnel Latency" + "Failure Reason" rows until resolved. | **Skinner / Mulder:** file with the NaaS data-platform team (schema-vs-runtime divergence). **Reyes:** continue surfacing in Data Quality Notes until closed. |
+| 5 | ⚠️ **Info** | **Region casing duplicates** in `TunnelServerOperationEvents.Region` — `WestEurope` vs `westeurope`, `NorthEurope` vs `northeurope`, `CentralUs` vs `centralus`, `SouthAfricaNorth` vs `southafricanorth`. Two ingestion paths are emitting the same physical region with different casing, fragmenting per-region rollups. | All multi-region rollups understate per-region volume unless callers `tolower()` or normalize. | **Doggett:** identify the two ingestion paths and decide on canonical casing or sink-side normalization. |
+
+**Deferred (next-cycle Top-5 candidates, currently out of scope):**
+- 🔴/🟠 Client-version-regression detection (Android analog of the Windows v2.28.96 playbook) — needs client-side `TelemetryVPNAndWebProtection` + ECS flag-evaluation telemetry.
+- 🔴/🟠 NaaS call-site failure attribution (config vs IO/run phase; silent vs interactive auth) — `MDATPAndroidDB` queries CL-N1…CL-N12.
+
+---
+
+## 🔥 Cross-Domain Correlation Analysis
+
+**Primary Correlation Chain (v1, server-side only):** Daily tunnel failure-rate 5× ramp ⟷ weekday traffic step (Sun→Mon) ⟷ Microsoft 1P dogfood tenant concentration (37% of all failures).
+
+**Timeline (server-observed, daily granularity — finer-grained correlation requires client-side data):**
+
+| Day (UTC) | Tunnel events | Failures | Fail% | Active devices | Active tenants |
+|---|---|---|---|---|---|
+| 2026-05-29 | 8,503,764 | 6,315 | **0.074%** | 20,791 | 1,014 |
+| 2026-05-30 | 11,473,492 | 19,564 | 0.171% | 19,806 | 1,004 |
+| 2026-05-31 (Sun) | 10,852,481 | 21,798 | 0.201% | 19,075 | 1,002 |
+| 2026-06-01 (Mon) | 20,275,758 | 46,194 | 0.228% | 22,569 | 1,074 |
+| 2026-06-02 | 21,748,579 | 78,347 | **0.360%** | 22,978 | 1,102 |
+| 2026-06-03 | 23,247,057 | 85,299 | **0.367%** | 23,554 | 1,103 |
+| 2026-06-04 | 22,245,033 | 79,753 | **0.359%** | 23,213 | 1,097 |
+| 2026-06-05 (partial) | 11,712,888 | 38,525 | 0.329% | 22,310 | 1,056 |
+
+**Evidence:**
+- Failure-rate climbed **~5×** (0.074% → 0.36%), absolute failure volume **~12×** (6,315 → 79,753/day), while traffic only grew **~2.6×** (8.5M → 22M/day). **Traffic alone does not explain it** — there is a genuine quality deterioration superimposed on the weekday step.
+- Failure concentration is uneven: **Microsoft Corp 1P (`72f988bf-…`) = 37%** of all failures (140,697 / 11,682 devices) — expected dogfood pattern but the dominant contributor. Two outliers worth eyes: `0e17f90f-…` (33,309 failures / 277 devices = 120 fails/device); `7e389af4-…` (3,787 failures / **2 devices** — almost certainly a broken test device, not a tenant-wide issue).
+- Geographic concentration aligns with Insight #2: UK South (0.465%), West Europe (0.441%), SouthAfricaNorth (0.758%) all run 2–4× the WUS baseline (0.172%).
+
+**Validation Steps (queued for next cycle):**
+1. ⏳ Re-run S6 daily fail-rate trend with `TenantId != '72f988bf-…'` — if the curve flattens, ramp is 1P-localized.
+2. ⏳ Per-day Region trend (not run this cycle) — to confirm whether the ramp is region-localized or fleet-wide.
+3. ⏳ SCUS hop to `NaaSVPNZtnaConnectionLogsEvent` / `TalonOperationEvent` for Private Access path attribution (Insight #2).
+4. ⏳ Client-side cascade analysis (auth → policy fetch → notification) — **deferred until Defender-client-side scope is unlocked**. Without `MDATPAndroidDB.TelemetryVPNAndWebProtection` / `TelemetryAuth` / `TelemetryHeartbeat`, we cannot confirm whether the server-side ramp has a client-side antecedent (e.g., a new client build, an ECS flag flip) or is purely an infrastructure regression.
+
+---
+
+## 📊 Data Quality Notes
+
+- **Telemetry sources (this cycle):** Kusto `idsharedwus.kusto.windows.net` — databases `NaasProd` (TunnelServerOperationEvents), `NaasAgentServicesApsProd` (AgentGetSettingsOperationEvent, AgentSettingsAckOperationEvent), `NaasCloudPkiProd` (EnrollCertificateOperationSummary). Auth via `azure-mcp-kusto` default credential (Azure CLI) — clean, no auth walls.
+- **Out of scope (v1 lock):**
+  - `mdatpandroidcluster.westus2.kusto.windows.net / MDATPAndroidDB` (all Defender client-side; 22 ICM baseline queries CL-A1…CL-N12 deferred).
+  - `naas-idsharedscus` (full-37-table NaasProd) — all v1 targets resolved on WUS; SCUS hop not required this cycle.
+- **Ghost columns on `TunnelServerOperationEvents`:** `FlowStatusError`, `FlowErrorClassification`, `LatencyMs`, `Msg` all appear in `getschema` output but return `SEM0100: Failed to resolve scalar expression` when referenced. Net effect this cycle:
+  - **Tunnel latency p50/p95/p99 is unavailable** (the Key Metrics row is TBD).
+  - **Richer error categorization is unavailable** — only the binary `Status ∈ {Success, Failure}` is usable. The dashboard panel that depended on these columns is **silently degraded**.
+  - This is a real defect to surface upstream (Skinner / Mulder ask in Insight #4).
+- **Schema divergence between sibling APS tables:** `AgentSettingsAckOperationEvent` lacks `HttpResponseStatusCode` (present on `AgentGetSettingsOperationEvent`). Worked around using `ResultStatus` only.
+- **PKI `DeviceId` placeholder:** PKI returned `Devices=1` for Android enrollments — strongly suggests PKI emits empty/placeholder `DeviceId` for Android (Windows samples have real values). **Do not trust per-device PKI counts**; tenant counts (1,326) are valid.
+- **Upstream typos preserved as emitted:** `ClientFailureAuthenticaiton` (APS GetSettings), `ProcceedSuccessfully` + `ClientFailureAuth` (APS Ack). Surfaced for traceability, not corrected.
+- **Region casing duplicates:** see Insight #5.
+- **Open questions for v2:**
+  1. Should Play Store vs sideload/MAM channel adoption be segmented? (Cannot answer with server-side data alone — requires client-side install-source telemetry.)
+  2. Android OS-version split health tracking — baseline expectations by API level? (Same — client-side.)
+  3. Device model/OEM error variance — reportable signal or noise? (Same — client-side.)
+  4. Is the 5× tunnel-failure ramp driven by a client build rollout? (Cannot answer without client-side `ClientVersion` × time pivot.)
+  5. **Confirm 106961 is the correct Android team or re-target to an Android-only sub-queue.** ICM returns `owningTeamName="GSA  Client - XPlat"` (double-space typo) for `owningTeamId=106961` — strongly suggests this is a parent/XPlat queue. If an Android-only child queue exists, this cycle's ICM section is scoped to the wrong target.
+  6. **Wire detector-side telemetry → ICM correlation.** Is the 5× tunnel failure ramp surfacing as an ICM anywhere (this team, an XPlat parent, a NaaS platform queue)? If not, why is no detector firing on a server-side fail-rate that grew 12× in absolute terms?
+
+### ICM Integration (v2 — first cycle)
+- **Source:** `agency mcp icm` (Microsoft internal CLI) → `search_incidents` (Active+Mitigating, Mitigated×Desc), `get_on_call_schedule_by_team_id`.
+- **Collector:** `tools/icm/icm_collector.py` (ported from HarryPotter, 19/19 tests green incl. D-138 regression).
+- **Raw output:** `tools/icm/runs/icm-run-2026-06-06.json`.
+- **Known v2 caveats:**
+  - Bucketing logic uses HP's `source startswith "customer"` heuristic which doesn't match ICMProd's actual schema (`type=CustomerReported`, `source=None`). v2.1 will use `type` directly.
+  - Owning-team name returned as `"GSA  Client - XPlat"` (double-space typo from ICM) for `owningTeamId=106961` — confirms route to a parent queue; an Android-specific sub-queue may exist.
+
+---
+
+## Contributors
+
+- **Mulder** — scope/lead, NAAS-only v1 lock.
+- **Scully** — data execution (20 queries; 17 passed, 5 recovered, 0 final failures; see `.squad/agents/scully/research/naas-7d-report-data-2026-06-05.md`).
+- **Doggett** — telemetry architecture (Android telemetry routing model; NaaS-server vs Defender-client boundary).
+- **Reyes** — report assembly.
+- **Doggett (v2)** — HarryPotter ICM port-plan discovery + `icm-queue-ingest` skill authored.
+- **Scully (v2)** — live ICM collector port (HP → AHCS) + first live pull against team 106961.
+- **Reyes (v2)** — v2 report assembly (NAAS preserved + 3 live ICM sections plugged in).
+
+*(Skinner did not contribute this cycle — no live incidents to triage; rotation/on-call still TBD.)*
+
+**Timestamp:** 2026-06-06T11:50Z (Saturday, June 6, 2026 — v2 assembled atop NAAS server-observed window `2026-05-29T13:26Z .. 2026-06-05T13:26Z`; ICM data fresh as of 2026-06-06)
+**Report Assembled By:** Reyes (Report Writer)

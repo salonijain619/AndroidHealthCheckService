@@ -1,0 +1,1644 @@
+{
+  "window_errorcount": "2026-06-03 .. 2026-06-09 (errorCount freshness)",
+  "window_rate": "2026-06-02 .. 2026-06-08 (crashRate/anrRate freshness)",
+  "app_crash_rate_7d_pct": 0.7044827882516713,
+  "app_anr_rate_7d_pct": 0.26186347465928805,
+  "app_crash_rate_prior7d_pct": 0.6782925916866899,
+  "app_anr_rate_prior7d_pct": 0.2530126757118397,
+  "naas_crash_total": 4898,
+  "naas_anr_total": 4413,
+  "naas_users_upper": 5125,
+  "per_version": {
+    "900200122": {
+      "crash": 2878,
+      "anr": 1822,
+      "app_crash_rate_pct": 0.6024598930481284,
+      "app_anr_rate_pct": 0.19080213903743315,
+      "users_7d": 187000,
+      "label": "1.0.9002.0102 (prior PROD)",
+      "is_04xx": false
+    },
+    "892100112": {
+      "crash": 1468,
+      "anr": 1733,
+      "app_crash_rate_pct": 0.8770498084291187,
+      "app_anr_rate_pct": 0.2318007662835249,
+      "users_7d": 261000,
+      "label": "1.0.8921.0101",
+      "is_04xx": false
+    },
+    "891300112": {
+      "crash": 201,
+      "anr": 266,
+      "app_crash_rate_pct": 0.6091176470588237,
+      "app_anr_rate_pct": 0.3144117647058824,
+      "users_7d": 34000,
+      "label": "1.0.8913.0101",
+      "is_04xx": false
+    },
+    "890500162": {
+      "crash": 65,
+      "anr": 165,
+      "app_crash_rate_pct": 0.40909090909090906,
+      "app_anr_rate_pct": 0.33590909090909093,
+      "users_7d": 22000,
+      "label": "1.0.8905.0106",
+      "is_04xx": false
+    },
+    "870300112": {
+      "crash": 49,
+      "anr": 108,
+      "app_crash_rate_pct": 0.3559999999999999,
+      "app_anr_rate_pct": 0.32699999999999996,
+      "users_7d": 10000,
+      "label": "1.0.8703.0101",
+      "is_04xx": false
+    },
+    "900300412": {
+      "crash": 95,
+      "anr": 0,
+      "app_crash_rate_pct": 0,
+      "app_anr_rate_pct": 0,
+      "users_7d": 0,
+      "label": "1.0.9003.0401 (.04xx)",
+      "is_04xx": true
+    },
+    "881400112": {
+      "crash": 5,
+      "anr": 75,
+      "app_crash_rate_pct": 0.36571428571428566,
+      "app_anr_rate_pct": 0.28428571428571425,
+      "users_7d": 7000,
+      "label": "1.0.8814.0101",
+      "is_04xx": false
+    },
+    "880500132": {
+      "crash": 6,
+      "anr": 42,
+      "app_crash_rate_pct": 0.5700000000000001,
+      "app_anr_rate_pct": 0.3028571428571429,
+      "users_7d": 7000,
+      "label": "1.0.8805.0103",
+      "is_04xx": false
+    },
+    "882800112": {
+      "crash": 23,
+      "anr": 17,
+      "app_crash_rate_pct": 0.9450574712643678,
+      "app_anr_rate_pct": 0.2551724137931034,
+      "users_7d": 870,
+      "label": "882800112",
+      "is_04xx": false
+    },
+    "860500112": {
+      "crash": 2,
+      "anr": 35,
+      "app_crash_rate_pct": 0.4663461538461538,
+      "app_anr_rate_pct": 0.44750000000000006,
+      "users_7d": 5200,
+      "label": "860500112",
+      "is_04xx": false
+    },
+    "851400112": {
+      "crash": 2,
+      "anr": 35,
+      "app_crash_rate_pct": 0.7309756097560975,
+      "app_anr_rate_pct": 0.3058536585365854,
+      "users_7d": 4100,
+      "label": "851400112",
+      "is_04xx": false
+    },
+    "892100412": {
+      "crash": 34,
+      "anr": 0,
+      "app_crash_rate_pct": 0,
+      "app_anr_rate_pct": 0,
+      "users_7d": 0,
+      "label": "1.0.8921.0401 (.04xx)",
+      "is_04xx": true
+    },
+    "900200121": {
+      "crash": 5,
+      "anr": 19,
+      "app_crash_rate_pct": 0.46806451612903227,
+      "app_anr_rate_pct": 0.8051612903225807,
+      "users_7d": 4650,
+      "label": "900200121",
+      "is_04xx": false
+    },
+    "862300132": {
+      "crash": 3,
+      "anr": 19,
+      "app_crash_rate_pct": 0.36,
+      "app_anr_rate_pct": 0.7234375,
+      "users_7d": 3200,
+      "label": "862300132",
+      "is_04xx": false
+    },
+    "841200112": {
+      "crash": 1,
+      "anr": 20,
+      "app_crash_rate_pct": 0.47731707317073174,
+      "app_anr_rate_pct": 0.5048780487804877,
+      "users_7d": 4100,
+      "label": "841200112",
+      "is_04xx": false
+    },
+    "900200422": {
+      "crash": 20,
+      "anr": 1,
+      "app_crash_rate_pct": 0,
+      "app_anr_rate_pct": 0,
+      "users_7d": 0,
+      "label": "1.0.9002.0402 (.04xx)",
+      "is_04xx": true
+    },
+    "892100111": {
+      "crash": 4,
+      "anr": 15,
+      "app_crash_rate_pct": 0.42867647058823527,
+      "app_anr_rate_pct": 0.7255882352941178,
+      "users_7d": 6800,
+      "label": "1.0.8921.0101 (v7a)",
+      "is_04xx": false
+    },
+    "900100422": {
+      "crash": 18,
+      "anr": 0,
+      "app_crash_rate_pct": 0,
+      "app_anr_rate_pct": 0,
+      "users_7d": 0,
+      "label": "1.0.9001.0402 (.04xx)",
+      "is_04xx": true
+    },
+    "900300212": {
+      "crash": 8,
+      "anr": 6,
+      "app_crash_rate_pct": 0,
+      "app_anr_rate_pct": 0,
+      "users_7d": 0,
+      "label": "1.0.9003.0201 (open testing)",
+      "is_04xx": false
+    },
+    "880500131": {
+      "crash": 3,
+      "anr": 5,
+      "app_crash_rate_pct": 2.31,
+      "app_anr_rate_pct": 0.36166666666666664,
+      "users_7d": 1200,
+      "label": "880500131",
+      "is_04xx": false
+    },
+    "872700112": {
+      "crash": 0,
+      "anr": 6,
+      "app_crash_rate_pct": 0.6652173913043479,
+      "app_anr_rate_pct": 0.4339130434782608,
+      "users_7d": 460,
+      "label": "872700112",
+      "is_04xx": false
+    },
+    "760900122": {
+      "crash": 5,
+      "anr": 0,
+      "app_crash_rate_pct": 0,
+      "app_anr_rate_pct": 0,
+      "users_7d": 0,
+      "label": "760900122",
+      "is_04xx": false
+    },
+    "860500111": {
+      "crash": 0,
+      "anr": 4,
+      "app_crash_rate_pct": 0.5449999999999999,
+      "app_anr_rate_pct": 0.7066666666666668,
+      "users_7d": 600,
+      "label": "860500111",
+      "is_04xx": false
+    },
+    "890500161": {
+      "crash": 0,
+      "anr": 4,
+      "app_crash_rate_pct": 0.7224999999999999,
+      "app_anr_rate_pct": 1.4075,
+      "users_7d": 1600,
+      "label": "890500161",
+      "is_04xx": false
+    },
+    "820100112": {
+      "crash": 1,
+      "anr": 1,
+      "app_crash_rate_pct": 0.5583333333333332,
+      "app_anr_rate_pct": 0.25,
+      "users_7d": 1200,
+      "label": "820100112",
+      "is_04xx": false
+    },
+    "851400111": {
+      "crash": 0,
+      "anr": 2,
+      "app_crash_rate_pct": 0.7886792452830188,
+      "app_anr_rate_pct": 0.5784905660377359,
+      "users_7d": 530,
+      "label": "851400111",
+      "is_04xx": false
+    },
+    "891300412": {
+      "crash": 2,
+      "anr": 0,
+      "app_crash_rate_pct": 0,
+      "app_anr_rate_pct": 0,
+      "users_7d": 0,
+      "label": "1.0.8913.0401 (.04xx)",
+      "is_04xx": true
+    },
+    "881400111": {
+      "crash": 0,
+      "anr": 2,
+      "app_crash_rate_pct": 0.35000000000000003,
+      "app_anr_rate_pct": 0.3575862068965517,
+      "users_7d": 580,
+      "label": "1.0.8814.0101 (v7a)",
+      "is_04xx": false
+    },
+    "771400112": {
+      "crash": 0,
+      "anr": 2,
+      "app_crash_rate_pct": 0.18833333333333332,
+      "app_anr_rate_pct": 0.2733333333333333,
+      "users_7d": 1200,
+      "label": "771400112",
+      "is_04xx": false
+    },
+    "891300111": {
+      "crash": 0,
+      "anr": 2,
+      "app_crash_rate_pct": 0.438125,
+      "app_anr_rate_pct": 1.013125,
+      "users_7d": 1600,
+      "label": "891300111",
+      "is_04xx": false
+    },
+    "891300212": {
+      "crash": 0,
+      "anr": 1,
+      "app_crash_rate_pct": 0,
+      "app_anr_rate_pct": 0,
+      "users_7d": 0,
+      "label": "891300212",
+      "is_04xx": false
+    },
+    "892100212": {
+      "crash": 0,
+      "anr": 1,
+      "app_crash_rate_pct": 0,
+      "app_anr_rate_pct": 0,
+      "users_7d": 0,
+      "label": "892100212",
+      "is_04xx": false
+    },
+    "710500112": {
+      "crash": 0,
+      "anr": 1,
+      "app_crash_rate_pct": 0,
+      "app_anr_rate_pct": 0,
+      "users_7d": 0,
+      "label": "710500112",
+      "is_04xx": false
+    },
+    "792300111": {
+      "crash": 0,
+      "anr": 1,
+      "app_crash_rate_pct": 0,
+      "app_anr_rate_pct": 0,
+      "users_7d": 0,
+      "label": "792300111",
+      "is_04xx": false
+    },
+    "792300112": {
+      "crash": 0,
+      "anr": 1,
+      "app_crash_rate_pct": 0.36333333333333334,
+      "app_anr_rate_pct": 0.185,
+      "users_7d": 1200,
+      "label": "792300112",
+      "is_04xx": false
+    },
+    "892100114": {
+      "crash": 0,
+      "anr": 1,
+      "app_crash_rate_pct": 0.0,
+      "app_anr_rate_pct": 1.6,
+      "users_7d": 120,
+      "label": "892100114",
+      "is_04xx": false
+    },
+    "870300111": {
+      "crash": 0,
+      "anr": 1,
+      "app_crash_rate_pct": 0.6233333333333333,
+      "app_anr_rate_pct": 1.0326666666666666,
+      "users_7d": 1500,
+      "label": "870300111",
+      "is_04xx": false
+    }
+  },
+  "issue_7d": {
+    "3e11c004ac1da2e009d8395ae8c47ec0": {
+      "CRASH": 3763,
+      "ANR": 0,
+      "users": 475,
+      "versions": {
+        "760900122": {
+          "CRASH": 5,
+          "ANR": 0,
+          "users": 1
+        },
+        "820100112": {
+          "CRASH": 1,
+          "ANR": 0,
+          "users": 1
+        },
+        "841200112": {
+          "CRASH": 1,
+          "ANR": 0,
+          "users": 1
+        },
+        "860500112": {
+          "CRASH": 2,
+          "ANR": 0,
+          "users": 1
+        },
+        "870300112": {
+          "CRASH": 47,
+          "ANR": 0,
+          "users": 4
+        },
+        "880500131": {
+          "CRASH": 2,
+          "ANR": 0,
+          "users": 1
+        },
+        "880500132": {
+          "CRASH": 3,
+          "ANR": 0,
+          "users": 3
+        },
+        "881400112": {
+          "CRASH": 5,
+          "ANR": 0,
+          "users": 2
+        },
+        "882800112": {
+          "CRASH": 21,
+          "ANR": 0,
+          "users": 1
+        },
+        "890500162": {
+          "CRASH": 50,
+          "ANR": 0,
+          "users": 5
+        },
+        "891300112": {
+          "CRASH": 165,
+          "ANR": 0,
+          "users": 22
+        },
+        "892100111": {
+          "CRASH": 4,
+          "ANR": 0,
+          "users": 1
+        },
+        "892100112": {
+          "CRASH": 1307,
+          "ANR": 0,
+          "users": 188
+        },
+        "900200121": {
+          "CRASH": 2,
+          "ANR": 0,
+          "users": 2
+        },
+        "900200122": {
+          "CRASH": 2146,
+          "ANR": 0,
+          "users": 241
+        },
+        "900200422": {
+          "CRASH": 2,
+          "ANR": 0,
+          "users": 1
+        }
+      },
+      "cause": "Unknown Source - com.microsoft.scmx.vpn.VpnServiceOrchestrator.onStartCommand",
+      "location": "android.app.StackTrace",
+      "type": "CRASH",
+      "distinctUsersPercent": {
+        "value": "0.3635"
+      }
+    },
+    "e216e51099939b7421de40c9c34e002b": {
+      "CRASH": 661,
+      "ANR": 0,
+      "users": 114,
+      "versions": {
+        "870300112": {
+          "CRASH": 2,
+          "ANR": 0,
+          "users": 1
+        },
+        "880500131": {
+          "CRASH": 1,
+          "ANR": 0,
+          "users": 1
+        },
+        "882800112": {
+          "CRASH": 1,
+          "ANR": 0,
+          "users": 1
+        },
+        "891300112": {
+          "CRASH": 17,
+          "ANR": 0,
+          "users": 1
+        },
+        "892100112": {
+          "CRASH": 88,
+          "ANR": 0,
+          "users": 19
+        },
+        "900200121": {
+          "CRASH": 2,
+          "ANR": 0,
+          "users": 2
+        },
+        "900200122": {
+          "CRASH": 542,
+          "ANR": 0,
+          "users": 88
+        },
+        "900300212": {
+          "CRASH": 8,
+          "ANR": 0,
+          "users": 1
+        }
+      },
+      "cause": "SourceFile - com.microsoft.scmx.vpn.VpnServiceOrchestrator.onStartCommand",
+      "location": "android.app.StackTrace",
+      "type": "CRASH",
+      "distinctUsersPercent": {
+        "value": "0.2176"
+      }
+    },
+    "6ab4dc76a10f6b8ec8524f4c1f020cf1": {
+      "CRASH": 0,
+      "ANR": 1244,
+      "users": 1202,
+      "versions": {
+        "841200112": {
+          "CRASH": 0,
+          "ANR": 6,
+          "users": 6
+        },
+        "851400112": {
+          "CRASH": 0,
+          "ANR": 8,
+          "users": 7
+        },
+        "860500112": {
+          "CRASH": 0,
+          "ANR": 15,
+          "users": 13
+        },
+        "862300132": {
+          "CRASH": 0,
+          "ANR": 2,
+          "users": 2
+        },
+        "870300112": {
+          "CRASH": 0,
+          "ANR": 36,
+          "users": 36
+        },
+        "872700112": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "880500132": {
+          "CRASH": 0,
+          "ANR": 13,
+          "users": 12
+        },
+        "881400112": {
+          "CRASH": 0,
+          "ANR": 16,
+          "users": 16
+        },
+        "882800112": {
+          "CRASH": 0,
+          "ANR": 5,
+          "users": 4
+        },
+        "890500162": {
+          "CRASH": 0,
+          "ANR": 68,
+          "users": 68
+        },
+        "891300112": {
+          "CRASH": 0,
+          "ANR": 93,
+          "users": 92
+        },
+        "891300212": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "892100111": {
+          "CRASH": 0,
+          "ANR": 2,
+          "users": 2
+        },
+        "892100112": {
+          "CRASH": 0,
+          "ANR": 542,
+          "users": 522
+        },
+        "900200122": {
+          "CRASH": 0,
+          "ANR": 436,
+          "users": 420
+        }
+      },
+      "cause": "unavailable - com.microsoft.scmx.vpn.openvpn.BaseOpenVpnClient.initialize",
+      "location": "ANR triggered by slow operations in main thread",
+      "type": "APPLICATION_NOT_RESPONDING",
+      "distinctUsersPercent": {
+        "value": "0.8293"
+      }
+    },
+    "868ca86b7a9b6b19278fbe252f496d30": {
+      "CRASH": 0,
+      "ANR": 648,
+      "users": 626,
+      "versions": {
+        "841200112": {
+          "CRASH": 0,
+          "ANR": 2,
+          "users": 2
+        },
+        "851400112": {
+          "CRASH": 0,
+          "ANR": 6,
+          "users": 6
+        },
+        "860500111": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "860500112": {
+          "CRASH": 0,
+          "ANR": 5,
+          "users": 5
+        },
+        "862300132": {
+          "CRASH": 0,
+          "ANR": 4,
+          "users": 4
+        },
+        "870300112": {
+          "CRASH": 0,
+          "ANR": 13,
+          "users": 13
+        },
+        "880500131": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "880500132": {
+          "CRASH": 0,
+          "ANR": 5,
+          "users": 5
+        },
+        "881400112": {
+          "CRASH": 0,
+          "ANR": 4,
+          "users": 4
+        },
+        "882800112": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "890500161": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "890500162": {
+          "CRASH": 0,
+          "ANR": 26,
+          "users": 25
+        },
+        "891300112": {
+          "CRASH": 0,
+          "ANR": 34,
+          "users": 34
+        },
+        "892100112": {
+          "CRASH": 0,
+          "ANR": 225,
+          "users": 221
+        },
+        "900200121": {
+          "CRASH": 0,
+          "ANR": 3,
+          "users": 2
+        },
+        "900200122": {
+          "CRASH": 0,
+          "ANR": 317,
+          "users": 301
+        }
+      },
+      "cause": "unavailable - com.microsoft.scmx.vpn.openvpn.BaseOpenVpnClient.initialize",
+      "location": "ANR triggered by main thread waiting for too long",
+      "type": "APPLICATION_NOT_RESPONDING",
+      "distinctUsersPercent": {
+        "value": "0.7628"
+      }
+    },
+    "6056db512c32b4370dd8325264e3a503": {
+      "CRASH": 0,
+      "ANR": 585,
+      "users": 560,
+      "versions": {
+        "841200112": {
+          "CRASH": 0,
+          "ANR": 3,
+          "users": 3
+        },
+        "851400112": {
+          "CRASH": 0,
+          "ANR": 3,
+          "users": 3
+        },
+        "860500112": {
+          "CRASH": 0,
+          "ANR": 3,
+          "users": 3
+        },
+        "862300132": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "870300112": {
+          "CRASH": 0,
+          "ANR": 7,
+          "users": 7
+        },
+        "872700112": {
+          "CRASH": 0,
+          "ANR": 2,
+          "users": 1
+        },
+        "880500132": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "881400112": {
+          "CRASH": 0,
+          "ANR": 5,
+          "users": 5
+        },
+        "882800112": {
+          "CRASH": 0,
+          "ANR": 8,
+          "users": 3
+        },
+        "890500162": {
+          "CRASH": 0,
+          "ANR": 15,
+          "users": 14
+        },
+        "891300112": {
+          "CRASH": 0,
+          "ANR": 38,
+          "users": 36
+        },
+        "892100112": {
+          "CRASH": 0,
+          "ANR": 215,
+          "users": 203
+        },
+        "900200122": {
+          "CRASH": 0,
+          "ANR": 280,
+          "users": 276
+        },
+        "900200422": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "900300212": {
+          "CRASH": 0,
+          "ANR": 3,
+          "users": 3
+        }
+      },
+      "cause": "unavailable - com.microsoft.intune.vpn.g.c",
+      "location": "ANR triggered by thread waiting for a binder transaction",
+      "type": "APPLICATION_NOT_RESPONDING",
+      "distinctUsersPercent": {
+        "value": "0.5606"
+      }
+    },
+    "5af926fa89de385b6e3cb2e0cf774633": {
+      "CRASH": 0,
+      "ANR": 494,
+      "users": 465,
+      "versions": {
+        "851400111": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "851400112": {
+          "CRASH": 0,
+          "ANR": 3,
+          "users": 3
+        },
+        "860500112": {
+          "CRASH": 0,
+          "ANR": 4,
+          "users": 4
+        },
+        "862300132": {
+          "CRASH": 0,
+          "ANR": 4,
+          "users": 4
+        },
+        "870300112": {
+          "CRASH": 0,
+          "ANR": 17,
+          "users": 17
+        },
+        "872700112": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "880500131": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "880500132": {
+          "CRASH": 0,
+          "ANR": 8,
+          "users": 7
+        },
+        "881400112": {
+          "CRASH": 0,
+          "ANR": 18,
+          "users": 18
+        },
+        "892100111": {
+          "CRASH": 0,
+          "ANR": 3,
+          "users": 3
+        },
+        "892100112": {
+          "CRASH": 0,
+          "ANR": 198,
+          "users": 190
+        },
+        "892100212": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "900200121": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "900200122": {
+          "CRASH": 0,
+          "ANR": 232,
+          "users": 212
+        },
+        "900300212": {
+          "CRASH": 0,
+          "ANR": 2,
+          "users": 2
+        }
+      },
+      "cause": "unavailable - com.microsoft.scmx.features.consumer.vpn.f.get",
+      "location": "ANR triggered by slow operations in main thread",
+      "type": "APPLICATION_NOT_RESPONDING",
+      "distinctUsersPercent": {
+        "value": "0.3225"
+      }
+    },
+    "4d2847836aab29fb4e92a5207a559326": {
+      "CRASH": 282,
+      "ANR": 0,
+      "users": 219,
+      "versions": {
+        "890500162": {
+          "CRASH": 6,
+          "ANR": 0,
+          "users": 6
+        },
+        "891300112": {
+          "CRASH": 7,
+          "ANR": 0,
+          "users": 7
+        },
+        "891300412": {
+          "CRASH": 2,
+          "ANR": 0,
+          "users": 2
+        },
+        "892100112": {
+          "CRASH": 34,
+          "ANR": 0,
+          "users": 34
+        },
+        "892100412": {
+          "CRASH": 34,
+          "ANR": 0,
+          "users": 18
+        },
+        "900100422": {
+          "CRASH": 18,
+          "ANR": 0,
+          "users": 11
+        },
+        "900200121": {
+          "CRASH": 1,
+          "ANR": 0,
+          "users": 1
+        },
+        "900200122": {
+          "CRASH": 67,
+          "ANR": 0,
+          "users": 67
+        },
+        "900200422": {
+          "CRASH": 18,
+          "ANR": 0,
+          "users": 16
+        },
+        "900300412": {
+          "CRASH": 95,
+          "ANR": 0,
+          "users": 57
+        }
+      },
+      "cause": "[base.apk!libnaas_native_vpn.so]",
+      "location": "SIGSEGV",
+      "type": "CRASH",
+      "distinctUsersPercent": {
+        "value": "0.2227"
+      }
+    },
+    "754f3d806505df5e05442df5c4e8b1cd": {
+      "CRASH": 0,
+      "ANR": 189,
+      "users": 186,
+      "versions": {
+        "851400112": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "870300112": {
+          "CRASH": 0,
+          "ANR": 3,
+          "users": 3
+        },
+        "872700112": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "880500132": {
+          "CRASH": 0,
+          "ANR": 2,
+          "users": 2
+        },
+        "881400112": {
+          "CRASH": 0,
+          "ANR": 4,
+          "users": 4
+        },
+        "882800112": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "890500161": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "890500162": {
+          "CRASH": 0,
+          "ANR": 5,
+          "users": 5
+        },
+        "891300112": {
+          "CRASH": 0,
+          "ANR": 9,
+          "users": 9
+        },
+        "892100112": {
+          "CRASH": 0,
+          "ANR": 67,
+          "users": 66
+        },
+        "900200121": {
+          "CRASH": 0,
+          "ANR": 2,
+          "users": 1
+        },
+        "900200122": {
+          "CRASH": 0,
+          "ANR": 93,
+          "users": 92
+        }
+      },
+      "cause": "unavailable - com.microsoft.scmx.vpn.e.g",
+      "location": "ANR triggered by slow operations in main thread",
+      "type": "APPLICATION_NOT_RESPONDING",
+      "distinctUsersPercent": {
+        "value": "0.2355"
+      }
+    },
+    "33611ed4982975669064e6e7891f6d6f": {
+      "CRASH": 192,
+      "ANR": 0,
+      "users": 94,
+      "versions": {
+        "851400112": {
+          "CRASH": 2,
+          "ANR": 0,
+          "users": 1
+        },
+        "862300132": {
+          "CRASH": 3,
+          "ANR": 0,
+          "users": 2
+        },
+        "880500132": {
+          "CRASH": 3,
+          "ANR": 0,
+          "users": 2
+        },
+        "882800112": {
+          "CRASH": 1,
+          "ANR": 0,
+          "users": 1
+        },
+        "890500162": {
+          "CRASH": 9,
+          "ANR": 0,
+          "users": 6
+        },
+        "891300112": {
+          "CRASH": 12,
+          "ANR": 0,
+          "users": 7
+        },
+        "892100112": {
+          "CRASH": 39,
+          "ANR": 0,
+          "users": 33
+        },
+        "900200122": {
+          "CRASH": 123,
+          "ANR": 0,
+          "users": 42
+        }
+      },
+      "cause": "Unknown Source - com.microsoft.scmx.features.consumer.vpn.d.get",
+      "location": "java.lang.IllegalStateException",
+      "type": "CRASH",
+      "distinctUsersPercent": {
+        "value": "0.0947"
+      }
+    },
+    "7cfee915e24d01feb64e0be9a608c618": {
+      "CRASH": 0,
+      "ANR": 300,
+      "users": 288,
+      "versions": {
+        "841200112": {
+          "CRASH": 0,
+          "ANR": 2,
+          "users": 2
+        },
+        "851400112": {
+          "CRASH": 0,
+          "ANR": 5,
+          "users": 5
+        },
+        "862300132": {
+          "CRASH": 0,
+          "ANR": 4,
+          "users": 4
+        },
+        "870300112": {
+          "CRASH": 0,
+          "ANR": 10,
+          "users": 10
+        },
+        "872700112": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "880500132": {
+          "CRASH": 0,
+          "ANR": 4,
+          "users": 4
+        },
+        "881400111": {
+          "CRASH": 0,
+          "ANR": 2,
+          "users": 1
+        },
+        "881400112": {
+          "CRASH": 0,
+          "ANR": 6,
+          "users": 6
+        },
+        "882800112": {
+          "CRASH": 0,
+          "ANR": 2,
+          "users": 1
+        },
+        "890500162": {
+          "CRASH": 0,
+          "ANR": 15,
+          "users": 15
+        },
+        "891300112": {
+          "CRASH": 0,
+          "ANR": 23,
+          "users": 22
+        },
+        "892100111": {
+          "CRASH": 0,
+          "ANR": 3,
+          "users": 3
+        },
+        "892100112": {
+          "CRASH": 0,
+          "ANR": 126,
+          "users": 119
+        },
+        "900200121": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "900200122": {
+          "CRASH": 0,
+          "ANR": 96,
+          "users": 94
+        }
+      },
+      "cause": "unavailable - com.microsoft.scmx.features.naas.vpn.ux.model.NaaSData.<init>",
+      "location": "ANR triggered by slow operations in main thread",
+      "type": "APPLICATION_NOT_RESPONDING",
+      "distinctUsersPercent": {
+        "value": "0.2048"
+      }
+    },
+    "aeb5c10af4632311f9b31c78432fabae": {
+      "CRASH": 0,
+      "ANR": 212,
+      "users": 194,
+      "versions": {
+        "710500112": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "771400112": {
+          "CRASH": 0,
+          "ANR": 2,
+          "users": 2
+        },
+        "792300111": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "792300112": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "820100112": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "851400112": {
+          "CRASH": 0,
+          "ANR": 2,
+          "users": 2
+        },
+        "870300112": {
+          "CRASH": 0,
+          "ANR": 3,
+          "users": 3
+        },
+        "880500131": {
+          "CRASH": 0,
+          "ANR": 3,
+          "users": 3
+        },
+        "880500132": {
+          "CRASH": 0,
+          "ANR": 4,
+          "users": 4
+        },
+        "881400112": {
+          "CRASH": 0,
+          "ANR": 3,
+          "users": 3
+        },
+        "890500162": {
+          "CRASH": 0,
+          "ANR": 6,
+          "users": 5
+        },
+        "891300112": {
+          "CRASH": 0,
+          "ANR": 11,
+          "users": 11
+        },
+        "892100111": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "892100112": {
+          "CRASH": 0,
+          "ANR": 84,
+          "users": 74
+        },
+        "900200122": {
+          "CRASH": 0,
+          "ANR": 89,
+          "users": 82
+        }
+      },
+      "cause": "Native method - android.os.MessageQueue.nativePollOnce",
+      "location": "Executing service com.microsoft.scmx/.vpn.VpnServiceOrchestrator",
+      "type": "APPLICATION_NOT_RESPONDING",
+      "distinctUsersPercent": {
+        "value": "0.1792"
+      }
+    },
+    "e908aab729cfcebffe03d4b11a4714f7": {
+      "CRASH": 0,
+      "ANR": 168,
+      "users": 157,
+      "versions": {
+        "851400112": {
+          "CRASH": 0,
+          "ANR": 4,
+          "users": 4
+        },
+        "860500112": {
+          "CRASH": 0,
+          "ANR": 4,
+          "users": 4
+        },
+        "862300132": {
+          "CRASH": 0,
+          "ANR": 2,
+          "users": 2
+        },
+        "870300112": {
+          "CRASH": 0,
+          "ANR": 4,
+          "users": 3
+        },
+        "880500132": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "881400112": {
+          "CRASH": 0,
+          "ANR": 11,
+          "users": 10
+        },
+        "890500161": {
+          "CRASH": 0,
+          "ANR": 2,
+          "users": 2
+        },
+        "890500162": {
+          "CRASH": 0,
+          "ANR": 9,
+          "users": 9
+        },
+        "891300112": {
+          "CRASH": 0,
+          "ANR": 16,
+          "users": 15
+        },
+        "892100111": {
+          "CRASH": 0,
+          "ANR": 2,
+          "users": 2
+        },
+        "892100112": {
+          "CRASH": 0,
+          "ANR": 59,
+          "users": 56
+        },
+        "900200121": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "900200122": {
+          "CRASH": 0,
+          "ANR": 53,
+          "users": 48
+        }
+      },
+      "cause": "unavailable - com.microsoft.scmx.vpn.openvpn.BaseOpenVpnClient.initialize",
+      "location": "ANR triggered by slow operations in main thread",
+      "type": "APPLICATION_NOT_RESPONDING",
+      "distinctUsersPercent": {
+        "value": "0.1152"
+      }
+    },
+    "efb179b7ac1329d419a3f5be5843ab65": {
+      "CRASH": 0,
+      "ANR": 128,
+      "users": 124,
+      "versions": {
+        "841200112": {
+          "CRASH": 0,
+          "ANR": 3,
+          "users": 3
+        },
+        "851400112": {
+          "CRASH": 0,
+          "ANR": 2,
+          "users": 2
+        },
+        "860500112": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "870300112": {
+          "CRASH": 0,
+          "ANR": 6,
+          "users": 6
+        },
+        "881400112": {
+          "CRASH": 0,
+          "ANR": 3,
+          "users": 3
+        },
+        "890500162": {
+          "CRASH": 0,
+          "ANR": 5,
+          "users": 5
+        },
+        "891300111": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "891300112": {
+          "CRASH": 0,
+          "ANR": 9,
+          "users": 8
+        },
+        "892100111": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "892100112": {
+          "CRASH": 0,
+          "ANR": 49,
+          "users": 46
+        },
+        "900200121": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "900200122": {
+          "CRASH": 0,
+          "ANR": 47,
+          "users": 47
+        }
+      },
+      "cause": "unavailable - com.microsoft.scmx.features.naas.vpn.ux.model.NaaSData.<init>",
+      "location": "ANR triggered by slow operations in main thread",
+      "type": "APPLICATION_NOT_RESPONDING",
+      "distinctUsersPercent": {
+        "value": "0.1177"
+      }
+    },
+    "22585fee3883ca73bde14b1303dd469b": {
+      "CRASH": 0,
+      "ANR": 139,
+      "users": 130,
+      "versions": {
+        "841200112": {
+          "CRASH": 0,
+          "ANR": 3,
+          "users": 3
+        },
+        "862300132": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "870300112": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "880500132": {
+          "CRASH": 0,
+          "ANR": 2,
+          "users": 2
+        },
+        "881400112": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "890500162": {
+          "CRASH": 0,
+          "ANR": 8,
+          "users": 7
+        },
+        "891300112": {
+          "CRASH": 0,
+          "ANR": 10,
+          "users": 8
+        },
+        "892100111": {
+          "CRASH": 0,
+          "ANR": 2,
+          "users": 2
+        },
+        "892100112": {
+          "CRASH": 0,
+          "ANR": 59,
+          "users": 58
+        },
+        "900200121": {
+          "CRASH": 0,
+          "ANR": 5,
+          "users": 4
+        },
+        "900200122": {
+          "CRASH": 0,
+          "ANR": 47,
+          "users": 43
+        }
+      },
+      "cause": "unavailable - com.microsoft.scmx.vpn.openvpn.BaseOpenVpnClient.initialize",
+      "location": "Executing service com.microsoft.scmx/com.microsoft.defender.antiphishing.accessibility.BrowserAccessibilityService",
+      "type": "APPLICATION_NOT_RESPONDING",
+      "distinctUsersPercent": {
+        "value": "0.1075"
+      }
+    },
+    "5db43cba8a099bc7a5fcc29062ec4899": {
+      "CRASH": 0,
+      "ANR": 94,
+      "users": 89,
+      "versions": {
+        "870300112": {
+          "CRASH": 0,
+          "ANR": 4,
+          "users": 4
+        },
+        "880500132": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "881400112": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "890500162": {
+          "CRASH": 0,
+          "ANR": 3,
+          "users": 3
+        },
+        "891300112": {
+          "CRASH": 0,
+          "ANR": 7,
+          "users": 7
+        },
+        "892100112": {
+          "CRASH": 0,
+          "ANR": 34,
+          "users": 34
+        },
+        "900200121": {
+          "CRASH": 0,
+          "ANR": 2,
+          "users": 1
+        },
+        "900200122": {
+          "CRASH": 0,
+          "ANR": 41,
+          "users": 37
+        },
+        "900300212": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        }
+      },
+      "cause": "unavailable - com.microsoft.intune.vpn.profile.c.<init>",
+      "location": "ANR triggered by thread waiting for a binder transaction",
+      "type": "APPLICATION_NOT_RESPONDING",
+      "distinctUsersPercent": {
+        "value": "0.1024"
+      }
+    },
+    "d22a8f8d333356fa485d18f8b37859b3": {
+      "CRASH": 0,
+      "ANR": 86,
+      "users": 79,
+      "versions": {
+        "851400111": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "851400112": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "860500111": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "860500112": {
+          "CRASH": 0,
+          "ANR": 2,
+          "users": 2
+        },
+        "870300112": {
+          "CRASH": 0,
+          "ANR": 2,
+          "users": 2
+        },
+        "880500132": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "891300111": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "891300112": {
+          "CRASH": 0,
+          "ANR": 6,
+          "users": 6
+        },
+        "892100111": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "892100112": {
+          "CRASH": 0,
+          "ANR": 26,
+          "users": 24
+        },
+        "892100114": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "900200121": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "900200122": {
+          "CRASH": 0,
+          "ANR": 42,
+          "users": 37
+        }
+      },
+      "cause": "unavailable - com.microsoft.scmx.vpn.openvpn.BaseOpenVpnClient.initialize",
+      "location": "Executing service com.microsoft.scmx/com.microsoft.defender.antiphishing.accessibility.BrowserAccessibilityService",
+      "type": "APPLICATION_NOT_RESPONDING",
+      "distinctUsersPercent": {
+        "value": "0.1049"
+      }
+    },
+    "c39ec973b41860da75d59090343ee710": {
+      "CRASH": 0,
+      "ANR": 126,
+      "users": 123,
+      "versions": {
+        "841200112": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "860500111": {
+          "CRASH": 0,
+          "ANR": 2,
+          "users": 2
+        },
+        "860500112": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "862300132": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "870300111": {
+          "CRASH": 0,
+          "ANR": 1,
+          "users": 1
+        },
+        "870300112": {
+          "CRASH": 0,
+          "ANR": 2,
+          "users": 2
+        },
+        "881400112": {
+          "CRASH": 0,
+          "ANR": 3,
+          "users": 3
+        },
+        "890500162": {
+          "CRASH": 0,
+          "ANR": 5,
+          "users": 5
+        },
+        "891300112": {
+          "CRASH": 0,
+          "ANR": 10,
+          "users": 10
+        },
+        "892100112": {
+          "CRASH": 0,
+          "ANR": 49,
+          "users": 48
+        },
+        "900200121": {
+          "CRASH": 0,
+          "ANR": 2,
+          "users": 2
+        },
+        "900200122": {
+          "CRASH": 0,
+          "ANR": 49,
+          "users": 47
+        }
+      },
+      "cause": "unavailable - com.microsoft.intune.vpn.g.c",
+      "location": "ANR triggered by thread waiting for a binder transaction",
+      "type": "APPLICATION_NOT_RESPONDING",
+      "distinctUsersPercent": {
+        "value": "0.1101"
+      }
+    }
+  }
+}

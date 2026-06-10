@@ -1,0 +1,7561 @@
+{
+  "3e11c004ac1da2e009d8395ae8c47ec0": [
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "760900122"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "5"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "820100112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "841200112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "860500112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "870300112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "47"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "4"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "880500131"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "880500132"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "3"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "3"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "881400112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "5"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "2"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "882800112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "21"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "890500162"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "50"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "5"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "891300112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "165"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "22"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "892100111"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "4"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "892100112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1307"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "188"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "900200121"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "2"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "900200122"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2146"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "241"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "900200422"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    }
+  ],
+  "e216e51099939b7421de40c9c34e002b": [
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "870300112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "880500131"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "882800112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "891300112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "17"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "892100112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "88"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "19"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "900200121"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "2"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "900200122"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "542"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "88"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "900300212"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "8"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    }
+  ],
+  "6ab4dc76a10f6b8ec8524f4c1f020cf1": [
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "841200112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "6"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "6"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "851400112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "8"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "7"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "860500112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "15"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "13"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "862300132"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "2"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "870300112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "36"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "36"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "872700112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "880500132"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "13"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "12"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "881400112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "16"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "16"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "882800112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "5"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "4"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "890500162"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "68"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "68"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "891300112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "93"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "92"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "891300212"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "892100111"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "2"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "892100112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "542"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "522"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "900200122"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "436"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "420"
+          }
+        }
+      ]
+    }
+  ],
+  "868ca86b7a9b6b19278fbe252f496d30": [
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "841200112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "2"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "851400112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "6"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "6"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "860500111"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "860500112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "5"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "5"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "862300132"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "4"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "4"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "870300112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "13"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "13"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "880500131"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "880500132"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "5"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "5"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "881400112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "4"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "4"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "882800112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "890500161"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "890500162"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "26"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "25"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "891300112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "34"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "34"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "892100112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "225"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "221"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "900200121"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "3"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "2"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "900200122"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "317"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "301"
+          }
+        }
+      ]
+    }
+  ],
+  "6056db512c32b4370dd8325264e3a503": [
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "841200112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "3"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "3"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "851400112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "3"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "3"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "860500112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "3"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "3"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "862300132"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "870300112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "7"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "7"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "872700112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "880500132"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "881400112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "5"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "5"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "882800112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "8"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "3"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "890500162"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "15"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "14"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "891300112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "38"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "36"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "892100112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "215"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "203"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "900200122"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "280"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "276"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "900200422"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "900300212"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "3"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "3"
+          }
+        }
+      ]
+    }
+  ],
+  "5af926fa89de385b6e3cb2e0cf774633": [
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "851400111"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "851400112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "3"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "3"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "860500112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "4"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "4"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "862300132"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "4"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "4"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "870300112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "17"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "17"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "872700112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "880500131"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "880500132"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "8"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "7"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "881400112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "18"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "18"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "892100111"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "3"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "3"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "892100112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "198"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "190"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "892100212"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "900200121"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "900200122"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "232"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "212"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "900300212"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "2"
+          }
+        }
+      ]
+    }
+  ],
+  "4d2847836aab29fb4e92a5207a559326": [
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "890500162"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "6"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "6"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "891300112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "7"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "7"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "891300412"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "2"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "892100112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "34"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "34"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "892100412"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "34"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "18"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "900100422"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "18"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "11"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "900200121"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "900200122"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "67"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "67"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "900200422"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "18"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "16"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "900300412"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "95"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "57"
+          }
+        }
+      ]
+    }
+  ],
+  "754f3d806505df5e05442df5c4e8b1cd": [
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "851400112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "870300112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "3"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "3"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "872700112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "880500132"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "2"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "881400112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "4"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "4"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "882800112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "890500161"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "890500162"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "5"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "5"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "891300112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "9"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "9"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "892100112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "67"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "66"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "900200121"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "900200122"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "93"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "92"
+          }
+        }
+      ]
+    }
+  ],
+  "33611ed4982975669064e6e7891f6d6f": [
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "851400112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "862300132"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "3"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "2"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "880500132"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "3"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "2"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "882800112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "890500162"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "9"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "6"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "891300112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "12"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "7"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "892100112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "39"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "33"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "CRASH"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "900200122"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "123"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "42"
+          }
+        }
+      ]
+    }
+  ],
+  "7cfee915e24d01feb64e0be9a608c618": [
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "841200112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "2"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "851400112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "5"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "5"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "862300132"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "4"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "4"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "870300112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "10"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "10"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "872700112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "880500132"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "4"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "4"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "881400111"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "881400112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "6"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "6"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "882800112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "890500162"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "15"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "15"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "891300112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "23"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "22"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "892100111"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "3"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "3"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "892100112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "126"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "119"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "900200121"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "900200122"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "96"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "94"
+          }
+        }
+      ]
+    }
+  ],
+  "aeb5c10af4632311f9b31c78432fabae": [
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "710500112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "771400112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "2"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "792300111"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "792300112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "820100112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "851400112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "2"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "870300112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "3"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "3"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "880500131"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "3"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "3"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "880500132"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "4"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "4"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "881400112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "3"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "3"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "890500162"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "6"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "5"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "891300112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "11"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "11"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "892100111"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "892100112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "84"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "74"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "900200122"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "89"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "82"
+          }
+        }
+      ]
+    }
+  ],
+  "e908aab729cfcebffe03d4b11a4714f7": [
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "851400112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "4"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "4"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "860500112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "4"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "4"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "862300132"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "2"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "870300112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "4"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "3"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "880500132"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "881400112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "11"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "10"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "890500161"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "2"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "890500162"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "9"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "9"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "891300112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "16"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "15"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "892100111"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "2"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "892100112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "59"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "56"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "900200121"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "900200122"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "53"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "48"
+          }
+        }
+      ]
+    }
+  ],
+  "efb179b7ac1329d419a3f5be5843ab65": [
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "841200112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "3"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "3"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "851400112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "2"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "860500112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "870300112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "6"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "6"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "881400112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "3"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "3"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "890500162"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "5"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "5"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "891300111"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "891300112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "9"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "8"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "892100111"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "892100112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "49"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "46"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "900200121"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "900200122"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "47"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "47"
+          }
+        }
+      ]
+    }
+  ],
+  "22585fee3883ca73bde14b1303dd469b": [
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "841200112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "3"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "3"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "862300132"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "870300112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "880500132"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "2"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "881400112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "890500162"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "8"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "7"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "891300112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "10"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "8"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "892100111"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "2"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "892100112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "59"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "58"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "900200121"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "5"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "4"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "900200122"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "47"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "43"
+          }
+        }
+      ]
+    }
+  ],
+  "5db43cba8a099bc7a5fcc29062ec4899": [
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "870300112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "4"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "4"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "880500132"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "881400112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "890500162"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "3"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "3"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "891300112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "7"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "7"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "892100112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "34"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "34"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "900200121"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "900200122"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "41"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "37"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "900300212"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    }
+  ],
+  "d22a8f8d333356fa485d18f8b37859b3": [
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "851400111"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "851400112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "860500111"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "860500112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "2"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "870300112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "2"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "880500132"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "891300111"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "891300112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "6"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "6"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "892100111"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "892100112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "26"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "24"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "892100114"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "900200121"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "900200122"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "42"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "37"
+          }
+        }
+      ]
+    }
+  ],
+  "c39ec973b41860da75d59090343ee710": [
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "841200112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "860500111"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "2"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "860500112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "862300132"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "870300111"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "1"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "1"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "870300112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "2"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "881400112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "3"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "3"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "890500162"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "5"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "5"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "891300112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "10"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "10"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "892100112"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "49"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "48"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "900200121"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "2"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "2"
+          }
+        }
+      ]
+    },
+    {
+      "aggregationPeriod": "FULL_RANGE",
+      "startTime": {
+        "year": 2026,
+        "month": 6,
+        "day": 3,
+        "timeZone": {
+          "id": "America/Los_Angeles"
+        }
+      },
+      "dimensions": [
+        {
+          "dimension": "reportType",
+          "stringValue": "ANR"
+        },
+        {
+          "dimension": "versionCode",
+          "stringValue": "900200122"
+        }
+      ],
+      "metrics": [
+        {
+          "metric": "errorReportCount",
+          "decimalValue": {
+            "value": "49"
+          }
+        },
+        {
+          "metric": "distinctUsers",
+          "decimalValue": {
+            "value": "47"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,125 @@
+{
+  "active_icms": [
+    {
+      "summary": "I am not able to access following URLs: https://private.edgediagnostic.globalsecureaccess.microsoft.com:6543/connectivitytest/ping https://m365.edgediagnostic.globalsecureaccess.microsoft.com:6543/connectivitytest/ping Incident Id: QAQTYEFD",
+      "keywords": "[IcM Copilot] Test incident / no validated production issue",
+      "mitigateData": {},
+      "serviceCategoryId": 4,
+      "isReadonly": false,
+      "tags": [],
+      "id": 810723164,
+      "title": "[Copilto testing]\u00a0GSA Android client not working",
+      "createdDate": "2026-06-03T07:32:26.23Z",
+      "lastModifiedDate": "2026-06-06T06:01:04.97Z",
+      "severity": 3,
+      "state": "ACTIVE",
+      "owningServiceId": 29308,
+      "owningTeamId": 106961,
+      "isCustomerImpacting": true,
+      "isSecurityRisk": false,
+      "type": "CustomerReported",
+      "assignedTo": 422691,
+      "isAcknowledged": false,
+      "impactStartTime": "2026-06-03T07:32:25.87Z",
+      "owningTeamName": "GSA  Client - XPlat",
+      "isSupportEngagement": false
+    }
+  ],
+  "mitigated_icms": [],
+  "on_call": {
+    "primary": {
+      "alias": "dileepkusuma",
+      "name": "dileepkusuma"
+    },
+    "backup": {
+      "alias": "samirnen",
+      "name": "samirnen"
+    },
+    "schedule_source": "live"
+  },
+  "ai_summaries": {
+    "810723164": "{'Summary': {'Symptoms': ['Users are unable to access specific Global Secure Access URLs.'], 'Impacts': '', 'Tags': [{'TagName': 'Access Issue', 'Score': 5}, {'TagName': 'Global Secure Access', 'Score': 5}], 'Description': 'A customer-reported incident involves the Global Secure Access Android client failing to access designated URLs. The issue is active and under investigation by the GSA Client - XPlat team. No root cause or mitigation steps have been identified yet.', 'CurrentStatus': ['The incident remains active and under investigation.'], 'LatestUpdate': [], 'Severity': '3', 'State': 'ACTIVE', 'OutageUpdate': '', 'Causes': '', 'MitigationSolutions': '', 'KustoQueries': [], 'AcmCommunicationSummary': '', 'DescriptionEntriesSummary': '', 'AITitle': 'Global Secure Access Android Client Access Failure', 'BriefSummary': 'The Global Secure Access Android client is experiencing access failures to key URLs, impacting user connectivity. The incident is active with no root cause or mitigation identified yet. The GSA Client - XPlat team is investigating to restore service.', 'SuggestedPrompts': ['Show investigation progress', 'List impacted services', 'What mitigation steps planned']}}"
+  },
+  "source": "live",
+  "_meta": {
+    "team_id": 106961,
+    "team_name": "GSA Client - Android",
+    "lookback_days": 7,
+    "fetched_at": "2026-06-08T10:07:00.811859+00:00",
+    "errors": [],
+    "row_counts": {
+      "active": 1,
+      "mitigated": 0,
+      "ai_summaries": 1
+    }
+  },
+  "warning": "",
+  "active": [
+    {
+      "summary": "I am not able to access following URLs: https://private.edgediagnostic.globalsecureaccess.microsoft.com:6543/connectivitytest/ping https://m365.edgediagnostic.globalsecureaccess.microsoft.com:6543/connectivitytest/ping Incident Id: QAQTYEFD",
+      "keywords": "[IcM Copilot] Test incident / no validated production issue",
+      "mitigateData": {},
+      "serviceCategoryId": 4,
+      "isReadonly": false,
+      "tags": [],
+      "id": 810723164,
+      "title": "[Copilto testing]\u00a0GSA Android client not working",
+      "createdDate": "2026-06-03T07:32:26.23Z",
+      "lastModifiedDate": "2026-06-06T06:01:04.97Z",
+      "severity": 3,
+      "state": "ACTIVE",
+      "owningServiceId": 29308,
+      "owningTeamId": 106961,
+      "isCustomerImpacting": true,
+      "isSecurityRisk": false,
+      "type": "CustomerReported",
+      "assignedTo": 422691,
+      "isAcknowledged": false,
+      "impactStartTime": "2026-06-03T07:32:25.87Z",
+      "owningTeamName": "GSA  Client - XPlat",
+      "isSupportEngagement": false
+    }
+  ],
+  "mitigated": [],
+  "counts": {
+    "active": 1,
+    "mitigated": 0
+  },
+  "customer_created_active": [],
+  "system_created_active": [
+    {
+      "summary": "I am not able to access following URLs: https://private.edgediagnostic.globalsecureaccess.microsoft.com:6543/connectivitytest/ping https://m365.edgediagnostic.globalsecureaccess.microsoft.com:6543/connectivitytest/ping Incident Id: QAQTYEFD",
+      "keywords": "[IcM Copilot] Test incident / no validated production issue",
+      "mitigateData": {},
+      "serviceCategoryId": 4,
+      "isReadonly": false,
+      "tags": [],
+      "id": 810723164,
+      "title": "[Copilto testing]\u00a0GSA Android client not working",
+      "createdDate": "2026-06-03T07:32:26.23Z",
+      "lastModifiedDate": "2026-06-06T06:01:04.97Z",
+      "severity": 3,
+      "state": "ACTIVE",
+      "owningServiceId": 29308,
+      "owningTeamId": 106961,
+      "isCustomerImpacting": true,
+      "isSecurityRisk": false,
+      "type": "CustomerReported",
+      "assignedTo": 422691,
+      "isAcknowledged": false,
+      "impactStartTime": "2026-06-03T07:32:25.87Z",
+      "owningTeamName": "GSA  Client - XPlat",
+      "isSupportEngagement": false
+    }
+  ],
+  "mitigated_highlights": [],
+  "patterns": [],
+  "oncall": {
+    "primary": "dileepkusuma",
+    "backup": "samirnen",
+    "team_id": "106961",
+    "cached": false,
+    "warning": "",
+    "source": "live"
+  }
+}

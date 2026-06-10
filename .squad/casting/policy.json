@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "policy": "single-universe-per-assignment",
+  "current_universe": "x-files",
+  "exhausted_universes": [],
+  "lru": ["x-files"],
+  "capacity": {
+    "min": 6,
+    "max": 25
+  }
+}
