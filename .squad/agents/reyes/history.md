@@ -23,3 +23,19 @@ Android GSA Client Service Health Check. Telemetry: server-side NAAS (Kusto), cl
 **Teams re-fire pattern (06-10T17:37):** Payload `{"text":"<markdown>"}` (json.dumps escaping), urllib.request POST, Content-Type: application/json. HTTP 202 = success.
 
 **Gotchas:** Date format `%-d` (GNU) fails on Windows → fallback chain `%-d` → `%#d` → manual strip. Langly header if FAILed → degraded line (not omit). ICM PARTIAL → canonical phrasing verbatim for continuity.
+
+## 2026-06-10T17:43+05:30 — Track 3+4 shipped: on-call wiring (PR #1)
+
+Paired with Skinner; Reyes owned the assembler + YAML fallback. Branch `track3-track4-file-based-icm-oncall`.
+
+### Learnings
+- **On-call precedence chain (assembler `_resolve_oncall`):**
+  1. `ctx['oncall_primary']` / `ctx['oncall_backup']` (explicit override from orchestrator).
+  2. `sections['skinner_icm'].metadata['on_call'] = {primary, backup}` — Skinner publishes this when it loads `.squad/agents/skinner/icm-latest.json`.
+  3. `.squad/config/on-call.yaml` — `schedule[].{from, to, primary, backup}`; pick the entry whose `from <= date <= to`.
+  4. Literal `TBD`.
+- **YAML reader is PyYAML-optional.** Ships an inline minimal parser for the documented shape so the assembler stays import-clean if PyYAML isn't on the runner. PyYAML used when present.
+- **JSON shape consumed (from icm_collector):** Skinner publishes only the on-call sub-shape into metadata, but full payload also has `active_icms` / `mitigated_icms` / `_meta.fetched_at` (used as `pull_date`).
+- **Freshness gate is Skinner's, not Reyes's.** Skinner returns PARTIAL with stale note if > 48h; assembler still gets `metadata['on_call']` populated and uses it. So an aging JSON keeps the on-call current as long as the rotation didn't change.
+- **Fallback YAML location:** `.squad/config/on-call.yaml`. Reyes reads, Saloni hand-maintains for OOF / mid-week rotation changes.
+- **Test invariant updated:** old `test_oncall_falls_back_to_TBD_when_missing` now asserts `TBD-update-me` (the YAML seed). New companion test exercises the Skinner-metadata path explicitly.
