@@ -87,7 +87,12 @@ log "step 3/4: running report generator for ${REPORT_DATE}"
 cd "$REPO_ROOT"
 
 PY_BIN="${PYTHON:-python3}"
-"$PY_BIN" -m tools.report_generator.cli --date "$REPORT_DATE"
+# --no-fail-on-validation: local-runner is the degraded path by design
+# (no Kusto SP, sometimes no Play Console SA, file-based ICM). Validation
+# still runs and writes validation.json, but exit code stays 0 so the
+# Teams post proceeds. CI remains strict (no flag in the workflow).
+# See: .squad/decisions/inbox/mulder-invariant-2-local-policy.md
+"$PY_BIN" -m tools.report_generator.cli --date "$REPORT_DATE" --no-fail-on-validation
 
 REPORT_PATH="${REPO_ROOT}/daily-livesite-report-android-${REPORT_DATE}.md"
 if [ ! -s "$REPORT_PATH" ]; then
@@ -95,6 +100,30 @@ if [ ! -s "$REPORT_PATH" ]; then
   exit 1
 fi
 log "report written: ${REPORT_PATH} ($(wc -c < "$REPORT_PATH" | tr -d ' ') bytes)"
+
+# --- Validation banner (degraded but shipping) -----------------------------
+# Read validation.json written by the generator. If passed=false, print a
+# loud banner so Saloni sees the report shipped *degraded* even though we're
+# about to post it. Banner appears BEFORE the Teams post, not after, so a
+# subsequent curl failure can't bury it.
+VALIDATION_JSON="${REPO_ROOT}/tools/report_generator/runs/${REPORT_DATE}/validation.json"
+if [ -f "$VALIDATION_JSON" ]; then
+  if command -v jq >/dev/null 2>&1; then
+    V_PASSED="$(jq -r '.passed' "$VALIDATION_JSON" 2>/dev/null || echo "unknown")"
+    if [ "$V_PASSED" = "false" ]; then
+      V_COUNT="$(jq -r '.failure_count' "$VALIDATION_JSON" 2>/dev/null || echo "?")"
+      echo ""
+      echo "⚠️  Report posted to Teams BUT validation reported ${V_COUNT} failure(s)."
+      echo "    See: tools/report_generator/runs/${REPORT_DATE}/validation.json"
+      jq -r '.failures[] | "      - " + .' "$VALIDATION_JSON" 2>/dev/null || true
+      echo ""
+    fi
+  else
+    log "WARN: jq missing — cannot parse ${VALIDATION_JSON} for banner."
+  fi
+else
+  log "WARN: no validation.json at ${VALIDATION_JSON} — generator did not write one?"
+fi
 
 # --- Post to Teams ---------------------------------------------------------
 log "step 4/4: posting to Teams webhook"
