@@ -1,0 +1,33 @@
+{
+  "naas_crash_top10": [
+    {
+      "id": "3e11c004ac1da2e009d8395ae8c47ec0",
+      "cnt": 0,
+      "users": 0,
+      "cause": "Unknown Source - com.microsoft.scmx.vpn.VpnServiceOrchestrator.onStartCommand",
+      "location": "android.app.StackTrace"
+    },
+    {
+      "id": "e216e51099939b7421de40c9c34e002b",
+      "cnt": 0,
+      "users": 0,
+      "cause": "SourceFile - com.microsoft.scmx.vpn.VpnServiceOrchestrator.onStartCommand",
+      "location": "android.app.StackTrace"
+    },
+    {
+      "id": "4d2847836aab29fb4e92a5207a559326",
+      "cnt": 0,
+      "users": 0,
+      "cause": "[base.apk!libnaas_native_vpn.so]",
+      "location": "SIGSEGV"
+    },
+    {
+      "id": "33611ed4982975669064e6e7891f6d6f",
+      "cnt": 0,
+      "users": 0,
+      "cause": "Unknown Source - com.microsoft.scmx.features.consumer.vpn.d.get",
+      "location": "java.lang.IllegalStateException"
+    }
+  ],
+  "naas_anr_top10": []
+}

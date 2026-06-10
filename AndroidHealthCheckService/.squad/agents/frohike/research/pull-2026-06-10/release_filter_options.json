@@ -1,0 +1,255 @@
+{
+  "tracks": [
+    {
+      "displayName": "Custom testing 3",
+      "type": "Closed testing",
+      "servingReleases": [
+        {
+          "displayName": "1.0.8906.0103",
+          "versionCodes": [
+            "890600132",
+            "890600131",
+            "890600134",
+            "890600133"
+          ]
+        }
+      ]
+    },
+    {
+      "displayName": "Internal Bugbash",
+      "type": "Closed testing",
+      "servingReleases": [
+        {
+          "displayName": "1.0.9003.0001",
+          "versionCodes": [
+            "900300012",
+            "900300011",
+            "900300014",
+            "900300013"
+          ]
+        }
+      ]
+    },
+    {
+      "displayName": "production",
+      "type": "Production",
+      "servingReleases": [
+        {
+          "displayName": "1.0.9003.0101",
+          "versionCodes": [
+            "900300112",
+            "900300111",
+            "900300114",
+            "900300113"
+          ]
+        },
+        {
+          "displayName": "1.0.9002.0102",
+          "versionCodes": [
+            "900200122",
+            "900200121",
+            "900200124",
+            "900200123"
+          ]
+        }
+      ]
+    },
+    {
+      "displayName": "Enterprise Selfhost",
+      "type": "Closed testing",
+      "servingReleases": [
+        {
+          "displayName": "1.0.9003.0401",
+          "versionCodes": [
+            "900300411",
+            "900300412",
+            "900300413",
+            "900300414"
+          ]
+        }
+      ]
+    },
+    {
+      "displayName": "beta",
+      "type": "Open testing",
+      "servingReleases": [
+        {
+          "displayName": "1.0.9003.0201",
+          "versionCodes": [
+            "900300211",
+            "900300212",
+            "900300213",
+            "900300214"
+          ]
+        }
+      ]
+    },
+    {
+      "displayName": "alpha",
+      "type": "Closed testing",
+      "servingReleases": [
+        {
+          "displayName": "1.0.3425.0102",
+          "versionCodes": [
+            "342500121",
+            "342500122",
+            "342500123",
+            "342500124"
+          ]
+        }
+      ]
+    },
+    {
+      "displayName": "Custom testing",
+      "type": "Closed testing",
+      "servingReleases": [
+        {
+          "displayName": "1.0.9003.0102",
+          "versionCodes": [
+            "900300122",
+            "900300121",
+            "900300124",
+            "900300123"
+          ]
+        }
+      ]
+    },
+    {
+      "displayName": "Consumer Selfhost",
+      "type": "Closed testing",
+      "servingReleases": [
+        {
+          "displayName": "1.0.9003.0401",
+          "versionCodes": [
+            "900300411",
+            "900300412",
+            "900300413",
+            "900300414"
+          ]
+        }
+      ]
+    },
+    {
+      "displayName": "Enterprise Public Preview",
+      "type": "Closed testing",
+      "servingReleases": [
+        {
+          "displayName": "1.0.9003.0201",
+          "versionCodes": [
+            "900300211",
+            "900300212",
+            "900300213",
+            "900300214"
+          ]
+        }
+      ]
+    },
+    {
+      "displayName": "Private Preview",
+      "type": "Closed testing",
+      "servingReleases": [
+        {
+          "displayName": "1.0.9003.0301",
+          "versionCodes": [
+            "900300312",
+            "900300311",
+            "900300314",
+            "900300313"
+          ]
+        }
+      ]
+    },
+    {
+      "displayName": "MDATP-V1-Ring1-External-New",
+      "type": "Closed testing"
+    },
+    {
+      "displayName": "Internal Staging",
+      "type": "Closed testing",
+      "servingReleases": [
+        {
+          "displayName": "1.0.9003.0401",
+          "versionCodes": [
+            "900300412",
+            "900300411",
+            "900300414",
+            "900300413"
+          ]
+        }
+      ]
+    },
+    {
+      "displayName": "Internal Beta Staging",
+      "type": "Closed testing",
+      "servingReleases": [
+        {
+          "displayName": "1.0.6122.0302",
+          "versionCodes": [
+            "612200322",
+            "612200321",
+            "612200324",
+            "612200323"
+          ]
+        }
+      ]
+    },
+    {
+      "displayName": "Custom testing 2",
+      "type": "Closed testing",
+      "servingReleases": [
+        {
+          "displayName": "1.0.8918.0102",
+          "versionCodes": [
+            "891800122",
+            "891800121",
+            "891800124",
+            "891800123"
+          ]
+        }
+      ]
+    },
+    {
+      "displayName": "internal",
+      "type": "Internal"
+    },
+    {
+      "displayName": "instantProd",
+      "type": "Production"
+    },
+    {
+      "displayName": "instantAlpha",
+      "type": "Closed testing"
+    },
+    {
+      "displayName": "Internal Gamma Staging",
+      "type": "Closed testing",
+      "servingReleases": [
+        {
+          "displayName": "1.0.9003.0201",
+          "versionCodes": [
+            "900300212",
+            "900300211",
+            "900300214",
+            "900300213"
+          ]
+        }
+      ]
+    },
+    {
+      "displayName": "Android Tunnel ICM (DT)",
+      "type": "Closed testing",
+      "servingReleases": [
+        {
+          "displayName": "890500192 (1.0.8905.0109)",
+          "versionCodes": [
+            "890500192"
+          ]
+        }
+      ]
+    },
+    {
+      "displayName": "instantDev",
+      "type": "Internal"
+    }
+  ]
+}

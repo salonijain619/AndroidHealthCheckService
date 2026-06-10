@@ -49,8 +49,8 @@
 
 ## Rolling history
 
-| Version | Release date | Rollout % | Notes |
-|---|---|---|---|
-| `1.0.9002.0102` | 2026-06-10 | TBD (Play Console) | First Langly pull. Mainstream `.0102` suffix. Coincides with active ramp per Scully (+51% device growth WoW). Mild fail-rate uptick (~+21%, still ~0.33%). |
+| Version | Released | Rollout % | Pulled-via | Notes |
+|---|---|---|---|---|
+| `1.0.9002.0102` | 2026-06-10 | TBD (Play Console) | play-store-scrape | First Langly pull. Mainstream `.0102` suffix. Coincides with active ramp per Scully (+51% device growth WoW). Mild fail-rate uptick (~+21%, still ~0.33%). |
 
 *(Older versions visible in Play Store review records — `1.0.8921.0101`, `1.0.8913.0101`, `1.0.8905.0106` — are historical and not added here; they will be backfilled if/when Play Console release-history endpoint becomes reachable.)*

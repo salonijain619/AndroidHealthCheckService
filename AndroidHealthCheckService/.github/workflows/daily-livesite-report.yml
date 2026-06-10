@@ -80,9 +80,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pyyaml
-          # TODO(saloni): add further dependencies once report-generator is built
-          # e.g.: pip install -r requirements.txt
+          pip install -r requirements.txt
 
       - name: Resolve report date
         id: date
@@ -94,29 +92,21 @@ jobs:
           fi
 
       - name: Generate daily livesite report
-        # TODO(saloni): Replace this placeholder with the Squad CLI invocation or Python runner.
-        #
-        # The report generator should execute these steps in order:
-        #   1. Langly: pull current Play Store production version of com.microsoft.scmx
-        #   2. Scully: query NAAS server-side telemetry (wdgvsoprod.westus.kusto.windows.net,
-        #              7-day rolling window) and active ICMs for team 106961
-        #   3. Frohike: pull Play Vitals NAAS crash/ANR data (NAAS-as-a-unit; per-version table
-        #               is the primary deliverable per decisions.md framing rule)
-        #   4. Reyes: assemble report leading with Langly's Play Store version header
-        #
-        # Output file: daily-livesite-report-android-${{ steps.date.outputs.date }}.md
-        #
-        # ⚠️  ICM collector note: tools/icm/icm_collector.py uses agency CLI with interactive
-        #     Entra auth. In CI this requires a non-interactive service principal approach.
-        #     Until that is wired, the ICM section will be partial in automated runs.
+        # Real invocation per Mulder's architecture decision
+        # (.squad/decisions/inbox/mulder-report-generator-architecture.md §1).
+        # Cron is still disabled above — enable only after a successful manual
+        # workflow_dispatch run with Teams post validated.
+        env:
+          PLAY_CONSOLE_SA_KEY: ${{ secrets.PLAY_CONSOLE_SA_KEY }}
+          KUSTO_AAD_SP_CLIENT_ID: ${{ secrets.KUSTO_AAD_SP_CLIENT_ID }}
+          KUSTO_AAD_SP_CLIENT_SECRET: ${{ secrets.KUSTO_AAD_SP_CLIENT_SECRET }}
+          KUSTO_AAD_TENANT_ID: ${{ secrets.KUSTO_AAD_TENANT_ID }}
+          REPORT_GENERATOR_SKIP_ICM: "1"
         run: |
-          echo "⚠️  Report generator not yet implemented."
-          echo "Report date: ${{ steps.date.outputs.date }}"
-          echo "TODO: replace this step with the Squad CLI invocation or Python runner."
           REPORT_FILE="daily-livesite-report-android-${{ steps.date.outputs.date }}.md"
-          echo "# Android GSA Livesite Report — ${{ steps.date.outputs.date }}" > "$REPORT_FILE"
-          echo "" >> "$REPORT_FILE"
-          echo "> ⚠️ Report generator not yet wired. This is a scaffold placeholder." >> "$REPORT_FILE"
+          python -m tools.report_generator.cli \
+            --date "${{ steps.date.outputs.date }}" \
+            --output "$REPORT_FILE"
           echo "REPORT_FILE=${REPORT_FILE}" >> $GITHUB_ENV
 
       - name: Post report to Livesite - Mobile Client Teams channel

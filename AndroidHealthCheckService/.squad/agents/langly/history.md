@@ -52,3 +52,26 @@ print('updated', ts.group(1) if ts else 'NOT FOUND', '(unix', ts.group(2) if ts 
 - If that pattern breaks (Google reshuffles the JS blob), fall back to: pull all `\d+\.\d+\.\d+\.\d+` matches, ignore any that occur >1MB into the file (those are review-block versions), keep the one that appears with the smallest byte-offset near the "Updated on" anchor.
 
 2026-06-10: First Play Store version pull. Live production = `1.0.9002.0102` (updated 2026-06-10). Reframed `.04xx` (1.0.9003.0401) as INTERNAL ring, not live customer pain. Used Play Store public listing fallback (google-play-reporting-server MCP not wired).
+
+### 2026-06-10 — Section producer landed (`tools/report_generator/sections/langly_version.py`)
+
+**Scrape-path HTML landmarks (the parser relies on two regex anchors)**
+- **Version anchor (primary):** `\[\[\["(\d+\.\d+\.\d+\.\d+)"\]\],\[\[\[\d+\]\],\[\[\[\d+` — the production-version string sits inside a small metadata array immediately adjacent to the min-SDK / target-SDK / display-SDK tuple. This is the ONLY place on the page where the *current published* version lives. Every other 4-segment version on the page is inside a user-review record (the version that reviewer was running) and must be ignored.
+- **Version anchor (cheap pre-try):** JSON-LD `"softwareVersion": "X.Y.Z.W"`. Currently absent from the listing in 2026-06 but cheap to try first; if Google ever adds it back, we win for free.
+- **Released-date anchor:** `"(Mon DD, YYYY)",[<10-digit unix>,…` — but the listing carries SEVERAL 10-digit unix stamps (first-publish 2020, last-update, per-review timestamps). I take `max()` across all matches so we always land on the most recent — the "Updated on" date. First implementation took `.search()` (first match) and produced `2020-08-17` against today's live page. Fixed.
+
+**Fragility notes**
+- Both anchors are content-DOM-free regexes against a JS blob Google reshuffles freely. Expect breakage on a 6–12 month horizon. When it breaks: pull the live HTML, locate the human-displayed version string in the rendered page, then `grep -c` candidate regexes against the raw HTML to find an anchor pattern that uniquely identifies the current-version slot (not the review-record slots).
+- The scrape path can NEVER read rollout %, ring composition, or version code. Those require Play Console / Publisher API auth. Today `produce()` returns status `PARTIAL` (not `GO`) whenever scrape is the path used, so downstream consumers can flag the missing rollout %.
+- Default-arg pitfall caught in tests: do NOT default a function parameter to a module-level path constant — it's captured at def time and breaks monkeypatching. Resolve at call time instead.
+
+**Producer-contract anticipatory call**
+- Module defines its own local `SectionResult` dataclass (markdown / status / data). When Mulder lands `.squad/decisions/inbox/mulder-report-generator-architecture.md`, swap the import in one line and delete the local dataclass.
+
+**Idempotency model**
+- Rolling-log update touches `**Last pull:**` timestamp every run; only prepends a new history row when the version string actually changed vs the top of the table. Verified by running CLI twice for `--date 2026-06-10` and confirming the table row count did not grow.
+
+**CLI smoke (2026-06-10):** `python -m tools.report_generator.sections.langly_version --date 2026-06-10` returns status PARTIAL (scrape path; Publisher API not wired) and prints the exact 06-10 report header line for `v1.0.9002.0102`. No creds-needed decision file was written — scrape alone keeps Langly's contract alive, so wiring Publisher API is a *quality improvement* (gives us rollout %), not a blocker.
+
+**Mulder contract integration (same day, after first pass)**
+- Discovered `tools/report_generator/contracts.py` already in place — Mulder's architecture decision had landed in parallel. Swapped the local stub `SectionResult` for the canonical one in two edits: (1) `from tools.report_generator.contracts import Section, SectionResult, Status`, (2) `produce()` now returns the full canonical shape with `section=Section.LANGLY_VERSION`, enum `Status`, `metadata=` (renamed from local `data=`), `errors=[]`, `drop_path=`, `elapsed_s=`. Orchestrator's duck-type adapter would have accepted the stub but the explicit shape is cleaner and survives `isinstance` checks. All 45 tests across the four sibling sections still pass.

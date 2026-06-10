@@ -49,3 +49,29 @@
 **Reusable pull script:** `pull-2026-06-10/pull.py` is the template — copy + bump dates for tomorrow's run. The per-NAAS-issue + per-country queries are not in `pull.py` (they were ad-hoc); next pass, fold them in.
 
 2026-06-10: First Play Vitals pull (NAAS-filtered). GO verdict. 4,898 crashes / 4,413 ANRs / 7d / 17 clusters. Headline finding: Germany 3.25% whole-app crash, over Google's 1.09% bad-behavior threshold; EU 3.1× non-EU. `libnaas_native_vpn.so` SIGSEGV 33.7% concentrated in `.04xx` ring (pre-prod, not live).
+
+### 2026-06-10 (post-hire, evening) — Section producer implemented + landed.
+
+**What:** Built `tools/report_generator/sections/frohike_play_vitals.py` — the non-interactive, CLI-standalone, fail-soft section producer that automates what the morning's manual NAAS drop did. Conforms to Mulder's report-generator architecture (which landed silently between the morning's manual drop and this build); reads Langly's `live_play_version` from `ctx["prior_results"]` for the ✅ LIVE PROD row tag. 15 unit tests, all green; full repo suite still 64/64.
+
+**Auth pattern (decision for CI):**
+- Two env vars accepted, in priority order: `PLAY_CONSOLE_SA_KEY` (raw JSON contents OR filesystem path — auto-detected by leading `{`) then `GOOGLE_APPLICATION_CREDENTIALS` (path only). The JSON-contents-via-secret path is what CI will use (GitHub Actions secrets are strings, not files); the filesystem-path option is for local dev.
+- "Auth not configured" → `Status.PARTIAL` with the documented onboarding-stub markdown, **NOT** `Status.SKIP`. This conflicts with the original task brief (which said SKIP) but conforms to Mulder §4 which classifies "auth not configured" as PARTIAL (real degradation) and reserves SKIP for deliberate `--skip-sections` / env-var overrides. Resolved by also adding `REPORT_GENERATOR_SKIP_FROHIKE=1` env-var path that does return SKIP per Mulder. Test kept the spec-required name `test_produce_skip_when_no_creds` with a docstring noting the PARTIAL semantics. Filed onboarding-ask at `.squad/decisions/inbox/frohike-play-vitals-onboarding.md`.
+
+**Attribution-filter edge cases discovered while writing tests:**
+- The NAAS predicate token `vpn` is intentionally permissive — it would match a non-NAAS issue whose location merely contains `vpn` (e.g. some third-party SDK named `MyVpnUtil`). Mitigation: the predicate runs on Play issue clusters that have *already* been narrowed to top-N by lifetime, where false positives are rare. Test `test_naas_attribution_filter_exclude_non_naas` keeps the non-NAAS dashboard cluster out, which is the case I care about; the long-tail `vpn`-substring false positive is acceptable.
+- `type` enum normalization: Play returns `"APPLICATION_NOT_RESPONDING"` (not `"ANR"`). The producer maps both forms to a unified `"ANR"` so the Top-3 split-by-type works regardless of which form a payload uses.
+- `.04xx` ring detector: lives off the *version code* (e.g. `900300412`) not the label, because the 4th-from-last-digit lookup is deterministic on the code. `is_04xx_ring()` is the public seam — tested directly.
+- Version-code → label conversion is non-trivial: encoded minor `XYZW` decodes to `XZYW` (swap positions 1 and 2). E.g. `900200122` → body `90020012` → enc `0012` → minor `0102` → `1.0.9002.0102`. Caught this only when the LIVE-PROD-tag test failed initially; the canonical google-play-vitals SKILL.md table is the ground-truth source.
+
+**Denominator-basis decision (HARD framing rule reinforcement):**
+- `SectionResult.denominators["denominator_basis"] = "whole_app_sessions"` — stamped on every successful run.
+- The "NAAS sessions" denominator that would yield a true NAAS-only rate is **not exposed by Play**; we add a second key `denominators["naas_session_basis"] = "not exposed by Play — see Scully TunnelServerOperationEvents"` so the assembler / future automation can never accidentally divide NAAS counts by whole-app users and call it a NAAS rate.
+- The headline rates (`naas_crash_rate_pct`, `naas_anr_rate_pct`) in `metadata` are deliberately whole-app rates with explicit naming via the denominators dict — not a fabricated NAAS-only rate. The producer never invents a denominator Play doesn't publish.
+
+**Implementation seams worth knowing for future iteration:**
+- `ctx["client"]` test seam lets tests bypass the real Play API; `_FakeClient` in the test file is the reference shape.
+- `ctx["drop_dir"]` test seam isolates the drop file under `tmp_path` so tests don't clobber the real `.squad/agents/frohike/research/` dir.
+- Retry policy: 3 attempts, exponential backoff (1s/2s/4s), on connection / timeout / 5xx only. Auth 4xx fails fast.
+- The CLI smoke test (no creds) overwrote the rich manual 06-10 drop with the PARTIAL stub — restored from git. Future runs with the SA wired should NOT do this destructively (the auto-generated drop is structurally the same as the manual one, just slightly less narrative depth).
+

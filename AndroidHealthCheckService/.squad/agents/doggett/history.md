@@ -64,3 +64,46 @@ Prior entries (2026-06-05 through 2026-06-08) summarized to archive. See `histor
 5. ICM collector CI auth — `agency mcp icm` needs service-principal path for unattended CI runs.
 6. Commit step in workflow — confirm Scribe vs auto-commit preference.
 
+
+### 2026-06-10T14:46Z — Report generator orchestrator skeleton (Mulder §1–§8)
+
+**Headline:** Built `tools/report_generator/` orchestrator skeleton per Mulder's 465-line architecture decision. 19/19 tests pass (8 pre-existing Reyes assembler tests + 11 new). `python -m tools.report_generator.cli --dry-run --date 2026-06-10` exits 0. `--validate-only` against the existing 06-10 report passes all 9 invariants.
+
+## Learnings
+
+**Orchestrator threading model.** Implemented Mulder's 3-wave model in `orchestrator.py`:
+- Wave 1 (serial): Langly only — provides `live_play_version` into `ctx["prior_results"]` before downstream framing rules run.
+- Wave 2 (`concurrent.futures.ThreadPoolExecutor(max_workers=3)`): Scully + Frohike + Skinner submitted concurrently; results collected via `as_completed`; per-future timeout enforced with `future.result(timeout=SECTION_TIMEOUT_S=300s)`. Stdlib-only, I/O-bound work — threads are correct (GIL irrelevant). Avoided asyncio per Mulder's anti-decision.
+- Wave 3 (serial): Reyes' assembler — the only producer whose failure becomes `AssemblyError` and exits 1. All other producer failures are absorbed into `Status.FAIL` and the report still ships.
+- Fail-soft backstop: `_invoke_producer` catches `Exception` last-resort, converts to `SectionResult(status=FAIL, errors=[...])`. Producers SHOULD catch their own per contract, but the orchestrator never lets a raise escape Wave 1/2.
+- Duck-typing: accept producers that define their own local `SectionResult` fallback class (assembler does this; Langly did too). Re-hydrate by attribute, not isinstance. Necessary because producer modules land before/after `contracts.py` in a multi-agent codebase.
+
+**Exit-code conventions** (per Mulder §1, wired in `cli.py`):
+- `0` — report assembled (PARTIAL/SKIP sections are still success per fail-soft).
+- `1` — `AssemblyError` (Reyes raised, file unwritable) OR validation failure (unless `--no-fail-on-validation`).
+- `2` — reserved for `--fail-fast` (not yet wired; documented placeholder).
+- `3` — bad `--date`, unknown `--skip-sections` token, mutually exclusive flags.
+
+**Validation invariants** (9 from Mulder §8, in `validation.py`):
+1. File exists at `--output`.
+2. Size in `[5_000, 30_000]` bytes (06-10 is 25,489; 06-05 is 14,495 — band accommodates both).
+3. H1 matches `^# .*[Dd]aily [Ll]ivesite [Rr]eport`.
+4. Langly version line (`📱 **Defender for Android — Live on Play Store`) present in first 5 non-empty lines.
+5. `## Executive Summary` present.
+6. ≥1 markdown table of ≥3 consecutive rows.
+7. `## Contributors` footer present.
+8 + 9 (folded into one regex sweep): no `{date}` / `{TBD` / `{{` / `}}` / `/Users/` substrings.
+- Writes `runs/{date}/validation.json` for post-run triage.
+- Regression anchor test reads the committed `daily-livesite-report-android-2026-06-10.md` and asserts zero failures — if that ever flips, validation is wrong, not the report.
+
+**Parallel-agent observations:** Scully/Frohike/Langly are writing concurrently. My stubs at `sections/scully_server_telemetry.py` and `sections/frohike_play_vitals.py` were wiped between two consecutive runs by another agent's write. Fail-soft caught it (ModuleNotFoundError → Status.FAIL → report still produced). This is exactly what the spec demands; no action needed.
+
+**File inventory shipped:**
+- `tools/report_generator/{__init__,__main__,cli,contracts,config,orchestrator,validation}.py`
+- `tools/report_generator/sections/{__init__,scully_server_telemetry,frohike_play_vitals,skinner_icm}.py` (langly_version pre-existed; not touched)
+- `tools/report_generator/tests/{test_orchestrator,test_cli,test_validation}.py`
+- `requirements.txt` (pyyaml)
+- `.gitignore` (+ `tools/report_generator/runs/`)
+- `.github/workflows/daily-livesite-report.yml` — replaced placeholder echo with `python -m tools.report_generator.cli --date ... --output ...`; switched deps install to `-r requirements.txt`; cron stays disabled per the "manual workflow_dispatch first" rule.
+
+**Did NOT touch:** `assembler.py` (Reyes), `sections/langly_version.py` (Langly). Stubs for Scully/Frohike are intentionally minimal SKIP returns — they overwrite freely.

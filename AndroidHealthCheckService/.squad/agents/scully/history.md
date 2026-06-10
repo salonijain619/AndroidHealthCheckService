@@ -82,3 +82,51 @@ Result drop: `.squad/agents/scully/research/naas-crashes-2026-06-09.md`. Outcome
 ### 2026-06-10 — Team expansion: Frohike now owns Play Vitals, Scully hands off crash report ownership
 
 Frohike (Play Vitals Analyst) hired as new team member to own Google Play Console crash/ANR analysis, NAAS-filtered. Replaces Scully's ad-hoc Play Vitals ownership. Frohike sources truth from `WD.Client.Android-icm-copilot/.github/skills/google-play-vitals/SKILL.md`, drops output at `.squad/agents/frohike/research/naas-crashes-{date}.md`. Scully retains server-side NAAS telemetry (TunnelServerOperationEvents, APS, PKI, AppEvents/CrashReported). Daily report assembly (Reyes) now pulls from Scully (server) + Frohike (Play crashes) + Langly (current version) in parallel. ICM investigations also fan out to Frohike for client-side crash signature matching. Framing rule inherited: All Play Vitals output MUST be NAAS-as-a-unit, never Defender-filtered-to-NAAS.
+
+## Learnings
+
+### 2026-06-10 — Wave 2 producer module landed (`scully_server_telemetry.py`)
+
+- **SDK auth pattern.** `azure.identity.DefaultAzureCredential` is the right
+  one-liner for the Mulder §4 "graceful skip in CI, az-cli locally" story.
+  It silently walks SP env vars (`AZURE_TENANT_ID/CLIENT_ID/CLIENT_SECRET`)
+  → WIF (`AZURE_FEDERATED_TOKEN_FILE`) → managed identity → az-cli, so the
+  same code path works for the GH Actions cron and a laptop run. The
+  producer also mirrors Mulder's `KUSTO_AAD_*` aliases into the standard
+  `AZURE_*` names so the workflow secrets work without renaming. Probe a
+  token (`cred.get_token("https://kusto.kusto.windows.net/.default")`)
+  before constructing `KustoClient` — surfaces auth misconfig as a
+  catchable exception instead of a delayed query failure. Any failure →
+  `Status.SKIP` + stub markdown + auto-dropped onboarding doc; never
+  crashes the orchestrator.
+
+- **Cache strategy.** Per Saloni's "no re-pull within 6h" rule, the
+  producer round-trips through its own drop file at
+  `.squad/agents/scully/research/server-telemetry-{date}.md`. The drop
+  embeds a machine-readable cache blob between
+  `<!--SCULLY-CACHE-V1-->` markers (JSON dump of the `_Pulled` dataclass
+  + metadata + ISO pulled-at timestamp). On reuse the producer parses the
+  blob, re-instantiates `_Pulled(**blob)`, and re-renders if
+  `ctx['live_version']` has shifted since the last pull (so a Langly
+  version flip during the day re-frames the `.04xx` cell without a fresh
+  Kusto hit). `--max-age-hours N` (default 6) controls the staleness gate.
+  Reused runs set `metadata['reused_from_cache'] = True` so Reyes can mark
+  the section header with the "reused" caveat.
+
+- **`ctx['live_version']` handoff with Langly.** Wave 1 (Langly) publishes
+  `live_play_version` into either
+  `ctx['prior_results'][Section.LANGLY_VERSION].metadata['live_play_version']`
+  (orchestrator path) or directly into `ctx['live_version']` (standalone
+  CLI / test path). My `_live_version_from_ctx` helper accepts both,
+  including the enum-vs-string Section key ambiguity. The downstream
+  contract is: if Langly publishes a value, the producer NEVER frames the
+  matching version as anything other than live prod, and any version
+  matching `^\d+\.\d+\.\d+\.04\d{2}$` is rendered as
+  "Internal `.04xx` ring … pre-production, NOT live customer track per
+  Langly" — independent of how high its fail-rate is. If Langly fails
+  (returns None), the producer falls back to a versions-only block with
+  no live-prod assertion. The `internal_ring_anchor_version` metadata key
+  is what Reyes uses for the exec-summary `.04xx` callout; it is set even
+  when `live_version` is None, but the markdown reframe only fires when
+  `live_version` is populated. This is the contract test
+  (`test_internal_ring_callout_uses_ctx_live_version`).

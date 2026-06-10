@@ -69,3 +69,25 @@ Scully + Doggett ran in parallel against `WD.Client.Android-icm-copilot/agent-do
 ## 2026-06-10 — Team expansion: Frohike and Langly hired
 
 Two new team members hired 2026-06-10: Frohike (Play Vitals Analyst) owns Google Play Console crash/ANR analysis, NAAS-filtered; Langly (Release Tracker) pulls current Play Store version of `com.microsoft.scmx` on every report cycle. Frohike replaces Scully's ad-hoc Play Vitals ownership and outputs to `.squad/agents/frohike/research/naas-crashes-{date}.md`. Langly surfaces as a one-line header in every daily/weekly report, anchoring crash data to shipping version. Daily report assembly (Reyes) now pulls from Scully (server) + Frohike (Play crashes) + Langly (current version) in parallel. ICM investigations also fan out to Frohike for client-side crash signature matching.
+
+---
+
+## 2026-06-10 — Architecture decision: daily report generator CLI
+
+Authored `.squad/decisions/inbox/mulder-report-generator-architecture.md` as Doggett's implementation spec for cron-driven daily report generation. Key architectural calls and the trade-offs behind them:
+
+**1. SectionResult + 4-status enum (GO/PARTIAL/SKIP/FAIL) as the producer contract.** Considered a simpler `(markdown, ok_bool)` tuple but rejected: PARTIAL is structurally different from FAIL (Skinner's CI ICM skip is *expected*, Scully timeout is *degraded*, Frohike auth-missing is *configuration*). The assembler's banner and the Contributors footer need to distinguish these, and `--validate` thresholds differ. Three-state would have collapsed SKIP and PARTIAL — wrong because SKIP is silent, PARTIAL is loud.
+
+**2. Three-wave execution model (Langly → {Scully, Frohike, Skinner} parallel → Reyes) over a generic DAG.** A topo-sorted DAG would be more "correct" but the dependency shape is fixed and small. Encoding it as three explicit waves keeps `orchestrator.py` <100 lines, makes failure stories per-wave easy to reason about, and matches the 2026-06-10 "lead-with-Play-Store-version" decision verbatim (Langly first is a structural rule, not just an ordering). Trade-off: if we ever add a fifth producer that depends on Frohike (e.g. a Play Vitals trend differ), we add Wave 2.5, not a graph refactor. Acceptable.
+
+**3. Concurrent.futures ThreadPoolExecutor over asyncio.** Producers will be implemented by four different agents over multiple weeks. Sync code is easier to standalone-run (constraint-critical for testability — Frohike must be able to `python -m tools.report_generator.sections.frohike_play_vitals` without spinning the whole orchestrator). I/O-bound work means GIL is not the bottleneck. The 10–15% latency win from asyncio doesn't justify the contract complexity or the harder debugging.
+
+**4. ICM auth: option (c) graceful skip via env var.** Considered (a) hardcode-skip and (b) require SP workaround. Rejected (a) because hardcoding removes the future agency-CLI-SP path. Rejected (b) because `tools/icm/icm_collector.py` line 8–16 already documents that the SP path doesn't exist upstream — we cannot block daily reporting on something not in our control. (c) preserves optionality + matches the existing weekly-cadence framing pattern in the 06-10 report. Side benefit: the same env var lets local devs skip ICM during testing.
+
+**5. Validation hook is its own module (`validators.py`), runs post-assembly, fails the workflow only in `--validate` mode.** The 9 invariants are partly structural (H1, Langly header, Exec Summary present) and partly defensive (5–30KB size band, no `/Users/` leakage, no Jinja `{TBD` markers). The size band is calibrated to the existing 4 reports (14.5KB–25.5KB → 5–30KB envelope). Splitting validators out means producers can call individual checks during dev without `--validate`'s exit-1 behavior.
+
+**6. Fixed report shape — Reyes does NOT redesign.** Cross-section framing rules (the `.04xx` ring tag, `LIVE PROD` tag, NAAS-as-a-unit, per-version table primary) are carried in `metadata` dicts the assembler consumes, not invented per-cycle. This is explicit so the contract is closed to the 06-10 shape; any template change requires a new decision file. Trade-off: less expressive Reyes, but the alternative is template drift across cron runs, which destroys the "exec-readable at-a-glance" property Saloni wants.
+
+**7. Four open questions for Saloni held back BEFORE Doggett implements.** Runner choice (self-hosted vs hosted) directly affects WIF feasibility and Kusto reachability — getting that wrong means a rewrite. SP ownership for Kusto is the long-pole blocker. Auto-commit policy interacts with Scribe's existing ownership. ICM cadence formalization is the smallest of the four but unblocks `config.py` constants. Listed explicitly with Mulder's lean for each so Saloni can ack/override fast.
+
+Reviewer role discipline held: did not write Kusto/Python/ICM code. Doc is a spec for Doggett (orchestrator), Reyes (assembler), Frohike/Langly/Scully/Skinner (producers) to implement against in parallel.
