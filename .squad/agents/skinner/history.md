@@ -63,3 +63,17 @@ Scully + Doggett ran in parallel against `WD.Client.Android-icm-copilot/agent-do
 2. **Queue identity open question for Saloni.** `owningTeamId=106961` returns `owningTeamName="GSA  Client - XPlat"` (with double-space typo from ICM). Confirm 106961 is the Android queue vs a parent queue with an Android sub-queue. If sub-queue exists, entire ICM section is scoped to the wrong target.
 
 **Decisions merged:** 6 inbox files (HP discovery, skill authored, NAAS 7d, v1 report, ICM first pull, v2 report) into `.squad/decisions.md`.
+
+## 2026-06-10T17:43+05:30 — Track 3+4 shipped: file-based ICM + on-call (PR #1)
+
+Paired with Reyes; Skinner owned the producer rewrite. Branch `track3-track4-file-based-icm-oncall`.
+
+### Learnings
+- **JSON shape (icm_collector output, mirrored in `.squad/agents/skinner/icm-latest.json`):**
+  - Top-level keys: `active_icms` (list of incidents), `mitigated_icms` (list), `on_call` (`{primary: {alias, name}, backup: {alias, name}, schedule_source}`), `ai_summaries` (dict id->str), `_meta` (`{team_id, team_name, fetched_at, ...}`), plus back-compat keys `active`/`mitigated`/`oncall`.
+  - Producer reads `active_icms` first, falls back to `active`. Same for mitigated. On-call extracted as `on_call.primary.alias` / `on_call.backup.alias`.
+- **Freshness gate: 48h** on file `mtime`. > 48h → PARTIAL with explicit "stale" callout naming `tools/icm/refresh-local.sh`. <= 48h → GO with full table.
+- **Fallback chain (assembler):** `ctx.oncall_*` → Skinner `metadata['on_call']` → `.squad/config/on-call.yaml` (date-window match) → `TBD`.
+- **Skip hatches preserved:** `REPORT_GENERATOR_SKIP_ICM=1` short-circuits to SKIP before any file read. CI still has this set; code is ready for the workflow-scoped PR to drop it.
+- **Producer publishes for downstream:** `metadata = {auth_path, input_path, pull_date, pull_age_hours, on_call: {primary, backup}, active_count, mitigated_count}`. Reyes reads `on_call` from here.
+- **Helper:** `tools/icm/refresh-local.sh` redirects `python -m tools.icm.icm_collector --team-id 106961` to `.squad/agents/skinner/icm-latest.json`. (Collector emits JSON on stdout; no `--out` flag.)

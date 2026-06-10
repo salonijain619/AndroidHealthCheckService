@@ -1,0 +1,11 @@
+# Manual on-call override. Used when .squad/agents/skinner/icm-latest.json is
+# missing or >48h old (Mulder plan §4 hybrid fallback).
+#
+# Update when ICM rotation changes mid-week or you're OOF and won't refresh
+# icm-latest.json. Reyes's assembler picks the entry whose [from, to] window
+# contains the report date.
+schedule:
+  - from: 2026-06-10
+    to: 2026-06-16
+    primary: TBD-update-me
+    backup: TBD-update-me
