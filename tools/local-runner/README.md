@@ -66,15 +66,25 @@ until Phase 1.5 below.
 
 What happens:
 
-1. `preflight.sh` runs four checks (az login, SA JSON, ICM cache age, Keychain
-   webhook entry, python deps). Any hard failure → abort, nothing posted.
-2. Webhook URL is loaded into `AHCS_TEAMS_WEBHOOK_URL` from Keychain.
-3. `python -m tools.report_generator.cli --date <date>` writes the report to
+1. `_resolve_credentials.sh` is sourced first so credential env vars
+   (currently just `PLAY_CONSOLE_SA_KEY`, defaulting to the local SA JSON
+   path) are exported in the parent shell and visible to every downstream
+   step.
+2. `preflight.sh` runs four checks (az login, SA JSON, ICM cache age,
+   Keychain webhook entry, python deps). Any hard failure → abort, nothing
+   posted.
+3. Webhook URL is loaded into `AHCS_TEAMS_WEBHOOK_URL` from Keychain.
+4. `python -m tools.report_generator.cli --date <date>` writes the report to
    `daily-livesite-report-android-<date>.md` at the repo root (overwrites if
    re-run — idempotent).
-4. The markdown is POSTed to the Teams webhook. Expected response is HTTP
+5. The markdown is POSTed to the Teams webhook. Expected response is HTTP
    202; anything else aborts non-zero.
-5. Everything tees to `~/Library/Logs/ahcs-livesite/run-<UTC-timestamp>.log`.
+6. Everything tees to `~/Library/Logs/ahcs-livesite/run-<UTC-timestamp>.log`.
+
+> **Why a separate resolver?** `preflight.sh` runs as a subprocess of
+> `run-daily.sh`, so anything it `export`s is invisible to the parent and to
+> the Python generator the parent later launches. Credential resolution must
+> happen in the parent shell — same pattern as `_load_webhook.sh`.
 
 **Re-running** the same `--date` is safe for the on-disk artifacts (generator
 overwrites its own outputs) but **will repost** to the Teams channel —

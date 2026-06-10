@@ -61,6 +61,13 @@ log "repo:        ${REPO_ROOT}"
 log "report date: ${REPORT_DATE}"
 log "log file:    ${LOG_FILE}"
 
+# --- Resolve credential env vars in THIS shell -----------------------------
+# Must happen before preflight so the child preflight process sees the same
+# resolved values, and (critically) before we exec the Python generator —
+# subprocess exports inside preflight.sh do not propagate back up here.
+# shellcheck source=_resolve_credentials.sh
+. "${SCRIPT_DIR}/_resolve_credentials.sh"
+
 # --- Preflight -------------------------------------------------------------
 log "step 1/4: preflight"
 if ! bash "${SCRIPT_DIR}/preflight.sh"; then
