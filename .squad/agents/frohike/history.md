@@ -154,3 +154,29 @@ So both the Germany-over-threshold and EU-3.3× signals from the morning manual 
 - The strict-mock pattern in `test_metric_resource_uses_lowercase_discovery_accessors_not_camelcase` is the right shape for any future API-shape regression guard — copy it.
 
 **PR:** `frohike-fix-metric-resource` → `master`, title `frohike: fix _metric_resource for v1beta1 Play Vitals API`. URL filled after push.
+
+### 2026-06-10 — Play Reporting v1beta1 has per-metric DAILY freshness; never query end=today
+
+**Symptom:** pipeline call to `crashRateMetricSet:query` returned HTTP 400 with body:
+
+```
+'timeline_spec.end_date' field should be at most the current freshness 2026-06-09 00:00
+```
+
+even though auth was fine (PR #4 fixed auth env propagation). The standalone yesterday-run "worked" only because by chance the call landed inside the freshness window.
+
+**Root cause:** Play Developer Reporting v1beta1 surfaces a per-MetricSet `freshnessInfo` field listing the latest `endTime` that has been materialized for each granularity (`DAILY`, `HOURLY`). For DAILY:
+- `crashRateMetricSet` lag = **1 day** (today → max endTime is `today - 1d`)
+- `anrRateMetricSet` lag ≈ 1 day
+- `errorCountMetricSet` lag ≈ 1 day (sometimes fresher; treat 1 as a floor)
+- some other MetricSets can be T-2 or T-3 — don't assume parity.
+
+The `freshnessInfo` is part of each MetricSet's GET resource (`.get(name=apps/{app}/{metricSet})`), and also surfaced by `mcp_google-play-r_get_metric_freshness` in the canonical skill.
+
+**Fix shipped (PR #5):** `PlayVitalsClient._METRIC_FRESHNESS_OFFSET_DAYS` table + `_clamp_window_for_freshness(start, end, metric_set, today=None)` helper. Each of the three call sites (`_rate_by_version`, `_rate_by_country`, `_error_counts`) clamps the requested end down to `today - offset` and shifts start back by the same delta so the 7-day window length is preserved. Helper takes injectable `today` for deterministic tests.
+
+**Pattern to remember:**
+- Anything that takes a `timelineSpec` in Play Reporting needs per-metric freshness clamping. Never pass `end = report_date` unconditionally — that breaks the day the operator runs on the same calendar date as the report.
+- When in doubt, call `.get()` on the MetricSet first and read `freshnessInfo[].latestEndTime` for the granularity you're about to query. The static offset table is a safety net, not a replacement for live freshness when freshness varies day-to-day (e.g., a Play outage).
+- Surface the offsets in the raw `window` dict so downstream readers can tell whether the data they're looking at is `[today-7d, today-1d]` or `[today-9d, today-3d]`.
+- Yesterday-only-worked-by-luck is a code smell — always test with `--date $(today)` not `--date $(today-1)`.

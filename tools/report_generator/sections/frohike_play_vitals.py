@@ -311,6 +311,11 @@ class PlayVitalsClient:
                 "current_end": end.isoformat(),
                 "prior_start": prior_start.isoformat(),
                 "prior_end": prior_end.isoformat(),
+                # Per-metric DAILY freshness offsets actually applied at query
+                # time. Surfaced for downstream diagnostics (e.g. when end is
+                # clamped back because Play hasn't materialized the timeline
+                # for `date` yet). See `_clamp_window_for_freshness`.
+                "freshness_offset_days": dict(self._METRIC_FRESHNESS_OFFSET_DAYS),
             },
             "freshness": _with_retry(lambda: self._freshness(svc)),
             "crash_rate_7d": _with_retry(lambda: self._rate_by_version(svc, "crashRateMetricSet", start, end)),
@@ -338,6 +343,22 @@ class PlayVitalsClient:
         "errorCountMetricSet": ("vitals", "errors", "counts"),
     }
 
+    # Per-metric DAILY freshness offset (days to subtract from "today" before
+    # using as `timeline_spec.end_date`). The Play Developer Reporting v1beta1
+    # API rejects any `endTime` later than the per-metric freshness boundary
+    # with HTTP 400 ("'timeline_spec.end_date' field should be at most the
+    # current freshness <YYYY-MM-DD> 00:00"). Empirically (2026-06-10) the
+    # crashRate / anrRate DAILY timelines lag the calendar by one day; errors
+    # counts are typically as fresh or fresher. Pick 1 day as a safe floor for
+    # all three so the pipeline never hits the wall on the first request.
+    # Per-metric so we can raise individual offsets later if Google extends the
+    # lag for a specific MetricSet without rewriting the call sites.
+    _METRIC_FRESHNESS_OFFSET_DAYS: Dict[str, int] = {
+        "crashRateMetricSet": 1,
+        "anrRateMetricSet": 1,
+        "errorCountMetricSet": 1,
+    }
+
     def _metric_resource(self, svc, metric_set: str):
         try:
             path = self._METRIC_RESOURCE_PATH[metric_set]
@@ -350,6 +371,7 @@ class PlayVitalsClient:
 
     def _rate_by_version(self, svc, metric_set: str, start: date_cls, end: date_cls) -> Dict[str, Any]:
         metric = "userPerceivedCrashRate" if metric_set == "crashRateMetricSet" else "userPerceivedAnrRate"
+        start, end = _clamp_window_for_freshness(start, end, metric_set)
         body = {
             "timelineSpec": {
                 "aggregationPeriod": "DAILY",
@@ -365,6 +387,7 @@ class PlayVitalsClient:
         ).execute()
 
     def _rate_by_country(self, svc, metric_set: str, start: date_cls, end: date_cls) -> Dict[str, Any]:
+        start, end = _clamp_window_for_freshness(start, end, metric_set)
         body = {
             "timelineSpec": {
                 "aggregationPeriod": "DAILY",
@@ -380,6 +403,7 @@ class PlayVitalsClient:
         ).execute()
 
     def _error_counts(self, svc, start: date_cls, end: date_cls) -> Dict[str, Any]:
+        start, end = _clamp_window_for_freshness(start, end, "errorCountMetricSet")
         body = {
             "timelineSpec": {
                 "aggregationPeriod": "FULL_RANGE",
@@ -1173,6 +1197,40 @@ def _parse_date(s: str) -> date_cls:
 
 def _date_to_api_dt(d: date_cls) -> Dict[str, int]:
     return {"year": d.year, "month": d.month, "day": d.day}
+
+
+def _freshness_offset_days(metric_set: str) -> int:
+    """Per-metric DAILY freshness offset (days subtracted from `today` before
+    the value is safe to use as `timeline_spec.end_date`). See
+    `PlayVitalsClient._METRIC_FRESHNESS_OFFSET_DAYS` for the source of truth
+    and the rationale (Google rejects later end dates with HTTP 400).
+
+    Unknown metric sets fall back to 2 days — a safe upper bound that matches
+    the worst-case lag we've seen across DAILY MetricSets in v1beta1.
+    """
+    return PlayVitalsClient._METRIC_FRESHNESS_OFFSET_DAYS.get(metric_set, 2)
+
+
+def _clamp_window_for_freshness(
+    start: date_cls,
+    end: date_cls,
+    metric_set: str,
+    today: Optional[date_cls] = None,
+) -> Tuple[date_cls, date_cls]:
+    """Clamp `[start, end]` so `end` never exceeds the per-metric freshness
+    boundary `today - offset_days`. If clamping is needed, the window length
+    is preserved by shifting `start` back by the same number of days — the
+    daily report still gets a 7-day rolling window, just ending one (or more)
+    days earlier than the calendar date the operator passed on the CLI.
+
+    Returns the (possibly unchanged) `(start, end)` pair.
+    """
+    today = today or date_cls.today()
+    max_end = today - timedelta(days=_freshness_offset_days(metric_set))
+    if end <= max_end:
+        return start, end
+    shift = (end - max_end).days
+    return start - timedelta(days=shift), max_end
 
 
 # ---------------------------------------------------------------------------

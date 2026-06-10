@@ -436,3 +436,85 @@ def test_metric_resource_uses_lowercase_discovery_accessors_not_camelcase():
     for ms in ("crashRateMetricSet", "anrRateMetricSet", "errorCountMetricSet"):
         # Must not raise:
         client._metric_resource(svc, ms)
+
+
+# ---------------------------------------------------------------------------
+# Freshness-window clamp (regression: HTTP 400 from pipeline on 2026-06-10
+# because Play crashRateMetricSet DAILY freshness was 2026-06-09 and the
+# section was asking for endTime=2026-06-10). See PR titled
+# "frohike: shift Play Vitals timeline back by per-metric freshness offset".
+# ---------------------------------------------------------------------------
+
+from datetime import date as _date  # noqa: E402
+
+
+@pytest.mark.parametrize("metric_set", [
+    "crashRateMetricSet",
+    "anrRateMetricSet",
+    "errorCountMetricSet",
+])
+def test_freshness_offset_is_applied_per_metric(metric_set):
+    """Every supported MetricSet must declare a positive DAILY offset so
+    `endTime` always lands at most `today - offset_days` (Play rejects
+    later end dates with HTTP 400 INVALID_ARGUMENT)."""
+    offset = fpv._freshness_offset_days(metric_set)
+    assert offset >= 1, (
+        f"{metric_set} must declare a DAILY freshness offset ≥ 1 day; "
+        f"got {offset}. Play Reporting v1beta1 returns HTTP 400 when "
+        f"timeline_spec.end_date is later than the metric's freshness."
+    )
+
+
+def test_clamp_window_shifts_end_back_to_freshness_boundary():
+    """Requested end=today must be clamped to today - offset and start must
+    shift by the same delta so the window length is preserved."""
+    today = _date(2026, 6, 10)
+    # Caller asks for the same 7d window the section computes by default.
+    start = _date(2026, 6, 3)
+    end = _date(2026, 6, 10)
+
+    new_start, new_end = fpv._clamp_window_for_freshness(
+        start, end, "crashRateMetricSet", today=today,
+    )
+
+    assert new_end == _date(2026, 6, 9), (
+        "crashRateMetricSet has a 1-day freshness offset; end must be "
+        "clamped to 2026-06-09 when today is 2026-06-10."
+    )
+    assert (new_end - new_start).days == (end - start).days, (
+        "Window length must be preserved after clamping."
+    )
+    assert new_start == _date(2026, 6, 2)
+
+
+def test_clamp_window_is_noop_when_end_already_safe():
+    """If the caller passed an end date that already sits inside the
+    freshness boundary, do not shift the window."""
+    today = _date(2026, 6, 10)
+    start = _date(2026, 6, 1)
+    end = _date(2026, 6, 8)  # well inside today-1
+
+    new_start, new_end = fpv._clamp_window_for_freshness(
+        start, end, "crashRateMetricSet", today=today,
+    )
+
+    assert (new_start, new_end) == (start, end)
+
+
+@pytest.mark.parametrize("metric_set,expected_end", [
+    ("crashRateMetricSet", _date(2026, 6, 9)),
+    ("anrRateMetricSet", _date(2026, 6, 9)),
+    ("errorCountMetricSet", _date(2026, 6, 9)),
+])
+def test_clamp_window_uses_per_metric_offset(metric_set, expected_end):
+    """The clamp helper must dispatch on metric_set so we can raise an
+    individual MetricSet's offset later (e.g. if Google extends the lag for
+    one MetricSet only) without rewriting any call sites."""
+    today = _date(2026, 6, 10)
+    start = _date(2026, 6, 3)
+    end = _date(2026, 6, 10)
+
+    _, new_end = fpv._clamp_window_for_freshness(
+        start, end, metric_set, today=today,
+    )
+    assert new_end == expected_end
