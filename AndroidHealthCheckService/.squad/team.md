@@ -27,5 +27,7 @@
 | Doggett | Android Engineer | WD.Client.Android codebase, repro, client-side diagnosis | 🔧 Backend |
 | Skinner | ICM Liaison | Incident triage, ICM workflow, escalations, on-call | 🔒 Security |
 | Reyes | Report Writer | Service health report assembly, Teams posts, docs | 📝 DevRel |
+| Frohike | Play Vitals Analyst | Google Play Console crashes/ANRs, NAAS-filtered, per-Defender-version | 📊 Data |
+| Langly | Release Tracker | Latest Play Store Defender version, every report | 🔧 Backend |
 | Scribe | Session Logger | Memory, decisions, session logs | 📋 Scribe |
 | Ralph | Work Monitor | Work queue, backlog, keep-alive | 🔄 Monitor |

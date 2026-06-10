@@ -63,3 +63,9 @@ Scully + Doggett ran in parallel against `WD.Client.Android-icm-copilot/agent-do
 2. **Queue identity open question for Saloni.** `owningTeamId=106961` returns `owningTeamName="GSA  Client - XPlat"` (with double-space typo from ICM). Confirm 106961 is the Android queue vs a parent queue with an Android sub-queue. If sub-queue exists, entire ICM section is scoped to the wrong target.
 
 **Decisions merged:** 6 inbox files (HP discovery, skill authored, NAAS 7d, v1 report, ICM first pull, v2 report) into `.squad/decisions.md`.
+
+---
+
+## 2026-06-10 — Team expansion: Frohike and Langly hired
+
+Two new team members hired 2026-06-10: Frohike (Play Vitals Analyst) owns Google Play Console crash/ANR analysis, NAAS-filtered; Langly (Release Tracker) pulls current Play Store version of `com.microsoft.scmx` on every report cycle. Frohike replaces Scully's ad-hoc Play Vitals ownership and outputs to `.squad/agents/frohike/research/naas-crashes-{date}.md`. Langly surfaces as a one-line header in every daily/weekly report, anchoring crash data to shipping version. Daily report assembly (Reyes) now pulls from Scully (server) + Frohike (Play crashes) + Langly (current version) in parallel. ICM investigations also fan out to Frohike for client-side crash signature matching.

@@ -535,3 +535,41 @@ Adopt HP's pattern wholesale, parameterized on our team id:
 - Current drop: `.squad/agents/scully/research/naas-7d-report-data-2026-06-09.md`
 - v1 baseline: `.squad/agents/scully/research/naas-7d-report-data-2026-06-05.md`
 
+---
+
+### 2026-06-09: Canonical Android crash source is google-play-vitals
+**By:** Scully (Telemetry Analyst)
+**What:** Canonical Android crash source for this assignment is the `google-play-vitals` skill at `/Users/salonijain/workspace/android/WD.Client.Android-icm-copilot/.github/skills/google-play-vitals/SKILL.md`, not `telemetry-query` / AppEvents.
+**Why:** Use Play Console vitals for user-perceived crash and ANR rates, affected users, and Play-deduped issue clusters. Keep AppEvents / CrashReported only as supplementary internal exit telemetry.
+
+---
+
+### 2026-06-09: Android NAAS crash filter decision — VPN orchestrator marker
+**By:** Scully (Telemetry Analyst)
+**What:** Use Android App Insights workspace `android-release-log-analytics-workspace` / `AppEvents` as the aggregate NAAS crash source, filtered by `.vpn.VpnServiceOrchestrator` in `AppExitInfoReported.Description` or `CrashReported.StackTrace`.
+**Why:** Package/process `com.microsoft.scmx` is too broad; Google Play crash skills require known issue IDs and are better for follow-up triage. The VPN orchestrator marker is a tighter NAAS-on-Android predicate for weekly reporting.
+**Result:** 18,518 AppExit/ANR events and 952 JVM crash events in the 7d window ending 2026-06-09. Top signatures are not new versus prior baseline and do not align with the `1.0.9003.0401` `.04xx` server-side fail anchor.
+
+---
+
+### 2026-06-09: Publish NAAS Android crash root-cause pattern in v3 report with caveats
+**By:** Scully (Telemetry Analyst)
+**Status:** GO for v3 / next-week report
+**What:** Google Play vitals issue-level depth now explains the NAAS crash causes, not just volumes. The dominant crash subsystem is `VpnServiceOrchestrator`: Android foreground-service enforcement kills the VPN service when `onStartCommand()` starts foreground work but does not reach `startForeground()` in time, with a smaller related `pthread_create` resource-exhaustion cluster. The dominant ANR subsystem is `OpenVPN/BaseOpenVpnClient`: native VPN library load/init blocks the main thread during app/service startup.
+**Caveats:**
+- Play exposes issue-level distinct users but not issue-level installs.
+- Native `libnaas_native_vpn.so` SIGSEGV needs symbolication for exact function.
+- OEM/OS findings are concentration-only until normalized by install base.
+- `.04xx` over-indexes in crash rate and native SIGSEGV share, but is not the dominant absolute crash-volume driver.
+
+---
+
+### 2026-06-10: Team expansion — Frohike + Langly hired
+**By:** Saloni (via Copilot/Squad)
+**What:** Two new team members added to cover client-side reporting gaps.
+- **Frohike (Play Vitals Analyst)** — owns Google Play Console crash/ANR analysis, NAAS-filtered. Replaces Scully's ad-hoc ownership of Play Vitals data. Source-of-truth skill: `WD.Client.Android-icm-copilot/.github/skills/google-play-vitals/SKILL.md`. Drops at `.squad/agents/frohike/research/naas-crashes-{date}.md`.
+- **Langly (Release Tracker)** — pulls current Play Store version of `com.microsoft.scmx` on every report cycle. Surfaces as a one-line header in every daily/weekly report. Lightweight, recurring role.
+**Why:** (1) Saloni wanted NAAS-only Play Console crash reporting as a permanent first-class section in the daily report, not a one-off Scully task. (2) Reports need to anchor against the currently shipping Defender version — otherwise crash data lacks context.
+**Routing change:** Reyes now pulls from Scully (server) + Frohike (Play crashes) + Langly (current version) in parallel for every report. ICM investigations now also fan out to Frohike for client crash signature.
+**Framing rule (carries over from Scully's crash-iteration learnings):** All Play Vitals output MUST be NAAS-as-a-unit, never Defender-filtered-to-NAAS. Per-Defender-version table is the PRIMARY deliverable, not an appendix.
+
