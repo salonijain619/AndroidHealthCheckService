@@ -50,3 +50,5 @@ print('version', ver.group(1) if ver else 'NOT FOUND');\
 print('updated', ts.group(1) if ts else 'NOT FOUND', '(unix', ts.group(2) if ts else '-', ')')"
   ```
 - If that pattern breaks (Google reshuffles the JS blob), fall back to: pull all `\d+\.\d+\.\d+\.\d+` matches, ignore any that occur >1MB into the file (those are review-block versions), keep the one that appears with the smallest byte-offset near the "Updated on" anchor.
+
+2026-06-10: First Play Store version pull. Live production = `1.0.9002.0102` (updated 2026-06-10). Reframed `.04xx` (1.0.9003.0401) as INTERNAL ring, not live customer pain. Used Play Store public listing fallback (google-play-reporting-server MCP not wired).

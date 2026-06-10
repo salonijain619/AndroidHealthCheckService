@@ -45,3 +45,32 @@ Assembled v3 of the daily livesite report at `/Users/salonijain/workspace/Androi
 ### 2026-06-10 — Team expansion: Report now pulls from Scully + Frohike + Langly in parallel
 
 Daily report assembly (Reyes) now pulls from three parallel sources: Scully (server-side NAAS telemetry), Frohike (Google Play Console crash/ANR analysis, NAAS-filtered), and Langly (current Play Store version of `com.microsoft.scmx`). Lead every daily/weekly report with Langly's one-line Play Store version header to anchor crash/ANR data to the currently shipping Defender version. Frohike replaces Scully's ad-hoc Play Vitals ownership and outputs `.squad/agents/frohike/research/naas-crashes-{date}.md`. ICM investigations also fan out to Frohike for client-side crash signature matching. Framing rule: all Play Vitals output MUST be NAAS-as-a-unit, never Defender-filtered-to-NAAS.
+
+### 2026-06-10T12:45+05:30 — First 3-source daily assembled (Scully + Frohike + Langly fusion)
+
+Assembled `daily-livesite-report-android-2026-06-10.md` (25,082 bytes) — first daily that fuses three parallel research sources. Pattern crystallized:
+
+**3-source assembly pattern:**
+1. **Langly's Play Store version header goes FIRST** (right under the title, above Executive Summary). It is the anchor that contextualizes every per-version number downstream. Without it, server-side and client-side version cohorts cannot be classified as "live customer" vs "internal ring."
+2. **Scully (server-side NAAS) + Frohike (client-side Play Vitals) are PEERS, not nested.** Key Metrics now has TWO labeled subsections ("Server-side / Scully" and "Client-side / Frohike") — never merge their denominators. Server denominator = NAAS sessions; client denominator = whole-app `com.microsoft.scmx` installs. The "Denominator framing rule" callout is mandatory.
+3. **Frohike gets its own top-level section** ("NAAS Client Stability (Google Play Vitals)") placed AFTER Key Metrics and BEFORE Top Insights. Per-version table is PRIMARY; top crashes/ANRs are top-3 with hypothesis (NOT all 8); subsystem breakdown is the closer.
+4. **Cross-Domain section gets a new "Server↔Client per-version alignment" table.** First time we can show same-shape corroboration on a per-version axis. The .04xx ring (server +131% fail-rate ⟷ client 33.7% native SIGSEGV concentration ⟷ Langly "not on prod track") was the cleanest dual-signal example to date.
+
+**Narrative reframes that came out of the 3-source fusion (would NOT have been possible with Scully alone):**
+- **`.04xx` ring DEMOTED** from yesterday's top P2 anchor to forward-looking P3 ring-promotion risk. Langly's "live prod = 9002.0102, not 9003.0401" is the trigger; Frohike's "all 4 .04xx SKUs are sub-privacy-threshold install base, crash-only with 0 ANR" is the corroboration. Made explicit in Exec Summary lead-in.
+- **EU finding PROMOTED** to top P2 cross-domain anchor. Frohike independently surfaced Germany 3.25% whole-app crash rate (over Google's 1.09% Play Console bad-behavior threshold) — same region cluster Scully sees server-side. Added new framing: "Play Store visibility/ranking risk, independent of NAAS attribution."
+- **Server↔client correlation strongest at `libnaas_native_vpn.so` SIGSEGV** (Frohike Top-Crash #3, 33.7% .04xx). Cleanest code-localized evidence the ring-promotion risk is real.
+
+**Structural rules that survived from v3 (06-09) into this report:**
+- On-Call kept as compact 2-row table (no metadata prose).
+- ICM reused at prior freshness with explicit "live as of X, no movement" header + weekly-cadence footnote.
+- Microsoft 1P falsified hypothesis kept with strikethrough for retraction visibility.
+- Detector silence pattern (3+ pulls, zero auto-ICMs) escalated each cycle.
+
+**Removed per Saloni's approved 06-09 template:** Patterns section, Data Completeness Notes, Data Quality Notes tail. Did NOT re-introduce.
+
+**Sizing:** Target was 18–22KB; landed at 25KB. The new "NAAS Client Stability" section is ~7KB on its own (per-version table + 2 top-N tables + subsystem breakdown). Acceptable on a first-fusion daily; can trim subsystem breakdown to prose next cycle if Saloni wants the bound enforced.
+
+**Decision worth promoting:** Lead every future daily/weekly with Langly's one-line Play Store version header. Filed to `.squad/decisions/inbox/reyes-play-store-version-header-first.md`.
+
+2026-06-10: Assembled v4 daily livesite report (25,489 bytes) integrating Frohike Play Vitals + Langly version data. Led with `.04xx` reframe + Germany 3.25% EU cross-domain finding. Proposed version-line header convention (decision filed).
