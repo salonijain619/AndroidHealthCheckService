@@ -328,9 +328,25 @@ class PlayVitalsClient:
         except Exception as exc:
             return {"_error": repr(exc)}
 
+    # Map from the API resource-name segment (used in `name=apps/{app}/<seg>`)
+    # to the chain of accessors on the v1beta1 discovery doc. The discovery
+    # builder lowercases the first segment and nests `errorCountMetricSet`
+    # under `vitals().errors().counts()` (not a flat `vitals().errorCountMetricSet()`).
+    _METRIC_RESOURCE_PATH: Dict[str, Tuple[str, ...]] = {
+        "crashRateMetricSet": ("vitals", "crashrate"),
+        "anrRateMetricSet": ("vitals", "anrrate"),
+        "errorCountMetricSet": ("vitals", "errors", "counts"),
+    }
+
     def _metric_resource(self, svc, metric_set: str):
-        verb = svc.vitals()
-        return getattr(verb, metric_set)()
+        try:
+            path = self._METRIC_RESOURCE_PATH[metric_set]
+        except KeyError as exc:
+            raise ValueError(f"Unknown metric set: {metric_set!r}") from exc
+        node = svc
+        for accessor in path:
+            node = getattr(node, accessor)()
+        return node
 
     def _rate_by_version(self, svc, metric_set: str, start: date_cls, end: date_cls) -> Dict[str, Any]:
         metric = "userPerceivedCrashRate" if metric_set == "crashRateMetricSet" else "userPerceivedAnrRate"
@@ -389,7 +405,7 @@ class PlayVitalsClient:
             }
             if token:
                 params["pageToken"] = token
-            resp = svc.vitals().errorIssues().search(**params).execute()
+            resp = svc.vitals().errors().issues().search(**params).execute()
             rows.extend(resp.get("errorIssues", []))
             token = resp.get("nextPageToken")
             if not token:
