@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ============================================================================
+  DO NOT INSTALL YET — see README §Phase 1.5: enable launchd
+  ============================================================================
+  This plist is shipped as a scaffold only. v1 is manual-trigger only:
+  Saloni runs `./tools/local-runner/run-daily.sh` herself.
+
+  When ready to automate, follow README §Phase 1.5 to copy this file to
+  ~/Library/LaunchAgents/ and `launchctl load -w` it.
+
+  Schedule: daily at 09:30 IST = 04:00 UTC.
+  Note: launchd does NOT wake the laptop from sleep for StartCalendarInterval;
+  the machine must be awake at the trigger time. If missed, run manually.
+  ============================================================================
+-->
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.microsoft.ahcs.livesite</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>/Users/salonijain/workspace/AndroidHealthCheckService/tools/local-runner/run-daily.sh</string>
+  </array>
+
+  <key>RunAtLoad</key>
+  <false/>
+
+  <!-- 09:30 IST == 04:00 UTC. launchd's StartCalendarInterval uses local time;
+       Saloni's laptop is on IST so we schedule 09:30 local. -->
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key>
+    <integer>9</integer>
+    <key>Minute</key>
+    <integer>30</integer>
+  </dict>
+
+  <key>StandardOutPath</key>
+  <string>/Users/salonijain/Library/Logs/ahcs-livesite/launchd.out.log</string>
+
+  <key>StandardErrorPath</key>
+  <string>/Users/salonijain/Library/Logs/ahcs-livesite/launchd.err.log</string>
+
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+  </dict>
+</dict>
+</plist>
