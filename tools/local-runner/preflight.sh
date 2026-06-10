@@ -18,6 +18,13 @@ ICM_CACHE="${REPO_ROOT}/.squad/agents/skinner/icm-latest.json"
 KEYCHAIN_SERVICE="ahcs-livesite-webhook"
 CORP_TENANT_ID="72f988bf-86f1-41af-91ab-2d7cd011db47"
 
+# Resolve credential env vars in this shell. Idempotent and silent on the
+# happy path. When preflight is invoked from run-daily.sh the parent has
+# already sourced this; sourcing it again here keeps preflight usable as a
+# standalone debugging tool (`bash tools/local-runner/preflight.sh`).
+# shellcheck source=_resolve_credentials.sh
+. "${SCRIPT_DIR}/_resolve_credentials.sh"
+
 FAIL=0
 GREEN="$(printf '\033[32m')"
 YELLOW="$(printf '\033[33m')"
@@ -44,12 +51,17 @@ else
   printf "    az login --tenant %s\n" "$CORP_TENANT_ID"
 fi
 
-# 2) Play Console SA key.
+# 2) Play Console SA key. (Resolution lives in _resolve_credentials.sh which
+#    has already been sourced above; here we only verify.)
 if [ -n "${PLAY_CONSOLE_SA_KEY:-}" ] && [ -r "${PLAY_CONSOLE_SA_KEY}" ]; then
-  pass "PLAY_CONSOLE_SA_KEY set and readable: ${PLAY_CONSOLE_SA_KEY}"
-elif [ -r "$SA_DEFAULT_PATH" ]; then
-  export PLAY_CONSOLE_SA_KEY="$SA_DEFAULT_PATH"
-  pass "PLAY_CONSOLE_SA_KEY resolved to default: ${SA_DEFAULT_PATH}"
+  if [ "${PLAY_CONSOLE_SA_KEY}" = "$SA_DEFAULT_PATH" ]; then
+    pass "PLAY_CONSOLE_SA_KEY resolved to default: ${PLAY_CONSOLE_SA_KEY}"
+  else
+    pass "PLAY_CONSOLE_SA_KEY set and readable: ${PLAY_CONSOLE_SA_KEY}"
+  fi
+elif [ -n "${PLAY_CONSOLE_SA_KEY:-}" ]; then
+  fail "PLAY_CONSOLE_SA_KEY set but not readable: ${PLAY_CONSOLE_SA_KEY}"
+  printf "    chmod 600 \"\$PLAY_CONSOLE_SA_KEY\"\n"
 else
   fail "Play Console SA JSON not found. Fix one of:"
   printf "    export PLAY_CONSOLE_SA_KEY=/path/to/google-play-sa.json\n"
