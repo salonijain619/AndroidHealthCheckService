@@ -153,3 +153,73 @@ All three failures are expected one-time setup items — captured in PR descript
 - `tools/report_generator/sections/frohike_play_vitals.py` (Frohike's parallel branch)
 - `.github/workflows/daily-livesite-report.yml` (CI stays inert per Mulder §3)
 - Any generator/assembler Python
+
+### 2026-06-10T18:40+05:30 — Bug: PLAY_CONSOLE_SA_KEY not propagating from preflight to generator (PR #4)
+
+Saloni's first end-to-end `./tools/local-runner/run-daily.sh` showed preflight green ("PLAY_CONSOLE_SA_KEY resolved to default: …/google-play-sa.json") but Frohike still returned PARTIAL with "PLAY_CONSOLE_SA_KEY and GOOGLE_APPLICATION_CREDENTIALS both unset". Branch `reyes-fix-sa-key-export`, PR #4.
+
+## Learnings
+
+- **Subprocess `export` does not propagate to parent.** `preflight.sh` was invoked as `bash "${SCRIPT_DIR}/preflight.sh"` from `run-daily.sh`, so its `export PLAY_CONSOLE_SA_KEY=…` fallback only affected the preflight subprocess. The parent shell's environment was unchanged, and the Python generator the parent later spawned saw the var as unset. This is a classic POSIX shell pitfall — env mutation only flows down, never up.
+- **Fix pattern: extract env-resolution into a sourceable file.** Created `tools/local-runner/_resolve_credentials.sh` modelled on the existing `_load_webhook.sh`. `run-daily.sh` sources it BEFORE invoking preflight so the export happens in the parent shell. `preflight.sh` also sources it (idempotent, silent) so it stays usable as a standalone debugging entrypoint.
+- **Design split codified: "preflight verifies, parent shell does env setup."** Anything in the local-runner kit that needs to be visible to the Python generator (or any sibling child process) MUST be exported in run-daily.sh's shell, never inside preflight. Preflight is now strictly verification — it reads env state and reports pass/fail/fixit, never mutates anything that needs to outlive its own process.
+- **Same pattern would apply if we ever default-resolve `GOOGLE_APPLICATION_CREDENTIALS`, `AZURE_SUBSCRIPTION_ID`, etc.** Add the resolution to `_resolve_credentials.sh` (single sourced file, ordered before preflight) — do not be tempted to put it in preflight just because preflight is "where checks live."
+- **Verification:** After fix, runner reached Play Developer Reporting with authenticated credentials (HTTP 400 on `crashRateMetricSet:query` for end_date=2026-06-10 vs freshness 2026-06-09 — a data-window bug, not auth). The "both unset" message is gone. Invariant-2 size failure remains for Mulder.
+
+### 2026-06-10T18:42+05:30 — Invariant-2 local policy shipped (Mulder Option C)
+
+Branch `reyes-invariant-2-local-policy`. Implemented Mulder's
+`mulder-invariant-2-local-policy.md` Option C: local-runner skips
+invariant-2 gating, CI stays strict. Three changes: `--no-fail-on-validation`
+flag in `run-daily.sh`, post-generator banner that reads
+`validation.json` and prints a `⚠️ Report posted DEGRADED` block when
+`passed: false`, and the `test_validation_passes_on_2026_06_10_report`
+relaxation to tolerate `invariant-2:` failures specifically. End-to-end
+verified: report posted to Teams (HTTP 202), pytest 4/4 green.
+
+## Learnings
+
+- **"Diagnostic-loud, gate-soft" is the right local-runner posture.** The
+  one-line `--no-fail-on-validation` flag plus a stderr-loud banner gives
+  Saloni everything she needs (the report shipped, validation still ran,
+  failures are surfaced in the terminal AND on disk in validation.json)
+  without making the runner abort on a calibration-mismatch like the
+  06-10 5KB floor. CI's posture is the inverse — gate-strict, because CI
+  runs in the "fully healthy" world by construction. Encoding the
+  asymmetry as a single CLI flag (no code-fork between local/CI paths)
+  keeps both behaviors honest.
+
+- **Banner placement matters more than banner content.** Mulder's spec
+  said "before the Teams post," and that's load-bearing: if you print
+  the banner after curl, a curl failure (or even just `set -e` killing
+  the script on HTTP 5xx) buries the degradation signal under whatever
+  error follows. Printing before the POST means Saloni sees "shipped
+  degraded, here's why" even if the very next step blows up.
+
+- **Always sanity-check banner code paths even when validation passes
+  on the live run.** Today's runner happened to land at 5735 bytes
+  (Frohike's freshness-window fix from a sibling branch pushed us over
+  the floor), so the banner naturally didn't fire end-to-end. Instead
+  of declaring victory, swap in a synthesized `validation.json` with
+  `passed: false` and exec just the banner block — five seconds of
+  shell, catches typos in the jq expressions or the conditional. Don't
+  trust untested error paths.
+
+- **Test-relaxation pattern: "tolerate ONLY this specific failure,
+  catch everything else."** The temptation with a sample that has a
+  known-bad invariant is to write `assert True` or skip the test. The
+  pattern that survives review is
+  `assert failures == [] or all(f.startswith("invariant-N:") for f in failures)`
+  — it keeps the regression surface intact for the other 8 invariants
+  while tolerating the one we're explicitly allowing. Docstring MUST
+  cite the decision doc and the backlog item that restores full coverage,
+  otherwise the relaxation rots into "all invariants are optional."
+
+- **`git stash pop` after `git checkout -b` brings unrelated working-tree
+  modifications onto the new branch.** Caught this when the post-checkout
+  status showed `frohike_play_vitals.py` and other sibling-branch edits
+  alongside my real changes. Lesson: when stashing across branch creation,
+  use `git add -- <only-my-files>` followed by `git commit -- <only-my-files>`,
+  never `git commit -a`. Verified the commit contains only the three
+  files in Mulder's checklist + the decision/backlog drops + this
+  history append.

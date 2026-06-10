@@ -46,13 +46,23 @@ def test_validation_catches_forbidden_substring(tmp_path: Path):
 
 
 def test_validation_passes_on_2026_06_10_report():
-    """Regression anchor: the existing 06-10 manual report must pass all 9
-    invariants — if validation rejects it, validation is wrong."""
+    """Regression anchor: the 06-10 report is a local-degraded sample
+    (no Kusto SP, Frohike PARTIAL, file-based ICM) — by design it lands
+    below the 5KB floor invariant-2 enforces. Per Mulder's decision
+    `.squad/decisions/inbox/mulder-invariant-2-local-policy.md` (Option C),
+    local-runner skips invariant-2 gating while CI stays strict. This test
+    therefore tolerates invariant-2 failures specifically, but still catches
+    any OTHER invariant regression on the shipped 06-10 report.
+
+    A v2 backlog item adds a synthetic fully-healthy ≥5KB fixture and a
+    separate strict-pass test against it — see
+    `.squad/decisions/inbox/reyes-v2-fully-healthy-fixture.md`.
+    """
     p = REPO_ROOT / "daily-livesite-report-android-2026-06-10.md"
     assert p.exists(), f"regression anchor missing: {p}"
     failures = validation.validate_report(p)
-    assert failures == [], (
-        f"06-10 report failed validation — fix invariants, not the report: {failures}"
+    assert failures == [] or all(f.startswith("invariant-2:") for f in failures), (
+        f"06-10 report failed non-invariant-2 validation: {failures}"
     )
 
 
